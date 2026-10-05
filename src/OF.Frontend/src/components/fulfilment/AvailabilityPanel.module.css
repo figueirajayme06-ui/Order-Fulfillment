@@ -1,0 +1,876 @@
+.panel {
+  display: flex;
+  min-height: 0;
+  height: 100%;
+  flex-direction: column;
+  gap: var(--ref-spacing-medium);
+}
+
+.toolbar {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: var(--ref-spacing-small) var(--ref-spacing-medium);
+  font-size: var(--ref-font-size-small);
+}
+
+.stockAreaControl,
+.facilityControl,
+.warehouseControl {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: var(--ref-spacing-xs);
+}
+
+.stockAreaControl {
+  flex: 1 1 200px;
+}
+
+.facilityControl {
+  flex: 1 1 150px;
+}
+
+.warehouseControl {
+  flex: 1.5 1 240px;
+  max-width: 420px;
+}
+
+.stockAreaControl label,
+.facilityControl label,
+.warehouseControl label {
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-semibold);
+}
+
+.stockAreaList {
+  display: flex;
+  flex: 1 1 100%;
+  flex-wrap: wrap;
+  gap: var(--ref-spacing-xs);
+  align-items: center;
+  min-height: 32px;
+}
+
+.stockAreaChip {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ref-spacing-small);
+  min-height: 30px;
+  padding: 4px 8px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-full);
+  background-color: var(--colour-surface);
+  color: var(--colour-text-secondary);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+.agreementStockArea {
+  border-color: var(--colour-primary-faded);
+  background-color: var(--colour-primary-surface);
+  color: var(--colour-text);
+}
+
+.agreementBadge,
+.headerBadge {
+  color: var(--colour-primary);
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-semibold);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.removeStockArea {
+  display: inline-grid;
+  width: 20px;
+  height: 20px;
+  place-items: center;
+  border-radius: var(--ref-border-radius-full);
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-base);
+  line-height: 1;
+}
+
+.removeStockArea:hover {
+  background-color: var(--ref-colour-grey20);
+  color: var(--colour-text);
+}
+
+.viewOptions {
+  position: relative;
+  flex: 0 0 auto;
+  align-self: flex-end;
+}
+
+.viewOptions summary {
+  display: flex;
+  min-height: 32px;
+  align-items: center;
+  gap: var(--ref-spacing-small);
+  padding: 6px 10px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background-color: var(--colour-surface);
+  color: var(--colour-text-secondary);
+  cursor: pointer;
+  list-style: none;
+  white-space: nowrap;
+}
+
+.viewOptions summary::-webkit-details-marker {
+  display: none;
+}
+
+.viewOptions summary::after {
+  content: "\25BE";
+  color: var(--colour-text-muted);
+  font-size: var(--ref-font-size-xs);
+  line-height: 1;
+}
+
+.viewOptions[open] summary {
+  border-color: var(--colour-primary);
+}
+
+.viewOptions[open] summary::after {
+  transform: rotate(180deg);
+}
+
+.viewOptionCount {
+  display: inline-grid;
+  min-width: 18px;
+  height: 18px;
+  place-items: center;
+  padding: 0 4px;
+  border-radius: var(--ref-border-radius-full);
+  background-color: var(--colour-primary-surface);
+  color: var(--colour-primary);
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-semibold);
+}
+
+.viewOptionsMenu {
+  position: absolute;
+  z-index: 5;
+  top: calc(100% + var(--ref-spacing-xs));
+  left: 0;
+  display: grid;
+  min-width: 240px;
+  gap: var(--ref-spacing-xs);
+  padding: var(--ref-spacing-small);
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-medium);
+  background-color: var(--colour-surface);
+  box-shadow: var(--ref-shadow-medium);
+}
+
+.viewControl {
+  display: flex;
+  align-items: center;
+  gap: var(--ref-spacing-small);
+  min-height: 30px;
+  padding: 2px var(--ref-spacing-xs);
+  border-radius: var(--ref-border-radius-small);
+  color: var(--colour-text-secondary);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.viewControl:hover {
+  background-color: var(--ref-colour-grey20);
+}
+
+@media (max-width: 720px) {
+  .stockAreaControl,
+  .facilityControl,
+  .warehouseControl {
+    flex: 1 1 100%;
+    max-width: none;
+  }
+
+  .viewOptions {
+    align-self: flex-start;
+  }
+}
+
+.lookupError {
+  margin: 0;
+  color: var(--colour-error);
+  font-size: var(--ref-font-size-xs);
+}
+
+.stockFocusHint {
+  margin: 0;
+  color: var(--colour-text-muted);
+  font-size: var(--ref-font-size-xs);
+}
+
+.loadingState {
+  display: grid;
+  min-height: 96px;
+  place-items: center;
+}
+
+.tableWrap {
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow: auto;
+  scrollbar-gutter: stable;
+  container-type: inline-size;
+  isolation: isolate;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-medium);
+  background-color: var(--colour-surface);
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--ref-font-size-small);
+  table-layout: fixed;
+}
+
+.table thead {
+  position: sticky;
+  z-index: 3;
+  top: 0;
+  background-color: var(--ref-colour-grey20);
+}
+
+.table th {
+  padding: 8px 10px;
+  text-align: left;
+  font-weight: var(--ref-font-weight-semibold);
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid var(--colour-border);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--ref-colour-grey20);
+}
+
+.table th,
+.table td {
+  background-clip: padding-box;
+}
+
+.stickyCol {
+  position: sticky;
+  left: 0;
+  background-color: var(--colour-surface);
+  z-index: 1;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.06);
+}
+
+.stickyColHeader {
+  position: sticky;
+  left: 0;
+  background-color: var(--ref-colour-grey20);
+  z-index: 4;
+  box-shadow: 2px 0 4px rgba(0, 0, 0, 0.06);
+}
+
+.table .divisionHeader,
+.table .facilityHeader,
+.table .warehouseCol {
+  text-align: center;
+}
+
+.table .divisionHeader {
+  background-color: var(--ref-colour-grey30);
+  border-left: 1px solid var(--colour-border);
+}
+
+.table .agreementGroupHeader {
+  background-color: var(--colour-primary-surface);
+  color: var(--colour-primary);
+}
+
+.groupName {
+  margin-left: var(--ref-spacing-xs);
+  font-weight: var(--ref-font-weight-regular);
+}
+
+.headerBadge {
+  margin-left: var(--ref-spacing-small);
+}
+
+.table .facilityHeader {
+  padding-block: 6px;
+  background-color: var(--ref-colour-grey20);
+  border-left: 1px solid var(--colour-border);
+  color: var(--colour-text-secondary);
+  font-weight: var(--ref-font-weight-medium);
+}
+
+.removeFacility {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ref-spacing-xs);
+  max-width: 100%;
+  margin: -3px;
+  padding: 3px 5px;
+  border-radius: var(--ref-border-radius-small);
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+.removeFacility:hover {
+  background-color: var(--ref-colour-grey30);
+  color: var(--colour-text);
+}
+
+.removeWarehouse {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ref-spacing-xs);
+  max-width: 100%;
+  margin: -3px;
+  padding: 3px 4px;
+  border-radius: var(--ref-border-radius-small);
+  color: inherit;
+  font: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+}
+
+.removeWarehouse:hover {
+  background-color: var(--ref-colour-grey30);
+  color: var(--colour-text);
+}
+
+.table .warehouseCol {
+  width: 75px;
+  min-width: 75px;
+  cursor: help;
+  white-space: nowrap;
+}
+
+.table .highlightCol {
+  font-weight: var(--ref-font-weight-semibold);
+  color: var(--colour-primary);
+}
+
+.agreementWarehouseMarker {
+  margin-left: var(--ref-spacing-xs);
+  font-size: 0.85em;
+  font-weight: var(--ref-font-weight-bold);
+}
+
+th.highlightCol {
+  background-color: var(--colour-primary-surface);
+}
+
+.agreementWarehouseCell {
+  background-image: linear-gradient(rgba(253, 110, 57, 0.06), rgba(253, 110, 57, 0.06));
+}
+
+.cellGreen {
+  background-color: var(--colour-success-bg);
+  color: var(--colour-success);
+  font-weight: var(--ref-font-weight-semibold);
+  text-align: center;
+}
+
+.cellOrange {
+  background-color: var(--colour-warning-bg);
+  color: var(--colour-warning);
+  font-weight: var(--ref-font-weight-semibold);
+  text-align: center;
+}
+
+.cellRed {
+  background-color: var(--colour-error-bg);
+  color: var(--colour-error);
+  font-weight: var(--ref-font-weight-semibold);
+  text-align: center;
+}
+
+.cellEmpty {
+  text-align: center;
+  color: var(--colour-text-muted);
+}
+
+.noStockCell {
+  padding-block: var(--ref-spacing-large) !important;
+  color: var(--colour-text-muted);
+  text-align: center;
+}
+
+.cellClickable {
+  cursor: pointer;
+  padding: 0 !important;
+  transition: filter var(--ref-transition-fast);
+}
+
+.cellClickable:hover {
+  filter: brightness(0.9);
+}
+
+.cellButton {
+  display: block;
+  width: 100%;
+  padding: 8px 10px;
+  color: inherit;
+  text-align: center;
+}
+
+.stockCount {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.stockCountSecondary {
+  font-weight: var(--ref-font-weight-medium);
+  opacity: 0.72;
+}
+
+/* Paint selection and keyboard focus on one layer so sticky scrolling cannot split the highlight. */
+.cellActive .cellButton,
+.cellButton:focus-visible {
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: -2px;
+  box-shadow: none;
+}
+
+.assetRow {
+  background-color: var(--ref-colour-snowfaded);
+}
+
+.assetCell {
+  padding: 0 !important;
+}
+
+.assetPanel {
+  position: sticky;
+  left: 0;
+  box-sizing: border-box;
+  width: 100cqw;
+  padding: var(--ref-spacing-medium);
+  border-top: 1px solid var(--colour-border);
+  background-color: var(--ref-colour-snowfaded);
+}
+
+.assetHeader {
+  font-size: var(--ref-font-size-small);
+  font-weight: var(--ref-font-weight-semibold);
+  margin-bottom: var(--ref-spacing-small);
+}
+
+.assetError {
+  margin: 0;
+  color: var(--colour-error);
+  font-size: var(--ref-font-size-small);
+}
+
+.stockAllocator {
+  display: flex;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: var(--ref-spacing-medium);
+}
+
+.quantityField {
+  display: grid;
+  gap: var(--ref-spacing-xs);
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-semibold);
+}
+
+.quantityField input {
+  width: 92px;
+  padding: 6px 8px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background-color: var(--colour-surface);
+  color: var(--colour-text);
+  font: inherit;
+}
+
+.stockAllocator .assetError {
+  flex-basis: 100%;
+}
+
+.assetList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ref-spacing-xs);
+  max-height: 32rem;
+  overflow: auto;
+}
+
+.warehouseStockTable {
+  width: 100%;
+  min-width: 980px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  font-size: var(--ref-font-size-xs);
+}
+
+.warehouseStockTable caption {
+  padding: 8px 10px;
+  text-align: left;
+  background: var(--ref-colour-grey20);
+  font-weight: var(--ref-font-weight-semibold);
+}
+
+.warehouseStockTable th {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: var(--colour-surface);
+  text-align: left;
+  font-weight: var(--ref-font-weight-semibold);
+}
+
+.warehouseStockTable th,
+.warehouseStockTable td {
+  padding: 6px 10px;
+  border-bottom: 1px solid var(--colour-border);
+  vertical-align: middle;
+  overflow-wrap: anywhere;
+}
+
+.warehouseStockTable tbody tr:hover {
+  box-shadow: inset 3px 0 0 var(--colour-primary);
+}
+
+.warehouseStockTable tbody tr.stockAvailableRow {
+  background: var(--colour-success-bg);
+}
+
+.warehouseStockTable tbody tr.stockUnavailableRow {
+  background: var(--colour-error-bg);
+}
+
+.warehouseStockTable tbody tr.stockAvailabilityPendingRow {
+  background: var(--colour-surface);
+}
+
+.warehouseStockTable .commitmentItem {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 3px;
+}
+
+.warehouseStockTable .commitmentSummary {
+  white-space: normal;
+  color: var(--colour-text);
+}
+
+.stockAssetColumn {
+  width: 110px;
+}
+.stockItemColumn {
+  width: 118px;
+}
+.stockDescriptionColumn {
+  width: 282px;
+}
+.stockLocationColumn {
+  width: 105px;
+}
+.stockActionColumn {
+  width: 98px;
+}
+
+.warehouseStockTable th:nth-child(2),
+.warehouseStockTable td:nth-child(2) {
+  white-space: nowrap;
+}
+
+.warehouseStockTable td:first-child .mono {
+  white-space: nowrap;
+}
+
+.stockPeriod {
+  display: flex;
+  justify-content: space-between;
+  gap: var(--ref-spacing-medium);
+}
+
+.rowStatus {
+  display: block;
+  margin-top: 2px;
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+}
+
+.stockAvailabilityBadge {
+  display: inline-grid;
+  width: 16px;
+  height: 16px;
+  margin-left: 5px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid currentColor;
+  border-radius: var(--ref-border-radius-full);
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-semibold);
+  line-height: 1;
+  vertical-align: middle;
+}
+
+.stockAvailableBadge {
+  color: var(--colour-success);
+}
+
+.stockUnavailableBadge {
+  color: var(--colour-error);
+}
+
+.stockAvailabilityPendingBadge {
+  color: var(--colour-text-muted);
+}
+
+.assetListHeader,
+.assetItem {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.7fr) minmax(6rem, 0.5fr) minmax(10rem, 0.9fr) minmax(20rem, 2.4fr) auto;
+  align-items: center;
+  gap: var(--ref-spacing-medium);
+  min-width: 58rem;
+}
+
+.assetListHeader {
+  position: sticky;
+  z-index: 1;
+  top: 0;
+  padding: 4px 10px;
+  background-color: var(--ref-colour-snowfaded);
+  color: var(--colour-text-muted);
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-semibold);
+}
+
+.assetItem {
+  padding: 6px 10px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background: var(--colour-surface);
+  font-size: var(--ref-font-size-small);
+}
+
+.assetStatus {
+  color: var(--colour-text-muted);
+  font-size: var(--ref-font-size-xs);
+}
+
+.assetLocation {
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+}
+
+.schedulePeriod {
+  display: block;
+  margin-top: 2px;
+  color: var(--colour-text-muted);
+  font-size: 0.9em;
+  font-weight: var(--ref-font-weight-regular);
+}
+
+.assetSchedule {
+  min-width: 0;
+}
+
+.scheduleLoading,
+.noCommitments {
+  color: var(--colour-text-muted);
+  font-size: var(--ref-font-size-xs);
+}
+
+.scheduleLoading {
+  font-style: italic;
+}
+
+.scheduleWarning {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ref-spacing-medium);
+  margin-bottom: var(--ref-spacing-small);
+  padding: 6px 10px;
+  border: 1px solid var(--colour-warning);
+  border-radius: var(--ref-border-radius-small);
+  background-color: var(--colour-warning-bg);
+  color: var(--colour-text);
+  font-size: var(--ref-font-size-xs);
+}
+
+.retrySchedule {
+  flex: 0 0 auto;
+  padding: 3px 8px;
+  border: 1px solid currentColor;
+  border-radius: var(--ref-border-radius-small);
+  color: var(--colour-text);
+  font: inherit;
+  font-weight: var(--ref-font-weight-semibold);
+}
+
+.retrySchedule:hover {
+  background-color: var(--colour-surface);
+}
+
+.commitmentList {
+  display: grid;
+  gap: 4px;
+}
+
+.commitmentItem {
+  display: grid;
+  grid-template-columns: minmax(8rem, 0.9fr) minmax(8rem, 1.2fr);
+  align-items: center;
+  gap: var(--ref-spacing-small);
+}
+
+.commitmentSummary {
+  min-width: 0;
+  overflow: hidden;
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.commitmentDates {
+  display: block;
+  overflow: hidden;
+  color: var(--colour-text-muted);
+  font-size: 0.9em;
+  text-overflow: ellipsis;
+}
+
+.commitmentTrack {
+  position: relative;
+  display: block;
+  height: 8px;
+  overflow: hidden;
+  border-radius: var(--ref-border-radius-full);
+  background-color: var(--ref-colour-grey30);
+}
+
+.commitmentBar {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  min-width: 4px;
+  border-radius: var(--ref-border-radius-full);
+  background-color: var(--colour-text-muted);
+}
+
+.commitmentRingfence,
+.commitmentReserved {
+  background-color: var(--colour-primary);
+}
+
+.commitmentOnHire,
+.commitmentTransport {
+  background-color: var(--colour-info);
+}
+
+.commitmentService {
+  background-color: var(--colour-warning);
+}
+
+.commitmentRepair {
+  background-color: var(--colour-error);
+}
+
+.commitmentCollection {
+  background-color: var(--colour-success);
+}
+
+.commitmentOnHold,
+.commitmentOther {
+  background-color: var(--colour-text-muted);
+}
+
+.assetActionCell {
+  justify-self: end;
+}
+
+.assetActionCell .reserveBtn {
+  margin-left: 0;
+}
+
+.reserveBtn {
+  margin-left: auto;
+  padding: 4px 12px;
+  white-space: nowrap;
+  font-size: var(--ref-font-size-xs);
+  border: none;
+  background: var(--colour-primary);
+  color: white;
+  border-radius: var(--ref-border-radius-small);
+  cursor: pointer;
+}
+
+.reserveBtn:hover {
+  opacity: 0.85;
+}
+
+.reserveBtn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.emptyText {
+  color: var(--colour-text-muted);
+  font-style: italic;
+  padding: var(--ref-spacing-medium);
+}
+
+.mono {
+  font-family: "SF Mono", "Cascadia Code", "Fira Code", monospace;
+  font-size: var(--ref-font-size-xs);
+}
+
+.itemNumber {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ref-spacing-xs);
+}
+
+.relatedSubstitution {
+  display: inline-flex;
+  color: var(--colour-info);
+}
+
+.relatedSubstitution svg {
+  width: 1em;
+  height: 1em;
+}
+
+.description {
+  font-size: var(--ref-font-size-xs);
+  color: var(--colour-text-muted);
+}
+
+.selectBtn {
+  padding: 4px 10px;
+  font-size: var(--ref-font-size-xs);
+  border: 1px solid var(--colour-primary);
+  background: var(--colour-primary);
+  color: white;
+  border-radius: var(--ref-border-radius-small);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.selectBtn:hover {
+  opacity: 0.85;
+}

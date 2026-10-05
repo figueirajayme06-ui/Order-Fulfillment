@@ -1,0 +1,96 @@
+parameters:
+- name: serviceConnection
+- name: db_server_name
+- name: db_name
+
+steps:
+# CDC (Change Data Capture) is owned ENTIRELY by this pipeline - it is the single source of truth.
+# The DACPAC contains NO CDC scripts.
+#
+# Why it has to live here: SqlPackage refuses to ALTER a CDC-tracked table and FAILS PLAN ANALYSIS
+# with SQL72035 ("treated as replicated due to change tracking and cannot be modified"). That
+# failure happens BEFORE the "Updating database" phase, i.e. before any in-DACPAC pre-deploy script
+# could run, and /p:DoNotAlterChangeDataCaptureObjects=false does NOT suppress it. So CDC must be
+# disabled before SqlPackage runs at all.
+#
+# The cycle is generic (no hard-coded table list) and faithful (capture-instance names, role,
+# net-changes, index and captured columns are preserved per environment), so it scales to any
+# database / any tracked set and never renames live capture instances:
+#   1. Snapshot every CDC capture instance into dbo._cdc_restore, then disable CDC.
+#   2. Publish the DACPAC.
+#   3. Restore CDC from the snapshot (runs on always() so CDC is restored even if the publish fails).
+#
+# WARNING (LIVE): disabling CDC drops captured-but-unconsumed rows and resets the capture baseline
+# (new minimum LSN). Any downstream CDC consumer (ETL / replication reader) MUST tolerate / re-seed
+# this gap after each deployment.
+- task: AzureCLI@2
+  displayName: 'Disable CDC (snapshot + drop capture instances)'
+  inputs:
+    azureSubscription: ${{ parameters.serviceConnection }}
+    scriptType: 'ps'
+    scriptLocation: 'inlineScript'
+    # Runs via System.Data.SqlClient (built into Windows PowerShell) using an AAD access token, so it
+    # does NOT require the SqlServer / SQLPS module on the agent. The T-SQL lives in .azd/sql and is
+    # published into the 'sql' build artifact (alongside the DACPAC) by build-sql.yml.
+    inlineScript: |
+      $ErrorActionPreference = 'Stop'
+      $token = (az account get-access-token --resource https://database.windows.net/ --query accessToken -o tsv).Trim()
+      if (-not $token) { throw 'Failed to acquire an Azure SQL access token via Azure CLI.' }
+      $sqlFile = Join-Path "$(Agent.BuildDirectory)/sql" 'disable-cdc.sql'
+      if (-not (Test-Path $sqlFile)) { throw "CDC script not found: $sqlFile" }
+      $sql = Get-Content -Raw -Path $sqlFile
+      $conn = New-Object System.Data.SqlClient.SqlConnection
+      $conn.ConnectionString = "Server=tcp:${{ parameters.db_server_name }},1433;Initial Catalog=${{ parameters.db_name }};Encrypt=True;TrustServerCertificate=False;Connect Timeout=60;"
+      $conn.AccessToken = $token
+      $conn.Open()
+      try {
+        $cmd = $conn.CreateCommand()
+        $cmd.CommandText = $sql
+        $cmd.CommandTimeout = 0
+        [void]$cmd.ExecuteNonQuery()
+        Write-Host 'CDC disable (snapshot) completed.'
+      } finally {
+        $conn.Close()
+      }
+
+- task: SqlAzureDacpacDeployment@1
+  displayName: 'Deploy Database'
+  inputs:
+    azureSubscription: ${{ parameters.serviceConnection }}
+    AuthenticationType: 'servicePrincipal'
+    ServerName: '${{ parameters.db_server_name }}'
+    DatabaseName: '${{ parameters.db_name }}'
+    deployType: 'DacpacTask'
+    DeploymentAction: 'Publish'
+    DacpacFile: '$(Agent.BuildDirectory)/sql/*.dacpac'
+    IpDetectionMethod: 'AutoDetect'
+    AdditionalArguments: '/p:BlockOnPossibleDataLoss=false /p:DoNotAlterChangeDataCaptureObjects=false'
+
+- task: AzureCLI@2
+  displayName: 'Re-enable CDC (restore from snapshot)'
+  # always() so CDC is restored even if the publish failed (we disabled it before the publish).
+  condition: always()
+  inputs:
+    azureSubscription: ${{ parameters.serviceConnection }}
+    scriptType: 'ps'
+    scriptLocation: 'inlineScript'
+    inlineScript: |
+      $ErrorActionPreference = 'Stop'
+      $token = (az account get-access-token --resource https://database.windows.net/ --query accessToken -o tsv).Trim()
+      if (-not $token) { throw 'Failed to acquire an Azure SQL access token via Azure CLI.' }
+      $sqlFile = Join-Path "$(Agent.BuildDirectory)/sql" 'restore-cdc.sql'
+      if (-not (Test-Path $sqlFile)) { throw "CDC script not found: $sqlFile" }
+      $sql = Get-Content -Raw -Path $sqlFile
+      $conn = New-Object System.Data.SqlClient.SqlConnection
+      $conn.ConnectionString = "Server=tcp:${{ parameters.db_server_name }},1433;Initial Catalog=${{ parameters.db_name }};Encrypt=True;TrustServerCertificate=False;Connect Timeout=60;"
+      $conn.AccessToken = $token
+      $conn.Open()
+      try {
+        $cmd = $conn.CreateCommand()
+        $cmd.CommandText = $sql
+        $cmd.CommandTimeout = 0
+        [void]$cmd.ExecuteNonQuery()
+        Write-Host 'CDC re-enable (restore) completed.'
+      } finally {
+        $conn.Close()
+      }

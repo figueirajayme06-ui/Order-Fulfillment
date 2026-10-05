@@ -1,0 +1,68 @@
+﻿--CREATE TRIGGER AuditHeaders
+--ON Headers
+--AFTER INSERT, UPDATE, DELETE
+--AS
+--BEGIN
+--    SET NOCOUNT ON;
+--    DECLARE @OperationType CHAR(1) = 'N', -- Default for unexpected cases
+--            @NewValues NVARCHAR(MAX),
+--            @UpdatedBy VARCHAR(128),
+--            @RecordId INT = 0;
+
+--    SELECT @UpdatedBy = SYSTEM_USER;
+
+--    IF EXISTS (SELECT * FROM inserted) AND EXISTS (SELECT * FROM deleted)
+--    BEGIN
+--        -- Check if specific fields are updated
+--        IF EXISTS (SELECT 1 
+--                   FROM inserted i
+--                   JOIN deleted d ON i.Id = d.Id
+--                   WHERE i.QuotePublicId != d.QuotePublicId
+--                      OR i.AgreementNumber != d.AgreementNumber
+--                      OR i.OnHireDate != d.OnHireDate
+--                      OR i.OffHireDate != d.OffHireDate
+--                      OR i.Status != d.Status
+--                      OR i.CustomerNumber != d.CustomerNumber
+--                      OR i.Division != d.Division
+--                      OR i.CustomerAddressCode != d.CustomerAddressCode
+--                      OR i.OrderSource != d.OrderSource
+--                      OR i.IsDeleted != d.IsDeleted
+--                      OR i.FulfilmentStatus != d.FulfilmentStatus
+--                      OR i.LastUpdatedBy != d.LastUpdatedBy
+--                      OR i.LastUpdatedDate != d.LastUpdatedDate
+--                      OR i.Facility != d.Facility
+--                      OR i.OrderNumber != d.OrderNumber
+--                      OR i.QuoteNumber != d.QuoteNumber
+--                      OR i.Probability != d.Probability
+--                      OR i.ActivationStatus != d.ActivationStatus
+--                      OR i.ActivationInstanceId != d.ActivationInstanceId)
+--        BEGIN
+--            SET @OperationType = 'U';
+--            SET @NewValues = (SELECT QuotePublicId, AgreementNumber, OnHireDate, OffHireDate, Status, 
+--                                 CustomerNumber, Division, CustomerAddressCode, OrderSource,
+--                                 IsDeleted, FulfilmentStatus, LastUpdatedBy, Facility, 
+--                                 OrderNumber, QuoteNumber, Probability, ActivationStatus, ActivationInstanceId FROM inserted FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);
+--            SELECT @RecordID = ID FROM inserted;
+--        END
+--    END
+--    ELSE IF EXISTS (SELECT * FROM inserted)
+--    BEGIN
+--        SET @OperationType = 'I';
+--        SET @NewValues = (SELECT QuotePublicId, AgreementNumber, OnHireDate, OffHireDate, Status, 
+--                                 CustomerNumber, Division, CustomerAddressCode, OrderSource,
+--                                 IsDeleted, FulfilmentStatus, LastUpdatedBy, Facility, 
+--                                 OrderNumber, QuoteNumber, Probability, ActivationStatus, ActivationInstanceId FROM inserted FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);
+--        SELECT @RecordID = ID FROM inserted;
+--    END
+--    ELSE IF EXISTS (SELECT * FROM deleted)
+--    BEGIN
+--        SET @OperationType = 'D';
+--        SELECT @RecordID = ID FROM deleted;
+--    END
+
+--    IF @RecordId > 0 AND @OperationType <> 'N'
+--    BEGIN
+--        INSERT INTO AuditLog (TableName, OperationType, NewValues, UpdateDate, UpdatedBy, RecordID)
+--        VALUES ('Headers', @OperationType, @NewValues, GETDATE(), @UpdatedBy, @RecordId);
+--    END
+--END

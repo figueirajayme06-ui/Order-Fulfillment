@@ -1,0 +1,9 @@
+/*!@license
+* Infragistics.Web.ClientUI Validator localization resources 23.1.9
+*
+* Copyright (c) 2011-2023 Infragistics Inc.
+*
+* http://www.infragistics.com/
+*
+*/
+(function(factory){if(typeof define==="function"&&define.amd){define(["jquery"],factory)}else{return factory(jQuery)}})(function($){$.ig=$.ig||{};$.ig.Validator=$.ig.Validator||{};$.ig.locale=$.ig.locale||{};$.ig.locale.da=$.ig.locale.da||{};$.ig.locale.da.Validator={defaultMessage:"Dette felt har brug for opm\xe6rksomhed",selectMessage:"Der skal v\xe6lges en v\xe6rdi",rangeSelectMessage:"Mindst {0} men ikke mere end {1} elementer skal v\xe6lges",minSelectMessage:"Mindst {0} element (er) skal v\xe6lges",maxSelectMessage:"Der skal ikke v\xe6lges mere end {0} element (er)",rangeLengthMessage:"Indtastningen skal v\xe6re mellem {0} og {1} tegn",minLengthMessage:"Indtastningen skal v\xe6re mindst {0} tegn",maxLengthMessage:"Indtastningen m\xe5 h\xf8jst v\xe6re {0} tegn",requiredMessage:"Dette felt er p\xe5kr\xe6vet",patternMessage:"Indtastning stemmer ikke overens med det kr\xe6vede m\xf8nster",maskMessage:"Alle kr\xe6vede positioner skal udfyldes",dateFieldsMessage:"Der skal indtastes v\xe6rdier for datofelter",invalidDayMessage:"Der skal indtastes en gyldig m\xe5nedsdag",dateMessage:"Der skal indtastes en gyldig dato",numberMessage:"Der skal indtastes et gyldigt tal",rangeValueMessage:"Der skal indtastes en v\xe6rdi mellem {0} og {1}",minValueMessage:"Der skal indtastes en v\xe6rdi p\xe5 mindst {0}",maxValueMessage:"Der skal indtastes en v\xe6rdi, der ikke mere end {0}",emailMessage:"Der skal indtastes en gyldig e-mailadresse",creditCardMessage:"Der skal indtastes et gyldigt betalingskortnummer",equalToMessage:"De to v\xe6rdier stemmer ikke overens",optionalString:"(valgfri)"};$.ig.Validator.locale=$.ig.Validator.locale||$.ig.locale.da.Validator;return $.ig.locale.da.Validator});

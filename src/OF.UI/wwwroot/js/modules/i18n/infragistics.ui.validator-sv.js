@@ -1,0 +1,9 @@
+/*!@license
+* Infragistics.Web.ClientUI Validator localization resources 23.1.9
+*
+* Copyright (c) 2011-2023 Infragistics Inc.
+*
+* http://www.infragistics.com/
+*
+*/
+(function(factory){if(typeof define==="function"&&define.amd){define(["jquery"],factory)}else{return factory(jQuery)}})(function($){$.ig=$.ig||{};$.ig.Validator=$.ig.Validator||{};$.ig.locale=$.ig.locale||{};$.ig.locale.sv=$.ig.locale.sv||{};$.ig.locale.sv.Validator={defaultMessage:"Detta f\xe4lt beh\xf6ver uppm\xe4rksammas",selectMessage:"Ett v\xe4rde borde v\xe4ljas",rangeSelectMessage:"Minst {0} men h\xf6gst {1} objekt borde v\xe4ljas",minSelectMessage:"Minst {0} objekt borde v\xe4ljas",maxSelectMessage:"H\xf6gst {0} objekt borde v\xe4ljas",rangeLengthMessage:"Inmatningen b\xf6r vara mellan {0} och {1} tecken l\xe5ng",minLengthMessage:"Inmatningen ska inneh\xe5lla minst {0} tecken",maxLengthMessage:"Inmatningen f\xe5r inte vara l\xe4ngre \xe4n {0} tecken",requiredMessage:"Detta f\xe4lt kr\xe4vs",patternMessage:"Inmatningen matchar inte det \xf6nskade m\xf6nstret",maskMessage:"Alla obligatoriska positioner m\xe5ste fyllas i",dateFieldsMessage:"Datumf\xe4ltv\xe4rden borde anges",invalidDayMessage:"En giltig dag i m\xe5naden borde anges",dateMessage:"Ett giltigt datum borde anges",numberMessage:"Ett giltigt nummer borde anges",rangeValueMessage:"Ett v\xe4rde mellan {0} och {1} borde anges",minValueMessage:"Ett v\xe4rde p\xe5 minst {0} borde anges",maxValueMessage:"Ett v\xe4rde h\xf6gst {0} borde anges",emailMessage:"En giltig e-postadress borde anges",creditCardMessage:"Ett giltigt betalkortsnummer borde anges",equalToMessage:"De tv\xe5 v\xe4rdena matchar inte",optionalString:"(frivillig)"};$.ig.Validator.locale=$.ig.Validator.locale||$.ig.locale.sv.Validator;return $.ig.locale.sv.Validator});

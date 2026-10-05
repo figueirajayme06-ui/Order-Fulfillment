@@ -1,0 +1,27 @@
+{
+  "profiles": {
+    "OF.WebApp": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "https://localhost:7200;http://localhost:5200",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KeyVaultUri": "https://kv-ofdev.vault.azure.net/",
+        "StorageAccountName": "stofdev",
+        "SqlConnection": "Server=mssql-ofdev.database.windows.net,1433;Database=db-ofdev;Authentication=Active Directory Default;Encrypt=True;MultipleActiveResultSets=true"
+      }
+    },
+    "OF.WebApp.Test": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": false,
+      "applicationUrl": "https://localhost:7200;http://localhost:5200",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KeyVaultUri": "https://kv-oftest.vault.azure.net/",
+        "SqlConnection": "Server=tcp:mssql-oftest.database.windows.net,1433;Initial Catalog=db-oftest;Authentication=Active Directory Default;Encrypt=True;TrustServerCertificate=False;"
+      }
+    }
+  }
+}

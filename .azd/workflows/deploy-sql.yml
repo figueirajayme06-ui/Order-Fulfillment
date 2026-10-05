@@ -1,0 +1,114 @@
+pool:
+  vmImage: 'windows-latest'
+
+trigger: none
+pr: none
+
+variables:
+  - template: ../actions/variables.yml
+
+stages:
+- stage: 'Build'
+  displayName: 'Version, Build & Publish'
+  variables:
+  - group: OF-Dev
+
+  jobs:
+  - job: 'Version'
+    displayName: 'Version'
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - template: ../actions/version.yml
+      parameters:
+        version: $(version)
+
+  - job: 'Build'
+    displayName: 'Build SQL & Publish'
+    dependsOn: ["Version"]
+    steps:
+    - template: ../actions/build-sql.yml
+
+- stage: 'Deploy_Dev'
+  displayName: 'Dev Deployment'
+  variables:
+  - group: OF-Dev
+  dependsOn: ['Build']
+  jobs:
+  - deployment: 'Deploy_Dev'
+    displayName: 'Dev Deploy'
+    pool:
+      name: Self-Hosted-Testers
+    environment: 'dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../actions/deploy-sql.yml
+            parameters:
+              serviceConnection: $(serviceConnection)
+              db_server_name: 'mssql-ofdev.database.windows.net'
+              db_name: 'db-ofdev'
+
+- stage: 'Deploy_SIT'
+  displayName: 'SIT Deployment'
+  variables:
+  - group: OF-SIT
+  dependsOn: ['Build']
+  jobs:
+  - deployment: 'Deploy_SIT'
+    displayName: 'SIT Deploy'
+    pool:
+      name: Self-Hosted-Testers
+    environment: 'sit'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../actions/deploy-sql.yml
+            parameters:
+              serviceConnection: $(serviceConnection)
+              db_server_name: 'mssql-ofsit.database.windows.net'
+              db_name: 'db-ofsit'
+
+- stage: 'Deploy_Test'
+  displayName: 'Test Deployment'
+  variables:
+  - group: OF-Test
+  dependsOn: ['Build']
+  jobs:
+  - deployment: 'Deploy_Test'
+    displayName: 'Test Deploy'
+    pool:
+      name: Self-Hosted-Testers
+    environment: 'test'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../actions/deploy-sql.yml
+            parameters:
+              serviceConnection: $(serviceConnection)
+              db_server_name: 'mssql-oftest.database.windows.net'
+              db_name: 'db-oftest'
+              
+- stage: 'Deploy_Live'
+  displayName: 'Live Deployment'
+  variables:
+  - group: OF-Live
+  dependsOn: ['Build']
+  jobs:
+  - deployment: 'Deploy_Live'
+    displayName: 'Live Deploy'
+    pool:
+      name: Self-Hosted-Testers
+    environment: 'live'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../actions/deploy-sql.yml
+            parameters:
+              serviceConnection: $(serviceConnectionLive)
+              db_server_name: 'mssql-oflive.database.windows.net'
+              db_name: 'db-oflive'

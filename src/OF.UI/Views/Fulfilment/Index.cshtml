@@ -1,0 +1,380 @@
+@using OF.Common
+@using Infragistics.Web.Mvc
+@using OF.Common.Infrastructure.Features
+@using OF.UI.Helpers
+@model OF.UI.ViewModels.Asset.FulfilmentViewModel
+@inject OF.UI.Identity.IUserIdentity Identity
+@inject FeatureProvider featurProvider
+@{
+    Layout = "/Views/Shared/_LayoutDialog.cshtml";
+    var id = Identity.GetIdentity();
+}
+
+<div class="container-fluid" style="margin:0;padding:0">
+    <div class="row" style="margin:0;padding:0">
+        <div id="colLines" class="col-5 mr-1 mt-1">
+            <div class="card">
+                <h5 class="card-header"><i class="bi bi-box-seam"></i>&nbsp;Basic Details for @Model.Header.AgreementNumber</h5>
+                <div class="card-body" style="overflow:auto">
+                    <table class="table">
+                        <tr>
+                            <th>Customer Number</th>
+                            <td>@Model.Header.CustomerNumber</td>
+                            <th>Customer Name</th>
+                            <td>@Model.Header.CustomerName</td>
+                        </tr>
+                        <tr>
+                            <th>Customer Address</th>
+                            <td colspan="3">@Model.Header.CustomerAddress</td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div id="card_lines" class="card mt-1">
+                <h5 class="card-header"><i class="bi bi-card-text"></i>&nbsp;Lines</h5>
+                @if (!Model.Header.IsDeleted)
+                {
+                    <div class="card-body">
+                        @{
+                        <nav class="navbar navbar-light bg-light">
+                            <div class="container-fluid">
+                                <div class="dropdown">
+                                    <a class="btn btn-outline-primary dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Bulk Actions
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="javascript:depotFulfilBulk('@Model.Header.Id','@Model.Lines[0].Warehouse',false)">Depot fulfil (unfulfilled)</a></li>
+                                        <li><a class="dropdown-item" href="javascript:rehireBulk('@Model.Header.Id','@Model.Lines[0].Warehouse',false)">Rehire (unfulfilled)</a></li>
+                                        <li><a class="dropdown-item" href="javascript:depotFulfilBulk('@Model.Header.Id','@Model.Lines[0].Warehouse',true)">Depot fulfil (all)</a></li>
+                                        <li><a class="dropdown-item" href="javascript:rehireBulk('@Model.Header.Id','@Model.Lines[0].Warehouse',true)">Rehire (all)</a></li>
+                                    </ul>
+                                    <div style="float:right;margin-left:10px;margin-top:5px" class="form-check form-switch">
+                                        <input class="form-check-input" type="checkbox" id="showFulfiledSwitch" checked>
+                                        <label class="form-check-label" for="showFulfiledSwitch">Show fulfiled</label>
+                                    </div>
+                                </div>
+                                <div class="d-flex">
+                                    <div id="bulk_spinner" style="display:none;float:right;margin-left:5px">
+                                        <div class="spinner-border text-success" role="status">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </nav>
+                        <div id="table_lines" style="overflow:auto">
+                            <table style="width:100%" class="table table-fixed">
+                                <thead>
+                                    <tr>
+                                        <th style="width:15px"><input id="chkTopAll" class="form-check-input" type="checkbox" value="" onclick="javascript:chkAll()"></th>
+                                        <td id="header_icon_unfilled" style="width:15px"><i class="bi bi-plus-circle-dotted text-danger"></i></td>
+                                        <td id="header_icon_filled" style="width:15px;display:none"><i class="bi bi-check-circle text-success"></i></td>
+                                        <th style="width:40px">ID</th>
+                                        <th style="width:40px">Item</th>
+                                        <th style="width:30px">Qty</th>
+                                        <th style="width:150px">Reservations</th>
+                                        <th style="width:100px">Warehouses</th>
+                                        <th style="width:80px">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (string g in Model.PackageGroups)
+                                    {
+                                        if (Model.PackageGroups.Count() > 1)
+                                        {
+                                            <tr>
+                                                <td><input id="chkTopPackage-@g" class="form-check-input chk-all" type="checkbox" value="" onclick="javascript:chkPackage('@g')"></td>
+                                                <td colspan="7" style="text-align:center;font-weight:bold">Package Group @g</td>
+                                                </tr>
+                                            }
+
+                                            var lines = Model.Lines.Where(l => (String.IsNullOrEmpty(l.PackageGroupNumber) ? "1" : l.PackageGroupNumber) == g).OrderBy(l => decimal.TryParse(l.AgreementLineNumber.Substring(1).Replace("-", String.Empty), out var sortKey) ? sortKey : 0m);                                
+
+                                            foreach (var line in lines)
+                                            {
+                                                string lineNumber = line.AgreementLineNumber.ToLower();
+                                                string quoteClass = (lineNumber.StartsWith("a") || lineNumber.StartsWith("t")) ? string.Empty : "line_quote";
+
+                                                <tr id='line_item_row_@line.Id' class='line_item_row line_root_@(line.AgreementLineNumber.Split(".")[0]) @quoteClass @(line.AgreementLineNumber.Contains(".") ? "line_child" : "")'>
+                                                <td><input data-lineid="@line.Id" class="form-check-input chk-package-@g chk-all" type="checkbox" value=""></td>
+                                                <td id="line_icon_0_@line.Id" class="line_icon_unfilled line_icon_@line.Id" style='@(line.FulfilmentStatus != (int)OF.Data.Database.FulfilmentStatus.Unfulfilled ? "display:none" : "")'><i class="bi bi-plus-circle-dotted text-danger"></i></td>
+                                                <td id="line_icon_1_@line.Id" class="line_icon_unfilled line_icon_@line.Id" style='@(line.FulfilmentStatus != (int)OF.Data.Database.FulfilmentStatus.PartiallyFulfilled ? "display:none" : "")'><i class="bi bi-circle-half text-info"></i></td>
+                                                <td id="line_icon_2_@line.Id" class="line_icon_filled line_icon_@line.Id" style='@(line.FulfilmentStatus != (int)OF.Data.Database.FulfilmentStatus.OverFulfilled ? "display:none" : "")'><i class="bi bi-exclamation-diamond text-danger"></i></td>
+                                                <td id="line_icon_3_@line.Id" class="line_icon_filled line_icon_@line.Id" style='@(line.FulfilmentStatus != (int)OF.Data.Database.FulfilmentStatus.FullyFulfiled ? "display:none" : "")'><i class="bi bi-check-circle text-success"></i></td>
+                                                <td class="nowrap">@line.AgreementLineNumber</td>
+                                                <td class="nowrap">@line.ItemNumber 
+                                                    @if (line.ItemNumber.StartsWith("XXMISC", StringComparison.CurrentCultureIgnoreCase))
+                                                    {
+                                                            <i class="bi bi-info-circle-fill text-info" data-line="@line.AgreementLineNumber" data-item="@line.ItemNumber" title="@Html.RemoveHtmlAndTruncate(line.ItemDescription ?? line.DescriptionWithAttributes ?? line.ItemNumber)" data-info=""></i>
+                                                    }
+                                                </td>
+                                                <td class="nowrap">@line.Quantity</td>
+                                                    <td title="@Model.ReservationText[line.Id]">
+                                                    <div style="width:150px" class="reserve-text nowrap">
+                                                        @Model.ReservationText[line.Id]
+                                                        @if (!string.IsNullOrEmpty(Model.ReservationDeletedAssetWarnings[line.Id]))
+                                                        {
+                                                            <i class="bi bi-exclamation-triangle-fill text-warning" title="Deleted asset(s): @Model.ReservationDeletedAssetWarnings[line.Id]"></i>
+                                                        }
+                                                    </div>
+                                                </td>
+                                                <td title="@Model.ReservationWarehouseText[line.Id]">
+                                                    <div style="width:100px;" class="warehouse-reserve-text nowrap">
+                                                        @Model.ReservationWarehouseText[line.Id]
+                                                    </div>
+                                                </td>
+                                                <td class="nowrap">
+                                                        <button type="button" data-lineid="@line.Id" title="Fulfil line" class="btn btn-primary line_btn_fulfil"><i class="bi bi-boxes"></i></button>
+                                                    <button type="button" data-lineid="@line.Id" title="Delete line" class="btn btn-secondary line_btn_delete"><i class="bi bi-trash"></i></button>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                        <div style="margin-top:10px;">
+                            <form id="summaryForm" method="get" data-valid-for-summary="@Model.IsHeaderValidForOrderSummary.ToString().ToLower()" data-status="@Model.Header.FulfilmentStatus" style="display: inline" action="/report/@Model.Header.AgreementNumber/display?quoteId=@Model.Header.QuotePublicId">
+                                <button id="summaryButton" target="_blank" class="btn btn-warning" disabled="@(!Model.DisplayOrderSummary)">
+                                    <i class="bi bi-card-heading"></i>&nbsp;Order Summary
+                                </button>
+                            </form>
+                            <button id="btnNotes" data-notekey="@Model.Header.Id" class="btn btn-primary position-relative" type="button">
+                                <i class="bi bi-pencil-square"></i>&nbsp;Notes
+                                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                    0
+                                </span>
+                            </button>
+                            @if (Model.IsHeaderAQuote)
+                            {
+                                <form id="abandonForm" method="delete" style="display: inline" action="/api/Order/Abandon/@Model.Header.Id">
+                                    <button id="btnAbandon" title="Abandon Quote" class="btn btn-danger"><i class="bi bi-trash"></i> Abandon</button>
+                                </form>
+                            }
+                            <form id="activateForm" method="post" data-can-activate="@Model.IsActivatable.ToString().ToLower()" style="display: inline" action="/api/Order/Activate/@Model.Header.Id">
+                                <span style="float: right; margin-left: 5px; bottom: 4px; position: relative;">
+                                    @switch (Model.ActivatedStatus)
+                                    {
+                                        default:
+                                            <i class="bi bi-pause-circle-fill text-muted" title="Status: To be activated once fulfiled." style="font-size: 2rem"></i>
+                                            break;
+                                        case Enums.ActivationStatus.Failed:
+                                            <i class="bi bi-x-circle-fill text-danger" id="btnActivationError" role="button" title="Status: Activation failed, click to see errors." style="font-size: 2rem"></i>
+                                            break;
+                                        case Enums.ActivationStatus.Requested:
+                                            @if (Model.IsActivationStale)
+                                            {
+                                                <i class="bi bi-exclamation-triangle-fill text-warning" id="btnActivationStale" role="button" title="Status: Activation is taking longer than expected. Please contact support." style="font-size: 2rem"></i>
+                                            }
+                                            else
+                                            {
+                                                <i class="bi bi-arrow-up-circle-fill text-warning rotating" id="btnActivationRequested" title="Status: Activation is currently in progress, click to see any errors." style="display: block; font-size: 2rem"></i>
+                                            }
+                                            break;
+                                        case Enums.ActivationStatus.Activated:
+                                            <i class="bi bi-check-circle-fill text-success" title="Status: Activated successfully." style="font-size: 2rem"></i>
+                                            break;
+                                    }
+                                </span>
+                                @switch (Model.ActivatedStatus)
+                                {
+                                    case Enums.ActivationStatus.Failed:
+                                        <button id="btnActivate" class="btn btn-danger" style="float:right" data-can-activate="@Model.IsActivatable.ToString().ToLower()" disabled="@(!Model.DisplayActivation)">
+                                            <i class="bi bi-x-circle-fill"></i>&nbsp;Retry
+                                        </button>
+                                        break;
+                                    case Enums.ActivationStatus.Requested:
+                                        @if (Model.IsActivationStale)
+                                        {
+                                            <button title="Activation is taking longer than expected. Please contact support." id="btnActivationStale" class="btn btn-warning" style="float:right" disabled>
+                                                <i class="bi bi-exclamation-triangle"></i>&nbsp;Contact Support
+                                            </button>
+                                        }
+                                        else
+                                        {
+                                            <button title="Stop the requested non-sublines for retry." id="btnStop" class="btn btn-warning" style="float:right" data-header="@Model.Header.Id">
+                                                <i class="bi bi-stop-circle"></i>&nbsp;Stop
+                                            </button>
+                                        }
+                                        break;
+                                    default:
+                                        <button id="btnActivate" class="btn btn-success" style="float:right" data-can-activate="@Model.IsActivatable.ToString().ToLower()" disabled="@(!Model.DisplayActivation)">
+                                            <i class="bi bi-check-circle"></i>&nbsp;Activate
+                                        </button>
+                                        break;
+                                }
+                            </form>
+                        </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="card-body">
+                        <div id="panel_fulfilment_blank" class="fulfilMessage">
+                            <i class="bi bi-trash"></i>&nbsp;Quote has been deleted
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+        <div id="colFulfilment" class="col-7 mt-2">
+            <div id="card_fulfilment" class="card">
+                <h5 class="card-header"><i class="bi bi-calendar3-range"></i>&nbsp;Fulfilment</h5>
+                <div class="card-body" style="width:100%;height:100%;overflow:hidden">
+                    @if (!Model.Header.IsDeleted)
+                    {
+                        <div id="panel_fulfilment_blank" class="fulfilMessage">
+                            <i class="bi bi-boxes"></i>&nbsp;Select a line to begin fulfilment
+                        </div>
+                    }
+                    else
+                    {
+                        <div id="panel_fulfilment_blank" class="fulfilMessage">
+                            <i class="bi bi-trash"></i>&nbsp;Quote has been deleted
+                        </div>
+                    }
+                    <div id="panel_fulfilment_error" style="display:none;" class="fulfilMessage">
+                        <i class="bi bi-sign-stop"></i>&nbsp; <span id="panel_error_message" />
+                    </div>
+                    <div id="panel_fulfilment_item" style="display:none;width:100%">
+                        <div class="container-fluid">
+                            <div class="dropdown" style="float:left;margin-right:5px;">
+                                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="bi bi-box2-fill"></i>
+                                </button>
+                                <ul id="lstAlternatives" class="dropdown-menu p-3">
+                                </ul>
+                            </div>
+                            <div>
+                                <div style="float:right">
+                                    @if (!featurProvider.ChangeOrdersEnabled)
+                                    {
+                                        <button id="btnAddLine" disabled="@Model.IsHeaderAQuote" class="btn btn-outline-primary" type="button"><i class="bi bi-plus"></i>&nbsp;Add sub-line</button>
+                                    }
+                                </div>
+                                <div id="pf_spinner" style="display:none;float:right;margin-left:5px">
+                                    <div class="spinner-border text-success" role="status">
+                                    </div>
+                                </div>
+                                <h3 id="pf_title">Item Number title</h3>
+                            </div>
+                        </div>
+                        <div id="pf_attributes">
+                        </div>
+                        <hr />
+                        <div id="pf_results">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="pnlErrorsDialog" style="display:none;overflow:hidden">
+    <div class="container-fluid">
+        <div class="row" style="margin-top:5px!important">
+            <div class="col">
+                <div style="width:100%;height:400px;border:solid 1px #cacaca;overflow-y: scroll;padding:5px">
+                    <div id="pnlErrors">
+                            @if (!string.IsNullOrWhiteSpace(Model.Header.ActivationErrors))
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    <p><strong>@Model.Header.AgreementNumber</strong>: @Model.Header.ActivationErrors</p>
+                                </div>
+                            }
+                            @foreach (var line in Model.Header.Lines.Where(i => !string.IsNullOrWhiteSpace(i.ActivationErrors)))
+                            {
+                                <div class="alert alert-danger" role="alert">
+                                    <p><strong>@line.AgreementLineNumber</strong>: @line.ActivationErrors</p>
+                                </div>
+                            }
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row" style="margin-top:10px!important">
+            <div class="col">
+                <div style="float:right;">
+                    <button id="btnErrorCancel" class="btn btn-secondary ml-4">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="pnlAddItem" style="display:none;overflow:hidden">
+    <div class="container">
+        <div class="row mt-2">
+            <div class="col">
+                <strong>Product Line</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="lstAddItemNumberLine"></div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <strong>Generics</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="lstAddNewGeneric"></div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <strong>Attributes (to filter item numbers)</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div style="width:100%;height:180px;border:solid 1px #cacaca;overflow-y: scroll;padding:5px;">
+                    <div id="pnlAddNewAttributes">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row  mt-2">
+            <div class="col">
+                &nbsp;<strong>Item Number</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                <div id="lstAddNewItemNumber"></div>
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col">
+                <strong>Quantity</strong>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col">
+                @(Html.Infragistics().NumericEditor()
+                    .ID("txtAddNewQuantity")
+                    .DataMode(NumericEditorDataMode.Int)
+                    .MinValue(1)
+                    .ButtonType(TextEditorButtonType.Spin)
+                    .SpinDelta(1)
+                    .Value(1)
+                    .Render())
+                <div style="float:right">
+                    <button id="btnAddItemOKGeneric" class="btn btn-primary" disabled="disabled">Add By Generic</button>
+                    <button id="btnAddItemOKItem" class="btn btn-primary" disabled="disabled">Add By Item</button>
+                    <button id="btnAddItemCancel" class="btn btn-secondary ml-4">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/site/fulfilCore.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/site/addItems.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/site/notes.js" asp-append-version="true"></script>
+}

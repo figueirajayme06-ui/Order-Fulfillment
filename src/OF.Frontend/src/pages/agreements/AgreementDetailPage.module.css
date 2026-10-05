@@ -1,0 +1,1218 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ref-spacing-large);
+}
+
+.topBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ref-spacing-medium);
+}
+
+.topLeft {
+  display: flex;
+  align-items: center;
+  gap: var(--ref-spacing-medium);
+}
+
+.title {
+  font-size: var(--ref-font-size-xl);
+}
+
+.topActions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  align-items: center;
+  gap: var(--ref-spacing-small);
+}
+
+.agreementStateBadges {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+/* Header info grid */
+.headerGrid {
+  display: grid;
+  grid-template-columns:
+    minmax(240px, 1.6fr) minmax(210px, 1.4fr) repeat(2, minmax(100px, 0.7fr)) repeat(2, minmax(120px, 0.9fr))
+    minmax(190px, 1.2fr);
+  gap: var(--ref-spacing-medium) var(--ref-spacing-medium);
+}
+
+.headerCardBody {
+  padding-top: var(--ref-spacing-small);
+  padding-bottom: var(--ref-spacing-small);
+}
+
+.infoItem {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.infoLabel {
+  font-size: var(--ref-font-size-xs);
+  color: var(--colour-text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  font-weight: var(--ref-font-weight-medium);
+}
+
+.infoValue {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: var(--ref-font-size-small);
+  color: var(--colour-text);
+  overflow-wrap: anywhere;
+}
+
+.primaryInfoValue {
+  font-weight: var(--ref-font-weight-medium);
+}
+
+.secondaryInfoValue {
+  color: var(--colour-text-muted);
+  font-size: var(--ref-font-size-xs);
+}
+
+/* Section */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ref-spacing-medium);
+}
+
+.section h2 {
+  font-size: var(--ref-font-size-large);
+}
+
+.sectionHeader {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ref-spacing-small) var(--ref-spacing-medium);
+}
+
+.sectionTitle {
+  display: flex;
+  align-items: baseline;
+  gap: var(--ref-spacing-small);
+}
+
+.selectionCount {
+  color: var(--colour-text-muted);
+  font-size: var(--ref-font-size-xs);
+}
+
+.bulkActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--ref-spacing-small);
+}
+
+.depotFulfilActions {
+  display: inline-flex;
+  align-items: stretch;
+}
+
+.depotFulfilActions > :first-child button {
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+.depotFulfilOptions {
+  position: relative;
+}
+
+.depotFulfilOptions summary {
+  display: grid;
+  width: 28px;
+  height: 100%;
+  min-height: 30px;
+  place-items: center;
+  border: 1px solid var(--colour-border);
+  border-left: 0;
+  border-radius: 0 var(--ref-border-radius-small) var(--ref-border-radius-small) 0;
+  background: var(--colour-surface);
+  cursor: pointer;
+  list-style: none;
+}
+
+.depotFulfilOptions summary::-webkit-details-marker {
+  display: none;
+}
+
+.depotFulfilOptions summary span {
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.depotFulfilOptions summary:hover {
+  background: var(--ref-colour-grey20);
+}
+
+.depotFulfilOptions summary:focus-visible,
+.depotFulfilMenu button:focus-visible {
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: 2px;
+}
+
+.depotFulfilMenu {
+  position: absolute;
+  z-index: 10;
+  top: calc(100% + 4px);
+  right: 0;
+  min-width: max-content;
+  padding: 4px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background: var(--colour-surface);
+  box-shadow: var(--ref-shadow-medium);
+}
+
+.depotFulfilMenu button {
+  width: 100%;
+  padding: 6px 8px;
+  border: 0;
+  border-radius: var(--ref-border-radius-small);
+  background: transparent;
+  color: var(--colour-text);
+  cursor: pointer;
+  font: inherit;
+  font-size: var(--ref-font-size-xs);
+  text-align: left;
+}
+
+.depotFulfilMenu button:hover:not(:disabled) {
+  background: var(--ref-colour-grey20);
+}
+
+.bulkProgress {
+  display: flex;
+  align-items: center;
+  gap: var(--ref-spacing-small);
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-small);
+}
+
+/* Selected-line fulfilment workbench */
+.fulfilmentWorkspace {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.fulfilmentWorkspaceSplit {
+  flex-direction: row;
+  align-items: stretch;
+  height: clamp(28rem, calc(100vh - 18rem), 58rem);
+  height: clamp(28rem, calc(100dvh - 18rem), 58rem);
+  min-height: 0;
+}
+
+.linesPane {
+  min-width: 0;
+  min-height: 0;
+}
+
+.fulfilmentWorkspaceSplit .linesPane {
+  flex: 1 1 auto;
+  width: 0;
+  overflow: hidden;
+}
+
+.lineQueue {
+  min-height: 0;
+  flex: 1 1 auto;
+  overflow: auto;
+  scrollbar-gutter: stable;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-medium);
+  background-color: var(--colour-surface);
+}
+
+.linesPaneSplit .selectionCount {
+  display: none;
+}
+
+.linesPaneSplit .sectionHeader {
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.linesPaneSplit {
+  gap: var(--ref-spacing-small);
+}
+
+.lineQueueSelectionBar {
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: var(--ref-spacing-xs);
+  padding: 6px 8px;
+  border-bottom: 1px solid var(--colour-border);
+  background-color: var(--colour-surface);
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+}
+
+.lineQueueSelectionCount {
+  margin-left: auto;
+  color: var(--colour-text-muted);
+}
+
+.lineQueueColumnHeader,
+.lineQueueItem {
+  display: grid;
+  grid-template-columns:
+    18px 16px minmax(72px, 120px) 24px minmax(64px, 1fr)
+    28px 100px;
+  align-items: center;
+  gap: 3px;
+}
+
+.lineQueueColumnHeader {
+  position: sticky;
+  z-index: 1;
+  top: 33px;
+  min-height: 30px;
+  padding: 4px 6px;
+  border-bottom: 1px solid var(--colour-border);
+  background: var(--ref-colour-grey10);
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-semibold);
+}
+
+.lineQueueItem {
+  box-sizing: border-box;
+  min-height: 48px;
+  padding: 3px 6px;
+  transition: background-color var(--ref-transition-fast);
+}
+
+.lineQueueItem + .lineQueueItem {
+  border-top: 1px solid var(--ref-colour-grey20);
+}
+
+.lineQueueItem:hover {
+  background-color: var(--ref-colour-snowfaded);
+}
+
+.lineQueueItemCurrent {
+  background-color: var(--colour-primary-faded);
+  box-shadow: inset 3px 0 0 var(--colour-primary);
+}
+
+.lineQueueButton {
+  display: grid;
+  min-width: 0;
+  min-height: 40px;
+  grid-column: 2 / 7;
+  grid-template-columns: subgrid;
+  align-items: center;
+  gap: 3px;
+  padding: 0;
+  color: var(--colour-text);
+  text-align: left;
+}
+
+.lineQueueButton:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: 2px;
+}
+
+.lineQueueButtonCurrent {
+  color: var(--colour-text);
+}
+
+.lineQueueIdentity {
+  display: grid;
+  min-width: 0;
+  gap: 1px;
+  white-space: nowrap;
+}
+
+.lineQueueIdentity strong {
+  overflow: hidden;
+  font-size: var(--ref-font-size-small);
+  font-weight: var(--ref-font-weight-semibold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lineQueueItemNumber {
+  overflow: hidden;
+  color: var(--colour-text);
+  font-size: var(--ref-font-size-small);
+  font-weight: var(--ref-font-weight-semibold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lineQueueScalar {
+  overflow: hidden;
+  color: var(--colour-text);
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-semibold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lineQueueReservationIdentifiers {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 4px;
+  overflow: hidden;
+  color: var(--colour-text);
+  font-weight: var(--ref-font-weight-semibold);
+  white-space: nowrap;
+}
+
+.lineQueueReservationIdentifier {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lineQueueReservationIdentifier + .lineQueueReservationIdentifier {
+  padding-left: 4px;
+  border-left: 1px solid var(--colour-border);
+}
+
+.lineQueueReservationOverflow {
+  flex: 0 0 auto;
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+}
+
+.lineQueueStatus {
+  min-width: 0;
+  justify-self: center;
+}
+
+.lineQueueActions {
+  display: flex;
+  min-width: 100px;
+  grid-column: 7;
+  flex-wrap: nowrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.lineQueueSelectionCheckbox {
+  width: 16px;
+  height: 16px;
+  margin: 0 2px 0 0;
+  flex: 0 0 auto;
+  accent-color: var(--colour-primary);
+  cursor: pointer;
+}
+
+.lineQueueSelectionCheckbox:focus-visible {
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: 2px;
+}
+
+.lineActionReserve {
+  border-color: var(--colour-success) !important;
+  background-color: var(--colour-success-bg) !important;
+  color: var(--colour-success) !important;
+}
+
+.lineActionReserve:hover:not(:disabled) {
+  background-color: var(--colour-success) !important;
+  color: white !important;
+}
+
+.lineActionEquipment {
+  border-color: var(--colour-info) !important;
+  background-color: var(--colour-info-bg) !important;
+  color: var(--colour-info) !important;
+}
+
+.lineActionEquipment:hover:not(:disabled) {
+  background-color: var(--colour-info) !important;
+  color: white !important;
+}
+
+/* Lines table */
+.tableContainer {
+  max-height: min(68vh, 52rem);
+  max-height: min(68dvh, 52rem);
+  overflow: auto;
+  scrollbar-gutter: stable;
+  scroll-padding-top: 2.5rem;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-medium);
+  background-color: var(--colour-surface);
+}
+
+.tableContainer:focus-visible {
+  outline-offset: 2px;
+}
+
+.fulfilmentWorkspaceSplit .tableContainer {
+  display: none;
+  min-height: 0;
+  max-height: none;
+  flex: 1 1 auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--ref-font-size-small);
+}
+
+.table thead {
+  background-color: var(--ref-colour-grey20);
+}
+
+.table th {
+  position: sticky;
+  z-index: 3;
+  top: 0;
+  padding: 8px 10px;
+  background-color: var(--ref-colour-grey20);
+  text-align: left;
+  font-weight: var(--ref-font-weight-semibold);
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  border-bottom: 1px solid var(--colour-border);
+  box-shadow: 0 1px 0 var(--colour-border);
+  white-space: nowrap;
+}
+
+.table td {
+  padding: 8px 10px;
+  border-bottom: 1px solid var(--ref-colour-grey20);
+}
+
+.scalarCell {
+  white-space: nowrap;
+}
+
+.selectionCell {
+  width: 44px;
+  padding-right: 4px !important;
+  text-align: center !important;
+}
+
+.selectionCheckbox {
+  width: 16px;
+  height: 16px;
+  margin: 0;
+  accent-color: var(--colour-primary);
+  cursor: pointer;
+}
+
+.selectionCheckbox:focus-visible {
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: 2px;
+}
+
+.lineRow {
+  cursor: pointer;
+  transition: background-color var(--ref-transition-fast);
+}
+
+.lineRow:hover {
+  background-color: var(--ref-colour-snowfaded);
+}
+
+.lineAvailabilityTrigger {
+  min-height: 28px;
+  padding: 2px 4px;
+  border-radius: var(--ref-border-radius-small);
+  color: var(--colour-text);
+  font-weight: var(--ref-font-weight-medium);
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 3px;
+}
+
+.lineAvailabilityTrigger:hover,
+.lineAvailabilityTrigger[aria-expanded="true"] {
+  color: var(--colour-primary);
+  text-decoration-color: currentColor;
+}
+
+.pendingLineRow {
+  background: var(--ref-colour-grey10, transparent);
+}
+
+.pendingLineCell {
+  padding-left: var(--ref-spacing-small) !important;
+}
+
+.lineIdentity {
+  display: flex;
+  align-items: center;
+  min-width: 8.5rem;
+}
+
+.pendingLineConnector {
+  width: 20px;
+  height: 26px;
+  flex: 0 0 20px;
+  margin: -13px 6px 0 4px;
+  border-bottom: 1px dotted var(--colour-text-muted);
+  border-left: 1px dotted var(--colour-text-muted);
+}
+
+.lineIdentityText {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.pendingLineLabel {
+  margin-top: -1px;
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-medium);
+  line-height: 1.2;
+}
+
+.lineActionsHeader,
+.lineActionsCell {
+  width: 1%;
+  text-align: right !important;
+  white-space: nowrap;
+}
+
+.lineActionsCell {
+  cursor: default;
+}
+
+.lineActions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: var(--ref-spacing-small);
+}
+
+.selected {
+  background-color: var(--colour-primary-faded) !important;
+}
+
+/* Availability inspector */
+.availabilityResizeHandle {
+  position: relative;
+  z-index: 4;
+  width: var(--ref-spacing-medium);
+  min-width: var(--ref-spacing-medium);
+  flex: 0 0 var(--ref-spacing-medium);
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.availabilityResizeHandle::after {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  inset-inline: 0;
+  content: "";
+}
+
+.availabilityResizeHandle::before {
+  position: absolute;
+  z-index: 1;
+  top: var(--ref-spacing-small);
+  bottom: var(--ref-spacing-small);
+  left: calc(50% - 1px);
+  width: 2px;
+  border-radius: var(--ref-border-radius-full);
+  background-color: var(--colour-border);
+  content: "";
+  transition:
+    left var(--ref-transition-fast),
+    width var(--ref-transition-fast),
+    background-color var(--ref-transition-fast);
+}
+
+.availabilityResizeHandle:hover::before,
+.availabilityResizeHandle:focus-visible::before,
+.availabilityResizeHandleActive::before {
+  left: calc(50% - 2px);
+  width: 4px;
+  background-color: var(--colour-primary);
+}
+
+.availabilityInspector {
+  display: flex;
+  min-width: 0;
+  min-height: 0;
+  flex: 1 1 0;
+  flex-direction: column;
+  overflow: hidden;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-medium);
+  background-color: var(--colour-surface);
+}
+
+.availabilityInspectorCollapsed {
+  flex: 0 0 auto !important;
+}
+
+.availabilityInspectorHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--ref-spacing-medium);
+  padding: var(--ref-spacing-small) var(--ref-spacing-medium);
+  border-bottom: 1px solid var(--colour-border);
+  background-color: var(--ref-colour-grey10);
+}
+
+.availabilityInspectorCollapsed .availabilityInspectorHeader {
+  border-bottom: 0;
+}
+
+.availabilityInspectorHeading {
+  min-width: 0;
+  flex: 1 1 auto;
+}
+
+.availabilityInspectorHeading h2 {
+  font-size: var(--ref-font-size-large);
+}
+
+.availabilityInspectorHeading h2:focus-visible {
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: 2px;
+}
+
+.availabilityAttributes {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--ref-spacing-small);
+  margin-top: var(--ref-spacing-xs);
+}
+
+.availabilityAttributesLabel {
+  flex: 0 0 auto;
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-medium);
+}
+
+.availabilityAttributeList {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: var(--ref-spacing-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.availabilityAttribute {
+  max-width: 24rem;
+  padding: 3px 8px;
+  overflow: hidden;
+  border: 1px solid var(--colour-border);
+  border-radius: 999px;
+  background: var(--colour-surface);
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.availabilityAttribute strong {
+  color: var(--colour-text);
+  font-weight: var(--ref-font-weight-semibold);
+}
+
+.availabilityReservations {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--ref-spacing-small);
+  margin-top: var(--ref-spacing-xs);
+}
+
+.availabilityReservationsLabel {
+  flex: 0 0 auto;
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-medium);
+}
+
+.availabilityReservationDisclosure {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: var(--ref-spacing-xs);
+}
+
+.availabilityReservationDisclosureExpanded {
+  width: min(42rem, 100%);
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+.availabilityReservationList {
+  display: flex;
+  min-width: 0;
+  flex-wrap: wrap;
+  gap: var(--ref-spacing-xs);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.availabilityReservationListExpanded {
+  display: grid;
+  width: 100%;
+  max-height: 7rem;
+  padding-right: var(--ref-spacing-xs);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+.availabilityReservationListExpanded:focus-visible {
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: 2px;
+}
+
+.availabilityReservationEntry {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 7px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background: var(--colour-surface);
+}
+
+.availabilityReservationListExpanded .availabilityReservationEntry {
+  padding: 5px 7px;
+}
+
+.availabilityReservationEntry .reservationMeta {
+  overflow: hidden;
+  flex: 1 1 auto;
+  text-overflow: ellipsis;
+}
+
+.availabilityReservationEntry .reservationRemove {
+  margin-left: auto;
+}
+
+.availabilityReservationRemove {
+  display: inline-grid;
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  border-radius: var(--ref-border-radius-full);
+  background: transparent;
+  color: var(--colour-text-secondary);
+  cursor: pointer;
+}
+
+.availabilityReservationRemove:hover:not(:disabled) {
+  background-color: var(--colour-error-bg);
+  color: var(--colour-error);
+}
+
+.availabilityReservationRemove:focus-visible {
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: 1px;
+}
+
+.availabilityReservationRemove:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.availabilityInspectorActions {
+  display: flex;
+  flex: 0 0 auto;
+  gap: var(--ref-spacing-xs);
+}
+
+.inspectorAction {
+  min-height: 32px;
+  padding: 4px 8px;
+  border-radius: var(--ref-border-radius-small);
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-medium);
+}
+
+.inspectorAction:hover {
+  background-color: var(--ref-colour-grey20);
+  color: var(--colour-text);
+}
+
+.availabilityInspectorBody {
+  min-height: 0;
+  padding: var(--ref-spacing-medium);
+  overflow: auto;
+  scrollbar-gutter: stable;
+}
+
+.availabilityInspectorBody[hidden] {
+  display: none;
+}
+
+.availabilityUnavailable {
+  margin: 0;
+  padding: var(--ref-spacing-medium);
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-small);
+}
+
+.mono {
+  font-family: "SF Mono", "Cascadia Code", "Fira Code", monospace;
+  font-size: var(--ref-font-size-xs);
+}
+
+/* Reservations */
+.reservationsHeader,
+.reservationCell {
+  width: 22rem;
+  min-width: 22rem;
+}
+
+.reservationCell {
+  vertical-align: middle;
+}
+
+.reservationCellContent {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: var(--ref-spacing-small);
+}
+
+.reservationCellContentExpanded {
+  grid-template-columns: minmax(0, 1fr);
+  align-items: start;
+}
+
+.reservationEmpty {
+  color: var(--colour-text-muted);
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-regular);
+  white-space: nowrap;
+}
+
+.reservationDisclosure {
+  display: flex;
+  align-items: center;
+  gap: var(--ref-spacing-xs);
+  min-width: 0;
+}
+
+.reservationDisclosureExpanded {
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.reservationList {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  flex-direction: column;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.reservationListCollapsed {
+  flex-direction: row;
+  align-items: center;
+  gap: var(--ref-spacing-small);
+}
+
+.reservationListCollapsed .reservationEntry {
+  flex: 0 1 auto;
+}
+
+.reservationListCollapsed .reservationEntry + .reservationEntry {
+  padding-left: var(--ref-spacing-small);
+  border-left: 1px solid var(--colour-border);
+}
+
+.reservationListCollapsed .reservationEntry:nth-child(n + 3) {
+  display: none;
+}
+
+.reservationListExpanded {
+  max-height: 7rem;
+  padding-right: var(--ref-spacing-xs);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-gutter: stable;
+}
+
+.reservationListExpanded:focus-visible {
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: 2px;
+}
+
+.reservationListExpanded .reservationEntry + .reservationEntry {
+  padding-top: var(--ref-spacing-xs);
+  border-top: 1px solid var(--colour-border);
+  margin-top: var(--ref-spacing-xs);
+}
+
+.reservationEntry {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  padding: 1px 0;
+}
+
+.reservationIdentity {
+  display: flex;
+  min-width: 0;
+  flex: 1 1 auto;
+  align-items: baseline;
+  gap: 6px;
+}
+
+.reservationAsset {
+  min-width: 0;
+  max-width: 10rem;
+  overflow: hidden;
+  color: var(--colour-text);
+  font-weight: var(--ref-font-weight-semibold);
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.reservationMeta {
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  white-space: nowrap;
+}
+
+.reservationQuantityBadge {
+  display: inline-grid;
+  min-width: 18px;
+  height: 18px;
+  flex: 0 0 auto;
+  place-items: center;
+  padding: 0 5px;
+  border-radius: var(--ref-border-radius-full);
+  background: var(--colour-error);
+  color: #fff;
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-semibold);
+  line-height: 1;
+}
+
+.reservationRemove,
+.reservationToggle {
+  flex: 0 0 auto;
+  min-height: 24px;
+  padding: 2px 4px;
+  border: 0;
+  border-radius: var(--ref-border-radius-small);
+  background: transparent;
+  color: var(--colour-text-secondary);
+  cursor: pointer;
+  font-family: inherit;
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-medium);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  white-space: nowrap;
+}
+
+.reservationToggle:hover {
+  background-color: var(--ref-colour-grey20);
+  color: var(--colour-text);
+}
+
+.reservationDisclosureExpanded .reservationToggle {
+  align-self: flex-start;
+}
+
+.reservationRemove:hover {
+  background-color: var(--colour-error-bg);
+  color: var(--colour-error);
+}
+
+.reservationRemove:focus-visible,
+.reservationToggle:focus-visible {
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: 2px;
+}
+
+.reservationPrintOverflow {
+  display: none;
+}
+
+@media print {
+  .fulfilmentWorkspaceSplit .linesPane {
+    width: auto;
+  }
+
+  .fulfilmentWorkspace,
+  .fulfilmentWorkspaceSplit,
+  .linesPane {
+    display: block;
+    height: auto !important;
+    min-height: 0;
+    max-height: none;
+    overflow: visible !important;
+  }
+
+  .tableContainer {
+    display: block !important;
+    height: auto !important;
+    max-height: none !important;
+    overflow: visible !important;
+  }
+
+  .lineQueue {
+    display: none !important;
+  }
+
+  .table th {
+    position: static !important;
+    box-shadow: none;
+  }
+
+  .reservationList .reservationEntry:nth-child(n + 3) {
+    display: none !important;
+  }
+
+  .reservationList .reservationMeta {
+    display: none !important;
+  }
+
+  .reservationListExpanded {
+    max-height: none;
+    padding-right: 0;
+    overflow: visible;
+  }
+
+  .reservationPrintOverflow {
+    display: inline;
+    color: var(--colour-text-secondary);
+    font-size: var(--ref-font-size-xs);
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 1100px), (max-height: 680px) {
+  .fulfilmentWorkspaceSplit {
+    flex-direction: column;
+    height: auto;
+    min-height: 0;
+  }
+
+  .fulfilmentWorkspaceSplit .linesPane {
+    width: auto;
+    flex: none !important;
+    overflow: visible;
+  }
+
+  .fulfilmentWorkspaceSplit .tableContainer {
+    display: none;
+    max-height: 60vh;
+    max-height: 60dvh;
+    flex: none;
+  }
+
+  .lineQueue {
+    max-height: 16rem;
+    flex: none;
+  }
+
+  .availabilityResizeHandle {
+    display: none;
+  }
+
+  .availabilityInspector {
+    max-height: none;
+    margin-top: var(--ref-spacing-medium);
+    flex: none !important;
+  }
+
+  .availabilityInspectorHeader {
+    flex-wrap: wrap;
+  }
+
+  .availabilityInspectorBody {
+    overflow: visible;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .availabilityResizeHandle::before {
+    transition: none;
+  }
+}
+
+/* States */
+.loadingContainer {
+  display: flex;
+  justify-content: center;
+  padding: var(--ref-spacing-xxl);
+}
+
+.errorContainer {
+  padding: var(--ref-spacing-large);
+  text-align: center;
+  color: var(--colour-error);
+}
+
+@media (max-width: 1600px) {
+  .headerGrid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 1200px) {
+  .headerGrid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 760px) {
+  .topBar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .headerGrid {
+    grid-template-columns: 1fr;
+  }
+}

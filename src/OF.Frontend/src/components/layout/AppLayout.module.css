@@ -1,0 +1,195 @@
+.layout {
+  display: grid;
+  grid-template-columns: 240px calc(100% - 240px);
+  min-height: 100vh;
+  overflow-x: clip;
+  transition: grid-template-columns 680ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.homeLayout {
+  grid-template-columns: 100% 0;
+  background: var(--ref-colour-ink);
+}
+
+.collapsedLayout:not(.homeLayout) {
+  grid-template-columns: 72px calc(100% - 72px);
+}
+
+.main {
+  min-width: 0;
+  overflow-y: auto;
+  background-color: var(--colour-background);
+  opacity: 1;
+  transform: translateX(0);
+  transition:
+    opacity 420ms 140ms ease,
+    transform 680ms cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.mainHome {
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateX(28px);
+  transition-delay: 0ms;
+}
+
+.mainViewportContained {
+  display: flex;
+  min-height: 0;
+  height: 100vh;
+  height: 100dvh;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.pageContent {
+  padding: var(--ref-spacing-large);
+}
+
+.pageContentViewportContained {
+  position: relative;
+  display: flex;
+  min-height: 0;
+  flex: 1;
+  flex-direction: column;
+}
+
+.pageContentViewportContained > :last-child {
+  min-height: 0;
+  flex: 1;
+}
+
+.pageContentViewportContained > .utilityBar {
+  margin-bottom: 0;
+}
+
+.utilityBar {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 8px;
+  min-height: 38px;
+  margin-bottom: var(--ref-spacing-large);
+}
+
+@media (min-width: 1101px) {
+  .pageContentViewportContained > .utilityBar {
+    position: absolute;
+    top: var(--ref-spacing-large);
+    right: var(--ref-spacing-large);
+    margin-bottom: 0;
+  }
+}
+
+.mobileHeader,
+.backdrop {
+  display: none;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  gap: var(--ref-spacing-medium);
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid var(--colour-border);
+  border-top-color: var(--colour-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 899px) {
+  .layout {
+    display: block;
+    transition: none;
+  }
+
+  .main {
+    min-height: 100vh;
+  }
+
+  .mainHome {
+    display: none;
+  }
+
+  .pageContent {
+    padding: var(--ref-spacing-medium);
+  }
+
+  .utilityBar {
+    justify-content: stretch;
+  }
+
+  .mobileHeader {
+    display: flex;
+    align-items: center;
+    min-height: 52px;
+    gap: var(--ref-spacing-small);
+    padding: 0 var(--ref-spacing-medium);
+    border-bottom: 1px solid var(--colour-border);
+    background-color: var(--colour-surface);
+  }
+
+  .mobileMenuButton {
+    display: grid;
+    place-items: center;
+    width: 36px;
+    height: 36px;
+    border-radius: var(--ref-border-radius-small);
+    color: var(--colour-text);
+  }
+
+  .mobileMenuButton:hover {
+    background-color: var(--ref-colour-grey20);
+  }
+
+  .mobileAppName {
+    font-size: var(--ref-font-size-small);
+    font-weight: var(--ref-font-weight-semibold);
+  }
+
+  .backdrop {
+    display: block;
+    position: fixed;
+    z-index: 10;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(16, 16, 16, 0.36);
+    cursor: default;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spinner,
+  .main,
+  .layout {
+    animation: none;
+    transition: none;
+  }
+}
+
+@media print {
+  .mainViewportContained,
+  .pageContentViewportContained {
+    display: block;
+    height: auto;
+    overflow: visible;
+  }
+}

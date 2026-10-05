@@ -1,0 +1,139 @@
+name: Claude PR Review
+
+on:
+  workflow_dispatch:
+    inputs:
+      pr_number:
+        description: "PR number to review"
+        required: true
+        type: number
+  issue_comment:
+    types: [created]
+  pull_request_review_comment:
+    types: [created]
+
+permissions:
+  contents: read
+  pull-requests: write
+  id-token: write
+
+jobs:
+  # ── Job 1: Automatic review on PR open / push, or manual via workflow_dispatch
+  auto-review:
+    runs-on: ubuntu-latest
+    name: Claude code review
+    if: |
+      github.actor != 'dependabot[bot]' &&
+      secrets.ANTHROPIC_API_KEY != '' &&
+      (
+        github.event_name == 'pull_request' ||
+        github.event_name == 'workflow_dispatch'
+      )
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Resolve PR context
+        id: pr
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            PR_NUMBER="${{ inputs.pr_number }}"
+            BASE_REF=$(gh api repos/${{ github.repository }}/pulls/${{ inputs.pr_number }} --jq '.base.ref')
+            gh pr checkout "$PR_NUMBER"
+          else
+            PR_NUMBER="${{ github.event.pull_request.number }}"
+            BASE_REF="${{ github.base_ref }}"
+          fi
+          echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+          echo "base_ref=$BASE_REF" >> $GITHUB_OUTPUT
+
+      - name: Detect changed file areas
+        id: areas
+        run: |
+          CHANGED=$(git diff --name-only origin/${{ steps.pr.outputs.base_ref }}...HEAD)
+          echo "changed_files<<EOF" >> $GITHUB_OUTPUT
+          echo "$CHANGED" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+          has_backend=false
+          has_infra=false
+
+          while IFS= read -r file; do
+            [[ "$file" == src/* ]] && has_backend=true
+            [[ "$file" == .github/* || "$file" == Dockerfile* || "$file" == build/k8s/* || "$file" == k8s/* ]] && has_infra=true
+          done <<< "$CHANGED"
+
+          echo "backend=$has_backend" >> $GITHUB_OUTPUT
+          echo "infra=$has_infra" >> $GITHUB_OUTPUT
+
+      - name: Build standards context
+        id: standards
+        run: |
+          STANDARDS=$(cat .github/review-standards/general.md)
+
+          if [ "${{ steps.areas.outputs.backend }}" = "true" ]; then
+            STANDARDS="$STANDARDS
+
+          ---
+
+          $(cat .github/review-standards/backend.md)"
+          fi
+
+          if [ "${{ steps.areas.outputs.infra }}" = "true" ]; then
+            STANDARDS="$STANDARDS
+
+          ---
+
+          $(cat .github/review-standards/infrastructure.md)"
+          fi
+
+          echo "content<<EOF" >> $GITHUB_OUTPUT
+          echo "$STANDARDS" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      - name: Claude PR Review
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: --max-turns 15
+          use_sticky_comment: true
+          prompt: |
+            Review this pull request against the team's coding standards below.
+
+            Apply only the standards that are relevant to the files changed in this PR.
+            Be concise — skip praise for things that are fine. Flag issues that warrant attention before merging, with a file path and line reference where possible.
+
+            When you have finished your analysis, post your findings as a comment on this PR using the available GitHub tools.
+
+            ---
+
+            ${{ steps.standards.outputs.content }}
+
+  # ── Job 2: Respond to @claude mentions in PR comments ─────────────────────
+  claude-mention:
+    runs-on: ubuntu-latest
+    name: Claude @mention response
+    if: |
+      github.actor != 'dependabot[bot]' &&
+      secrets.ANTHROPIC_API_KEY != '' &&
+      (
+        (github.event_name == 'issue_comment' &&
+         github.event.issue.pull_request != null &&
+         contains(github.event.comment.body, '@claude')) ||
+        (github.event_name == 'pull_request_review_comment' &&
+         contains(github.event.comment.body, '@claude'))
+      )
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Claude @mention response
+        uses: anthropics/claude-code-action@v1
+        with:
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          claude_args: --max-turns 5
+          use_sticky_comment: true

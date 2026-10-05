@@ -1,0 +1,84 @@
+﻿--CREATE TRIGGER AuditLines
+--ON Lines
+--AFTER INSERT, UPDATE, DELETE
+--AS
+--BEGIN
+--    SET NOCOUNT ON;
+--    DECLARE @OperationType CHAR(1) = 'N', -- Default for unexpected cases
+--            @NewValues NVARCHAR(MAX),
+--            @UpdatedBy VARCHAR(128),
+--            @RecordId INT = 0;
+
+--    SELECT @UpdatedBy = SYSTEM_USER;
+
+--    IF EXISTS (SELECT * FROM inserted) AND EXISTS (SELECT * FROM deleted)
+--    BEGIN
+--        -- Check if any relevant fields have changed
+--        IF EXISTS (SELECT 1 
+--                   FROM inserted i
+--                   JOIN deleted d ON i.Id = d.Id
+--                   WHERE i.HeaderId != d.HeaderId
+--                      OR i.OrderLineNumber != d.OrderLineNumber
+--                      OR i.AgreementLineNumber != d.AgreementLineNumber
+--                      OR i.ItemNumber != d.ItemNumber
+--                      OR i.DeliveryDate != d.DeliveryDate
+--                      OR i.ValidToDate != d.ValidToDate
+--                      OR i.TerminationDate != d.TerminationDate
+--                      OR i.Quantity != d.Quantity
+--                      OR i.AgreementLineType != d.AgreementLineType
+--                      OR i.Warehouse != d.Warehouse
+--                      OR i.Status != d.Status
+--                      OR i.Division != d.Division
+--                      OR i.PackageGroupNumber != d.PackageGroupNumber
+--                      OR i.Attributes != d.Attributes
+--                      OR i.ValidFromDate != d.ValidFromDate
+--                      OR i.GenericItemNumber != d.GenericItemNumber
+--                      OR i.IsDeleted != d.IsDeleted
+--                      OR i.FulfilmentStatus != d.FulfilmentStatus
+--                      OR i.QuantityFulfilled != d.QuantityFulfilled
+--                      OR i.LastUpdatedBy != d.LastUpdatedBy
+--                      OR i.LastUpdatedDate != d.LastUpdatedDate
+--                      OR i.AgreementLineIndex != d.AgreementLineIndex
+--                      OR i.Facility != d.Facility
+--                      OR i.OrderLineIndex != d.OrderLineIndex
+--                      OR i.QuoteLineIndex != d.QuoteLineIndex
+--                      OR i.QuoteLineNumber != d.QuoteLineNumber
+--                      OR i.OrderSource != d.OrderSource
+--                      OR i.QuotePublicId != d.QuotePublicId
+--                      OR i.NumberOfShifts != d.NumberOfShifts
+--                      OR i.RateType != d.RateType
+--                      OR i.CollectionDate != d.CollectionDate
+--                      OR i.ActivationStatus != d.ActivationStatus
+--                      OR i.ActivationInstanceId != d.ActivationInstanceId)
+--        BEGIN
+--            SET @OperationType = 'U';
+--            SET @NewValues = (SELECT HeaderId, OrderLineNumber, AgreementLineNumber, ItemNumber, DeliveryDate, ValidToDate, TerminationDate, 
+--                                 Quantity, AgreementLineType, Warehouse, Status, Division, PackageGroupNumber, Attributes, ValidFromDate, 
+--                                 GenericItemNumber, IsDeleted, FulfilmentStatus, QuantityFulfilled, LastUpdatedBy, AgreementLineIndex, 
+--                                 Facility, OrderLineIndex, QuoteLineIndex, QuoteLineNumber, OrderSource, QuotePublicId, NumberOfShifts, RateType, 
+--                                 CollectionDate, ActivationStatus, ActivationInstanceId FROM inserted FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);
+--            SELECT @RecordID = ID FROM inserted;
+--        END
+--    END
+--    ELSE IF EXISTS (SELECT * FROM inserted)
+--    BEGIN
+--        SET @OperationType = 'I';
+--        SET @NewValues = (SELECT HeaderId, OrderLineNumber, AgreementLineNumber, ItemNumber, DeliveryDate, ValidToDate, TerminationDate, 
+--                                 Quantity, AgreementLineType, Warehouse, Status, Division, PackageGroupNumber, Attributes, ValidFromDate, 
+--                                 GenericItemNumber, IsDeleted, FulfilmentStatus, QuantityFulfilled, LastUpdatedBy, AgreementLineIndex, 
+--                                 Facility, OrderLineIndex, QuoteLineIndex, QuoteLineNumber, OrderSource, QuotePublicId, NumberOfShifts, RateType, 
+--                                 CollectionDate, ActivationStatus, ActivationInstanceId FROM inserted FOR JSON PATH, WITHOUT_ARRAY_WRAPPER);
+--        SELECT @RecordID = ID FROM inserted;
+--    END
+--    ELSE IF EXISTS (SELECT * FROM deleted)
+--    BEGIN
+--        SET @OperationType = 'D';
+--        SELECT @RecordID = ID FROM deleted;
+--    END
+
+--    IF @RecordId > 0 AND @OperationType <> 'N'
+--    BEGIN
+--        INSERT INTO AuditLog (TableName, OperationType, NewValues, UpdateDate, UpdatedBy, RecordID)
+--        VALUES ('Lines', @OperationType, @NewValues, GETDATE(), @UpdatedBy, @RecordId);
+--    END
+--END

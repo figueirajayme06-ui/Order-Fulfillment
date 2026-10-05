@@ -1,0 +1,6 @@
+CREATE TABLE [dbo].[ProductItemsSyncList] (
+    [Id] INT IDENTITY(1,1) PRIMARY KEY,
+    [ItemNumber] NVARCHAR(50) NOT NULL UNIQUE,
+    [IsActive] BIT NOT NULL DEFAULT 1,
+    [CreatedDate] DATETIME2 NOT NULL DEFAULT GETDATE()
+);

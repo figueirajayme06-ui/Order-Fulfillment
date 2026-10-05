@@ -1,0 +1,54 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: nof-products
+  namespace: order-fulfillment
+  labels:
+    app.kubernetes.io/name: nof-products
+    app.kubernetes.io/component: data-sync
+    app.kubernetes.io/part-of: order-fulfillment
+spec:
+  schedule: "0 12 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  suspend: false
+  jobTemplate:
+    spec:
+      backoffLimit: 3
+      activeDeadlineSeconds: 1800
+      template:
+        metadata:
+          labels:
+            app.kubernetes.io/name: nof-products
+            azure.workload.identity/use: "true"
+        spec:
+          serviceAccountName: order-fulfillment-sa
+          restartPolicy: Never
+          containers:
+            - name: products
+              image: ACR_PLACEHOLDER/nof/products:latest
+              imagePullPolicy: Always
+              resources:
+                requests:
+                  cpu: "250m"
+                  memory: "512Mi"
+                limits:
+                  cpu: "250m"
+                  memory: "512Mi"
+              envFrom:
+                - configMapRef:
+                    name: order-fulfillment-config
+                - secretRef:
+                    name: order-fulfillment-secrets
+              volumeMounts:
+                - name: secrets-store
+                  mountPath: /mnt/secrets-store
+                  readOnly: true
+          volumes:
+            - name: secrets-store
+              csi:
+                driver: secrets-store.csi.k8s.io
+                readOnly: true
+                volumeAttributes:
+                  secretProviderClass: order-fulfillment-secrets-provider

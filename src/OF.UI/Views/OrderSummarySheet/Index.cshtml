@@ -1,0 +1,270 @@
+﻿@using OF.UI.Helpers
+@inject IViewLocalizer Localizer
+@model OrderSummaryModel
+@{
+    bool showNotes = Model.Notes != null && Model.Notes.Any();
+    int totalPages = showNotes ? 5 : 4;
+}
+
+@* 1: Page Details *@
+<div class="page">
+    @await Html.PartialAsync("~/Views/OrderSummarySheet/_Header.cshtml", Model)
+    <div class="body column">
+        <div class="side">
+            <div class="box inverse">
+                <section>
+                    <label>@Localizer["Delivery date"]</label>
+                    <span class="focus">@Html.Safe(Model.DeliveryDate?.ToString("dd MMM yyyy")?.ToUpper())</span>
+                    <span><i class="bi bi-clock"></i> @Html.Safe(Model.DeliverySlot)</span>
+                </section>
+                <section>
+                    <label>@Localizer["On hire date"]</label>
+                    <span>@Html.Safe(Model.MinOnHire?.ToString("dd MMM yyyy")?.ToUpper())</span>
+                </section>
+            </div>
+            <div class="box">
+                <section>
+                    <label>@Localizer["Shipping address"]</label>
+                    <span>@Html.Safe(Model.ShippingAddress)</span>
+                </section>
+                <section>
+                    <label>@Localizer["Site contact"]</label>
+                    @if (Model.HasSiteContact)
+                    {
+                        <span>@Html.Safe(Model.SiteContactName)</span>
+                        <span>@Html.Safe(Model.SiteContactEmail)</span>
+                        <span>@Html.Safe(Model.SiteContactPhone)</span>
+                    }
+                    else
+                    {
+                        <span>@Html.Safe(null)</span>
+                    }
+                </section>
+                <section>
+                    <label>@Localizer["Primary contact"]</label>
+                    @if (Model.HasProposalContact)
+                    {
+                        <span>@Html.Safe(Model.ProposalContactName)</span>
+                        <span>@Html.Safe(Model.ProposalContactEmail)</span>
+                        <span>@Html.Safe(Model.ProposalContactPhone)</span>
+                    }
+                    else
+                    {
+                        <span>@Html.Safe(null)</span>
+                    }
+                </section>
+                <section>
+                    <label>@Localizer["CSR"]</label>
+                    <span>@Html.Safe(Model.OwnerName)</span>
+                </section>
+            </div>
+        </div>
+        <div class="content">
+            <div class="box">
+                <section>
+                    <label>@Localizer["Workplan"]</label>
+                    <span class="focus">@Localizer["ARM Required"]</span>
+                    <span>@Html.Safe(Model.ARMRequired ? "Yes" : "No")</span>
+                    <span class="focus pt-2">@Localizer["ARM Contact Hours"]</span>
+                    <span>@Html.Safe(Model.ARMContactHours)</span>
+                    <span class="focus pt-2">@Localizer["Freight Method"]</span>
+                    <span>@Html.Safe(Model.FreightMethod)</span>
+                    <span class="focus pt-2">@Localizer["Freight Details"]</span>
+                    <span>@Html.Safe(Model.FreightDetails)</span>
+                    <span class="focus pt-2">@Localizer["Fuel Service Selected"]</span>
+                    <span>@Html.Safe(Model.FuelServiceSelected)</span>
+                    <span class="focus pt-2">@Localizer["Fuel Service Details"]</span>
+                    <span>@Html.Safe(Model.FuelServiceDetails)</span>
+                    <span class="focus pt-2">@Localizer["Operational Requirements Details"]</span>
+                    <span>@Html.Safe(Model.OperationalRequirementsDetails)</span>
+                    <span class="focus pt-2">@Localizer["Site Specific Requirements"]</span>
+                    <span>@Html.Safe(Model.SiteSpecificRequirements)</span>
+                    <span class="focus pt-2">@Localizer["Order Notes"]</span>
+                    <span>@Html.Safe(Model.OrderNotes)</span>
+                    <span class="focus pt-2">@Localizer["AggrekoTech Required"]</span>
+                    <span>@Html.Safe(Model.AggrekoTechRequired ? "Yes" : "No")</span>
+                    <span class="focus pt-2">@Localizer["Technician Requirement Details"]</span>
+                    <span>@Html.Safe(Model.TechnicianRequirementDetails)</span>
+                    <span class="focus pt-2">@Localizer["Technical Requirements"]</span>
+                    <span>@Html.Safe(Model.TechnicalRequirements)</span>
+                </section>
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("~/Views/OrderSummarySheet/_Footer.cshtml", GetFooterModel(1, totalPages))
+</div>
+
+@* 2: Page Overview *@
+<div class="page">
+    @await Html.PartialAsync("~/Views/OrderSummarySheet/_Header.cshtml")
+    <div class="body column">
+        <div class="content">
+            <div class="box">
+                <section>
+                    <label>@Localizer["Overview of services"]</label>
+                    <span>@Html.SafeRaw(Model.OverviewOfServices)</span>
+                </section>
+            </div>
+        </div>
+    </div>
+    @await Html.PartialAsync("~/Views/OrderSummarySheet/_Footer.cshtml", GetFooterModel(2, totalPages))
+</div>
+
+@* 3: Page Lines *@
+<div class="page">
+    <div class="body">
+        <h2>@Localizer["Equipment List"]</h2>
+        <div class="table">
+            <table>
+                <thead>
+                    <tr>
+                        <td class="small">@Localizer["Line"]</td>
+                        <td>@Localizer["Asset"]</td>
+                        <td>@Localizer["Item number"]</td>
+                        <td>@Localizer["Generic code"]</td>
+                        <td>@Localizer["Description"]</td>
+                        <td class="small">@Localizer["Qty"]</td>
+                        <td>@Localizer["Attributes"]</td>
+                        <td>@Localizer["On hire date"]</td>
+                        <td>@Localizer["Off hire date"]</td>
+                        <td>@Localizer["Actions required"]</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.Equipment.Any())
+                    {
+                        foreach (var equipment in Model.Equipment)
+                        {
+                            <tr>
+                                <td colspan="10" class="sub-head left px-2">@equipment.Warehouse</td>
+                            </tr>
+                            if (Model.Equipment.Any())
+                            {
+                                foreach (var line in equipment.Lines)
+                                {
+                                    <tr>
+                                        <td>@line.LineNumber</td>
+                                        <td>@line.Asset</td>
+                                        <td>@line.ItemNumber</td>
+                                        <td>@line.GenericCode</td>
+                                        <td class="left">@Html.SafeRaw(line.Description)</td>
+                                        <td>@line.Quantity</td>
+                                        <td class="left">@line.Attributes</td>
+                                        <td>@line.OnHireDate.ToString("dd MMM yyyy")?.ToUpper()</td>
+                                        <td>@line.OffHireDate.ToString("dd MMM yyyy")?.ToUpper()</td>
+                                        <td class="left">@line.Actions</td>
+                                    </tr>
+                                }
+                            }
+                        }
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+@* 4: Page Charges *@
+<div class="page">
+    @await Html.PartialAsync("~/Views/OrderSummarySheet/_Header.cshtml")
+    <div class="body">
+        <h2>@Localizer["One Time Charges"]</h2>
+        <div class="table">
+            <table>
+                <thead>
+                    <tr>
+                        <td class="medium">@Localizer["Item number"]</td>
+                        <td>@Localizer["Description"]</td>
+                        <td class="small">@Localizer["Qty"]</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.OneTimeCharges.Any())
+                    {
+                        foreach (var charge in Model.OneTimeCharges)
+                        {
+                            <tr>
+                                <td class="left">@charge.ItemNumber</td>
+                                <td class="left">@Html.SafeRaw(charge.Description)</td>
+                                <td >@charge.Quantity</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="9" class="left">@Html.Safe(Localizer["No one time charges."].Value)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+        <h2>@Localizer["Variable Charges"]</h2>
+        <div class="table">
+            <table>
+                <thead>
+                    <tr>
+                        <td class="medium">@Localizer["Item number"]</td>
+                        <td>@Localizer["Description"]</td>
+                        <td class="small">@Localizer["Qty"]</td>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (Model.VariableCharges.Any())
+                    {
+                        foreach (var charge in Model.VariableCharges)
+                        {
+                            <tr>
+                                <td class="left">@charge.ItemNumber</td>
+                                <td class="left">@Html.SafeRaw(charge.Description)</td>
+                                <td>@charge.Quantity</td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr>
+                            <td colspan="9" class="left">@Html.Safe(Localizer["No variable charges."].Value)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+    @await Html.PartialAsync("~/Views/OrderSummarySheet/_Footer.cshtml", GetFooterModel(4, totalPages))
+</div>
+
+@* 5: Page Notes *@
+@if (showNotes)
+{
+    <div class="page">
+        @await Html.PartialAsync("~/Views/OrderSummarySheet/_Header.cshtml")
+        <div class="body column">
+            <div class="content">
+                <div class="box">
+                    <section>
+                        <label>@Localizer["Notes"]</label>
+                        @foreach (var note in Model.Notes)
+                        {
+                            <span class="focus">@Localizer["By"] @Html.Safe(note?.LastUpdatedBy?.Split("@")[0]) @@ @Html.Safe(note?.LastUpdatedDate.ToString("dd MMM yyyy, HH:mm"))</span>
+                            <p>@Html.SafeRaw(note.Note1)</p>
+                        }
+                    </section>
+                </div>
+            </div>
+        </div>
+        @await Html.PartialAsync("~/Views/OrderSummarySheet/_Footer.cshtml", GetFooterModel(5, totalPages))
+    </div>
+}
+
+@functions {
+    OrderSummaryFooterModel GetFooterModel(int page, int totalPages)
+    {
+        return new OrderSummaryFooterModel()
+            {
+                OrderSumary = Model,
+                PageIndex = page,
+                PageTotal = totalPages
+            };
+    }
+}

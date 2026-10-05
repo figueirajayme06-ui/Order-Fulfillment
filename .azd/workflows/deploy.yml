@@ -1,0 +1,153 @@
+pool:
+  name: 'Self-Hosted-Ubuntu-Shared'
+
+trigger: none
+pr: none
+
+variables:
+  - template: ../actions/variables.yml
+
+stages:
+- stage: 'Build'
+  displayName: 'Version, Build & Publish, Docs'
+  variables:
+  - group: OF-DEV
+
+  jobs:
+  - job: 'Version'
+    displayName: 'Version'
+    steps:
+    - template: ../actions/version.yml
+      parameters:
+        version: $(version)
+
+  - job: 'Build'
+    displayName: 'Build & Publish'
+    dependsOn: ["Version"]
+    steps:
+    - template: ../actions/build.yml
+      parameters:
+        workingDirectory: '$(Build.SourcesDirectory)/src'
+        test: false
+        artifact: true
+
+  - job: 'Build_WebApp_Container'
+    displayName: 'Build & Push New Frontend Container'
+    dependsOn: ["Build"]
+    steps:
+    - task: NodeTool@0
+      displayName: 'Install Node.js'
+      inputs:
+        versionSpec: '22.x'
+
+    - script: npm ci
+      displayName: 'Install frontend dependencies'
+      workingDirectory: '$(Build.SourcesDirectory)/src/OF.Frontend'
+
+    - script: npm test
+      displayName: 'Test new frontend'
+      workingDirectory: '$(Build.SourcesDirectory)/src/OF.Frontend'
+
+    - script: npm run lint
+      displayName: 'Lint new frontend'
+      workingDirectory: '$(Build.SourcesDirectory)/src/OF.Frontend'
+
+    - task: Docker@2
+      displayName: 'Build and push new OF frontend image'
+      inputs:
+        command: buildAndPush
+        repository: 'nof/of-webapp'
+        dockerfile: '$(Build.SourcesDirectory)/src/OF.WebApp/Dockerfile'
+        buildContext: '$(Build.SourcesDirectory)'
+        containerRegistry: '$(registryServiceConnection)'
+        tags: |
+          $(Build.SourceVersion)
+          $(version)
+
+  - job: 'Docs'
+    displayName: 'Docs'
+    dependsOn: ["Version"]
+    steps:
+    - task: PublishPipelineArtifact@1
+      displayName: 'Design'
+      inputs:
+        path: '$(Build.SourcesDirectory)/build/docs/static/images/design.json'
+        artifact: design
+
+- stage: 'Deploy_Dev'
+  displayName: 'Dev Deployment'
+  variables:
+  - group: OF-Dev
+  dependsOn: ['Build']
+  jobs:
+  - deployment: 'Deploy_Dev'
+    displayName: 'Dev Deploy Apps'
+    environment: 'dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../actions/deploy-apps.yml
+            parameters:
+              serviceConnection: $(serviceConnection)
+
+          - template: ../actions/deploy-webapp-container.yml
+            parameters:
+              serviceConnection: $(serviceConnection)
+              appServiceName: 'asofwebapp$(environment)'
+              imageName: '$(cr_name).azurecr.io/nof/of-webapp:$(Build.SourceVersion)'
+              environment: '$(environment)'
+              releaseVersion: '$(Build.BuildNumber)'
+              commitSha: '$(Build.SourceVersion)'
+              sourceRef: '$(Build.SourceBranch)'
+
+- stage: 'Deploy_SIT'
+  displayName: 'SIT Deployment'
+  variables:
+  - group: OF-SIT
+  dependsOn: ['Build']
+  jobs:
+  - deployment: 'Deploy_SIT'
+    displayName: 'SIT Deploy Apps'
+    environment: 'sit'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../actions/deploy-apps.yml
+            parameters:
+              serviceConnection: $(serviceConnection)
+
+- stage: 'Deploy_Test'
+  displayName: 'Test Deployment'
+  variables:
+  - group: OF-Test
+  dependsOn: ['Build']
+  jobs:
+  - deployment: 'Deploy_Test'
+    displayName: 'Test Deploy Apps'
+    environment: 'test'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../actions/deploy-apps.yml
+            parameters:
+              serviceConnection: $(serviceConnection)
+
+- stage: 'Deploy_Live'
+  displayName: 'Live Deployment'
+  variables:
+  - group: OF-Live
+  dependsOn: ['Build']
+  jobs:
+  - deployment: 'Deploy_Live'
+    displayName: 'Live Deploy Apps'
+    environment: 'live'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../actions/deploy-apps.yml
+            parameters:
+              serviceConnection: $(serviceConnectionLive)

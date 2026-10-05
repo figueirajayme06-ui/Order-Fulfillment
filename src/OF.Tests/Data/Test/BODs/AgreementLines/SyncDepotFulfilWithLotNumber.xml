@@ -1,0 +1,142 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<SyncAGKRentalOrderLine xmlns="http://schema.infor.com/InforOAGIS/2" releaseID="9.2" versionID="2.14.3" systemEnvironmentCode="Production">
+	<ApplicationArea>
+		<Sender>
+			<LogicalID schemeVersionID="3.016">lid://infor.m3.m3</LogicalID>
+			<ComponentID schemeVersionID="16.0.0.20250821122625.10">M3BE</ComponentID>
+			<ConfirmationCode>OnError</ConfirmationCode>
+		</Sender>
+		<CreationDateTime>2025-10-23T14:07:39.871Z</CreationDateTime>
+		<BODID>43d24b0e-8f82-400b-8226-fcea5bf29384</BODID>
+	</ApplicationArea>
+	<DataArea>
+		<Sync>
+			<AccountingEntityID>001_110</AccountingEntityID>
+			<ActionCriteria>
+				<ActionExpression actionCode="Replace"/>
+			</ActionCriteria>
+		</Sync>
+		<AGKRentalOrderLine>
+			<IDs>
+				<ID>A730698-1</ID>
+			</IDs>
+			<agreementNumber>A730698</agreementNumber>
+      <agreementNumberId>730698</agreementNumberId>
+			<agreementLineNumber>1</agreementLineNumber>
+			<agreementLineId>A730698-1</agreementLineId>
+			<AgreementLines>
+				<agreementLineSuffix>0</agreementLineSuffix>
+				<company>001</company>
+				<division>110</division>
+				<facility>UKN</facility>
+				<itemNumber>GN0060GHPCAN</itemNumber>
+				<purchaseOrderLineNumber>0</purchaseOrderLineNumber>
+				<agreementLineType>5</agreementLineType>
+				<agreementLineStatus>50</agreementLineStatus>
+				<customerSiteAccount>GB00013519</customerSiteAccount>
+				<customerSiteAddress>900000</customerSiteAddress>
+				<daysPerWeek>7</daysPerWeek>
+				<fromWarehouse>ED0</fromWarehouse>
+				<holdInvoicing>0</holdInvoicing>
+				<invoiceMethod>2</invoiceMethod>
+				<deliveryOrderLine>6</deliveryOrderLine>
+				<collectionOrderLine>6</collectionOrderLine>
+				<netDailyRate>77.480000</netDailyRate>
+				<netRate>542.370000</netRate>
+				<numberOfShifts>1</numberOfShifts>
+				<orderedQuantity>1.000000</orderedQuantity>
+				<payerAccount>GB00013519</payerAccount>
+				<deliveryDate>2025-10-23T00:00:00Z</deliveryDate>
+				<collectionDate>2025-10-31T00:00:00Z</collectionDate>
+				<priceList>L10</priceList>
+				<rateType>2</rateType>
+				<siteAddressLine1>17 Moor St</siteAddressLine1>
+				<siteAddressLine3>London W1D 5AP</siteAddressLine3>
+				<siteAddressLine4>United Kingdom</siteAddressLine4>
+				<pRTextTextIdentity>0</pRTextTextIdentity>
+				<pOTextTextIdentity>0</pOTextTextIdentity>
+				<deliveryTextIdentity>27663060</deliveryTextIdentity>
+				<collectionTextIdentity>0</collectionTextIdentity>
+				<correlationId>43d24b0e-8f82-400b-8226-fcea5bf29384</correlationId>
+				<TextIdentityDeliveryText>
+					<textBlock>Attributes</textBlock>
+					<text>Telemetry:Yes;Voltage:240V 1-phase @ 50 Hz;Shift factor:8 Running hours p/d;{0}</text>
+				</TextIdentityDeliveryText>
+				<toWarehouse>ED0</toWarehouse>
+				<AgreementLineTextId>0</AgreementLineTextId>
+				<validFromDate>2025-10-23T00:00:00Z</validFromDate>
+				<validToDate>2025-10-31T00:00:00Z</validToDate>
+				<daysOnHire>0</daysOnHire>
+				<discount>0.00</discount>
+				<netWeeklyRate>0.000000</netWeeklyRate>
+				<deliveryOrderTextIdentity>17970120</deliveryOrderTextIdentity>
+				<collectionOrderTextIdentity>0</collectionOrderTextIdentity>
+				<TextIdentityDeliveryOrderText>
+					<textBlock>Attributes</textBlock>
+					<text>Telemetry:Yes;Voltage:240V 1-phase @ 50 Hz;Shift factor:8 Running hours p/d;{0}</text>
+				</TextIdentityDeliveryOrderText>
+				<deliveryOrderNumber>0004585557</deliveryOrderNumber>
+				<collectionOrderNumber>0004585558</collectionOrderNumber>
+				<itemDescription>Diesel Generator 200 kVA</itemDescription>
+				<substitute>0</substitute>
+				<nextInvoiceDate>2025-11-19T00:00:00Z</nextInvoiceDate>
+				<modelDescription>Diesel Generator 200</modelDescription>
+				<accumulatedLineValue>0.00</accumulatedLineValue>
+				{1}
+				<genericItemNumber>XGGN0200</genericItemNumber>
+				<netHourlyRate>0.000000</netHourlyRate>
+				<deliveredQuantity>1.000000</deliveredQuantity>
+				<returnedQuantity>0.000000</returnedQuantity>
+				<allocatedQuantity>0.000000</allocatedQuantity>
+				<soldQuantity>0.000000</soldQuantity>
+				<deliveryStartTime>00:30</deliveryStartTime>
+				<collectionStartTime>00:30</collectionStartTime>
+				<deliveryEndTime>00:30</deliveryEndTime>
+				<collectionEndTime>00:45</collectionEndTime>
+				<packageGroupNumber>1</packageGroupNumber>
+				<PackageSortLine>001</PackageSortLine>
+				<agentCommission>0.00</agentCommission>
+				<POExpiryDate>x</POExpiryDate>
+				<minRentalAmount>0.00</minRentalAmount>
+				<minRentalPeriod>14</minRentalPeriod>
+				<minRentalType>1</minRentalType>
+				<orderItemLine>2939837.000000</orderItemLine>
+				<orderItemRecordId>802Ve00000BmpEoIAJ</orderItemRecordId>
+				<linkedAgreementLine>5545.000000</linkedAgreementLine>
+				<changeSequence>1761228447553|18</changeSequence>
+				<deliveryOrderLineHighestStatus>66</deliveryOrderLineHighestStatus>
+				<orderSource>NOF</orderSource>
+				<quoteLineRecordId>a22Ve000001NePBIA0</quoteLineRecordId>
+				<payerAddress>900000</payerAddress>
+				<AdditionalCharges>
+					<chargeSuffix>070</chargeSuffix>
+					<charge>0.00</charge>
+					<chargeName>Meter Hours</chargeName>
+					<chargeType>6</chargeType>
+					<chargeItem>MTR-14</chargeItem>
+					<chargeLineId>A730698|1|070</chargeLineId>
+					<agreedMeterHours>8.000000</agreedMeterHours>
+					<meterUnitPrice>0.000000</meterUnitPrice>
+					<overusageMeterUntiPrice>17.620000</overusageMeterUntiPrice>
+				</AdditionalCharges>
+				<AdditionalCharges>
+					<chargeSuffix>073</chargeSuffix>
+					<charge>0.00</charge>
+					<ChargeStatus>20</ChargeStatus>
+					<chargeName>Fuel Out/In</chargeName>
+					<chargeType>7</chargeType>
+					<chargeItem>FUEL OUT/IN</chargeItem>
+					<chargeLineId>A730698|1|073</chargeLineId>
+					<agreedMeterHours>8.000000</agreedMeterHours>
+					<meterUnitPrice>0.000000</meterUnitPrice>
+					<overusageMeterUntiPrice>17.620000</overusageMeterUntiPrice>
+				</AdditionalCharges>
+			</AgreementLines>
+			<UserArea>
+				<Property>
+					<NameValue name="orderLineProcessStatus">141.000000</NameValue>
+				</Property>
+			</UserArea>
+		</AGKRentalOrderLine>
+	</DataArea>
+</SyncAGKRentalOrderLine>

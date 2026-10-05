@@ -1,0 +1,116 @@
+@using Infragistics.Web.Mvc
+@using Newtonsoft.Json
+@model SelectionModel
+@{
+    Layout = "_LayoutConfiguration";
+    ViewData["Title"] = "Select Product";
+
+    var url = @"/Configuration"
+        + "?agreementNumber=" + @Model.Header.AgreementNumber
+        + "&quantity=" + @Model.Query.Quantity
+        + "&json=" + JsonConvert.SerializeObject(Model.Query.PricingRequest)
+        + "&attributes=" + @Model.Query.Attributes
+        + "&lineId=" + @Model.Query.LineId;
+}
+
+<div class="d-flex flex-column" style="min-height: 100vh;">
+    <div class="row grow w-100">
+        <nav class="navbar navbar-expand-lg custom-navbar">
+            <div class="container-fluid">
+                <div class="navbar-brand d-flex flex-column align-items-start m-1">
+                    <h1 class="display-6" style="font-size: 1.7rem;">
+                        <i class="bi bi-magic"></i>
+                        Select Generic
+                    </h1>
+                    <small id="quote_label" class="text-muted">Agreement @Model.Header.AgreementNumber</small>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                    </ul>
+                    <div class="d-flex ms-auto">
+                        <div class="btn-group" role="group" aria-label="Action buttons">
+                            <button type="button" onclick="javascript:broadcastCancel()" class="btn btn-outline-secondary btn-lg">Cancel</button>
+                            <button type="button" onclick="broadcastSend(event, this)" data-url="@url" class="btn btn-primary btn-lg">
+                                Choose Generic
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="row grow w-100">
+        <div class="col align-self-center" style="margin:5px">
+            <div class="card">
+                <div class="card-header">
+                    Filer
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row mt-2">
+                            <div class="col">
+                                <strong>Product Line</strong>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div id="lstAddItemNumberLine"></div>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col">
+                                <strong>Generics</strong>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <div id="lstAddNewGeneric"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/site/addItems.js" asp-append-version="true"></script>
+    <script>
+        $(document).ready(function () {
+            headerData = {
+                division: '@(Model.Header.Division)',
+                productLineId: ''
+            }
+            getProductLines();
+            getGenerics();
+
+            $("#txtAddNewQuantity").val(1);
+
+            $("#lstAddItemNumberLine").igCombo("deselectAll", {}, true);
+            $("#lstAddItemNumberLine").igCombo("option", "dataSource", productLinesJSON);
+            $("#lstAddItemNumberLine").igCombo("dataBind");
+            $("#lstAddItemNumberLine").igCombo("value", headerData.productLineId);
+
+            $("#lstAddNewGeneric").igCombo("deselectAll", {}, true);
+            var filteredGenerics = genericsJSON.filter(function (item) {
+                return item.parentId == headerData.productLineId;
+            });
+            $("#lstAddNewGeneric").igCombo("option", "dataSource", filteredGenerics);
+            $("#lstAddNewGeneric").igCombo("dataBind");
+
+            $("#pnlAddItem").igDialog("open");
+        });
+
+        const broadcastSend = (e, element) => {
+            e.preventDefault();
+            redirectToConfigurator(element);
+        };
+
+        const broadcastCancel = () => {
+            window.parent.postMessage("closing " + window.location, "*");
+            window.parent.closeConfiguratorDialog();
+        };
+    </script>
+}

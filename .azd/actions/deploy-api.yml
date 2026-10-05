@@ -1,0 +1,12 @@
+parameters:
+- name: serviceConnection
+- name: workingDirectory
+- name: appServiceName
+
+steps:
+- task: AzureFunctionApp@1
+  displayName: 'Deploy Function Api'
+  inputs:
+    azureSubscription: '${{ parameters.serviceConnection }}'
+    appName: '${{ parameters.appServiceName }}'
+    package: '${{ parameters.workingDirectory }}/*.zip'

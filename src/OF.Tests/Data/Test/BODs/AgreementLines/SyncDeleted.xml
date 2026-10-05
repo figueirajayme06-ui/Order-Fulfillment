@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<SyncAGKRentalOrderLine xmlns="http://schema.infor.com/InforOAGIS/2" releaseID="9.2" versionID="2.14.3" systemEnvironmentCode="Production">
+    <ApplicationArea>
+        <Sender>
+            <LogicalID schemeVersionID="3.015">lid://infor.m3.m3</LogicalID>
+            <ComponentID schemeVersionID="16.0.0.20240318172728.5">M3BE</ComponentID>
+            <ConfirmationCode>OnError</ConfirmationCode>
+        </Sender>
+        <CreationDateTime>2024-05-21T11:00:25.035Z</CreationDateTime>
+        <BODID>1cb001b5-bac7-46c3-8ba8-0ebd5e7d1735</BODID>
+    </ApplicationArea>
+    <DataArea>
+        <Sync>
+            <AccountingEntityID>001_200</AccountingEntityID>
+            <ActionCriteria>
+                <ActionExpression actionCode="Delete"/>
+            </ActionCriteria>
+        </Sync>
+        <AGKRentalOrderLine>
+            <agreementNumber>A712794</agreementNumber>
+            <agreementNumberId>712794</agreementNumberId>
+            <agreementLineNumber>1</agreementLineNumber>
+            <agreementLineId>A712794-1</agreementLineId>
+            <AgreementLines>
+                <agreementLineSuffix>0</agreementLineSuffix>
+                <company>001</company>
+                <division>200</division>
+                <correlationId>1cb001b5-bac7-46c3-8ba8-0ebd5e7d1735</correlationId>
+                <deliveryStartTime>00:00</deliveryStartTime>
+                <collectionStartTime>00:00</collectionStartTime>
+                <changeSequence>|</changeSequence>
+            </AgreementLines>
+        </AGKRentalOrderLine>
+    </DataArea>
+</SyncAGKRentalOrderLine>

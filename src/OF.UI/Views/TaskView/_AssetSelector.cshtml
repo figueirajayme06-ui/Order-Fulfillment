@@ -1,0 +1,50 @@
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@inject OF.UI.Database.IDataRepository DbContext
+@inject OF.UI.Identity.IUserIdentity Identity
+
+@{
+    var viewId = HttpContextAccessor.HttpContext.Request.Query["viewid"].ToString();
+    var view = DbContext.GetViews()
+        .FirstOrDefault(v => v.Id.ToString() == viewId);
+    var isAssetViewAndGanttView = view != null && view.AssetView && view.GanttView;
+	var dateformat = Identity.GetIdentity().DateFormat;
+}
+
+<script type="text/javascript" src="~/js/site/assetSelector.js"></script>
+
+<script type="text/javascript">
+    var viewName = "@view?.Name";
+</script>
+
+<nav id="pfSelectorBar" class="navbar navbar-expand-lg navbar-primary">
+    <div class="container-fluid" style="border-top:solid 1px #cacaca; border-bottom:solid 1px #cacaca;padding-top:5px;padding-bottom:5px">
+        <div class="d-flex gap-2 align-items-baseline">
+            <div id="pf_spinner_ringfence" style="display:none;float:right;margin-left:5px">
+                <div class="spinner-border text-success" role="status">
+                </div>
+            </div>
+            <select id="pfLstRingfences" style="width:250px;" class="form-select" aria-label="Ringfence">
+            </select>
+            <button id="btnCreateRingfence" title="Creates a new ringfence for selected assets" class="btn btn-success" disabled><i class="bi bi-file-earmark-lock"></i>&nbsp;Ringfence</button>
+        </div>
+        @if (isAssetViewAndGanttView)
+        {
+            <div style="float:right;">
+                <table class="table table-sm">
+                    <tbody>
+                        <tr>
+                            <td><span class="ringfence_event" style="width:10px; height:10px; display:inline-block;"></span>&nbsp;Ringfence</td>
+                            <td><span class="onhire_event" style="width:10px; height:10px; display:inline-block;"></span>&nbsp;On Hire</td>
+                            <td><span class="reserved_event" style="width:10px; height:10px; display:inline-block;"></span>&nbsp;Reserved</td>
+                            <td><span class="service_event" style="width:10px; height:10px; display:inline-block;"></span>&nbsp;Service</td>
+                            <td><span class="repair_event" style="width:10px; height:10px; display:inline-block;"></span>&nbsp;Repair</td>
+                            <td><span class="collection_event" style="width:10px; height:10px; display:inline-block;"></span>&nbsp;Collection</td>
+                            <td><span class="transport_event" style="width:10px; height:10px; display:inline-block;"></span>&nbsp;Transport</td>
+                            <td><span class="onhold_event" style="width:10px; height:10px; display:inline-block;"></span>&nbsp;On Hold</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+</nav>

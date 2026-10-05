@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AcknowledgeAGKRentalAgreementLines xmlns="http://schema.infor.com/InforOAGIS/2" releaseID="9.2" versionID="2.12.2" systemEnvironmentCode="Production" languageCode="en-US">
+    <ApplicationArea>
+        <Sender>
+            <LogicalID schemeVersionID="1.003">lid://infor.m3.m3</LogicalID>
+            <ComponentID>M3BE</ComponentID>
+            <ConfirmationCode>OnError</ConfirmationCode>
+        </Sender>
+        <CreationDateTime>2024-04-17T15:14:01.336Z</CreationDateTime>
+        <BODID>3b70e2b7-e3db-44f0-b6f2-aabe496c377d</BODID>
+    </ApplicationArea>
+    <DataArea>
+        <Acknowledge>
+            <ResponseCriteria>
+                <ResponseExpression actionCode="Rejected"/>
+            </ResponseCriteria>
+        </Acknowledge>
+        <AGKRentalAgreementLines>
+            <detailLines>
+                <agreementNumber>T712629</agreementNumber>
+                <agreementLineNumber/>
+                <correlationId>0833e0fd-7c06-478f-a9f1-94fb502e9261</correlationId>
+                <orderCorrelationId/>
+                <orderProcessStatus>901</orderProcessStatus>
+                <technicalErrorMessage>NOK Mi Transaction Error: 18bfd73e-1c39-4775-967e-2b5467f69208, Transaction Name: AddRentalLine, API ID:edbd1d89-1e4c-470d-9637-da82d6c74b98, MI error: MIErrorImpl [errorCode= , messageId=XAD0001, errorMessage=A record has been entered by user, errorField=AGNB] Truncation: No truncation</technicalErrorMessage>
+                <orderItemRecordId/>
+            </detailLines>
+            <UserArea>
+                <Property>
+                    <NameValue name="CorrelationId">0833e0fd-7c06-478f-a9f1-94fb502e9261</NameValue>
+                </Property>
+                <Property>
+                    <NameValue name="M3AgreementNumber">T712629</NameValue>
+                </Property>
+                <Property>
+                    <NameValue name="technicalErrorMessage">NOK Mi Transaction Error: 18bfd73e-1c39-4775-967e-2b5467f69208, Transaction Name: AddRentalLine, API ID:edbd1d89-1e4c-470d-9637-da82d6c74b98, MI error: MIErrorImpl [errorCode= , messageId=XAD0001, errorMessage=A record has been entered by user, errorField=AGNB] Truncation: No truncation</NameValue>
+                </Property>
+            </UserArea>
+        </AGKRentalAgreementLines>
+    </DataArea>
+</AcknowledgeAGKRentalAgreementLines>

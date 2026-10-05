@@ -1,0 +1,116 @@
+pool:
+  vmImage: 'ubuntu-latest'
+
+trigger: none
+pr: none
+
+variables:
+  - template: ../actions/variables.yml
+
+stages:
+- stage: 'Build'
+  displayName: 'Version, Build & Publish'
+  variables:
+  - group: OF-Dev
+
+  jobs:
+  - job: 'Version'
+    displayName: 'Version'
+    steps:
+    - template: ../actions/version.yml
+      parameters:
+        version: $(versionPricing)
+
+  - job: 'Build'
+    displayName: 'Build & Publish'
+    dependsOn: ["Version"]
+    steps:
+    - template: ../actions/build.yml
+      parameters:
+        workingDirectory: '$(Build.SourcesDirectory)/src'
+        test: false
+        artifact: true
+
+- stage: 'Deploy_Dev'
+  displayName: 'Dev Deployment'
+  variables:
+  - group: OF-Dev
+  dependsOn: ['Build']
+  jobs:
+  - deployment: 'Deploy_Dev'
+    displayName: 'Dev Deploy Pricing Web'
+    pool:
+      name: Self-Hosted-Ubuntu-Shared
+    environment: 'dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../actions/deploy-web.yml
+            parameters:
+              serviceConnection: $(serviceConnection)
+              workingDirectory: '$(Agent.BuildDirectory)/pricing'
+              appServiceName: 'aspricingofdev'
+
+- stage: 'Deploy_SIT'
+  displayName: 'SIT Deployment'
+  variables:
+  - group: OF-SIT
+  dependsOn: ['Build']
+  jobs:
+  - deployment: 'Deploy_SIT'
+    displayName: 'SIT Deploy Pricing Web'
+    pool:
+      name: Self-Hosted-Ubuntu-Shared
+    environment: 'sit'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../actions/deploy-web.yml
+            parameters:
+              serviceConnection: $(serviceConnection)
+              workingDirectory: '$(Agent.BuildDirectory)/pricing'
+              appServiceName: 'aspricingofsit'
+
+- stage: 'Deploy_Test'
+  displayName: 'Test Deployment'
+  variables:
+  - group: OF-Test
+  dependsOn: ['Build']
+  jobs:
+  - deployment: 'Deploy_Test'
+    displayName: 'Test Deploy Pricing Web'
+    pool:
+      name: Self-Hosted-Ubuntu-Shared
+    environment: 'test'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../actions/deploy-web.yml
+            parameters:
+              serviceConnection: $(serviceConnection)
+              workingDirectory: '$(Agent.BuildDirectory)/pricing'
+              appServiceName: 'aspricingoftest'
+
+- stage: 'Deploy_Live'
+  displayName: 'Live Deployment'
+  variables:
+  - group: OF-Live
+  dependsOn: ['Build']
+  jobs:
+  - deployment: 'Deploy_Live'
+    displayName: 'Live Deploy Pricing Web'
+    pool:
+      name: Self-Hosted-Ubuntu-Shared
+    environment: 'live'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../actions/deploy-web.yml
+            parameters:
+              serviceConnection: $(serviceConnectionLive)
+              workingDirectory: '$(Agent.BuildDirectory)/pricing'
+              appServiceName: 'aspricingoflive'

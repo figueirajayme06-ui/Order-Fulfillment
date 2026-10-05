@@ -1,0 +1,9 @@
+/*!@license
+* Infragistics.Web.ClientUI Validator localization resources 23.1.9
+*
+* Copyright (c) 2011-2023 Infragistics Inc.
+*
+* http://www.infragistics.com/
+*
+*/
+(function(factory){if(typeof define==="function"&&define.amd){define(["jquery"],factory)}else{return factory(jQuery)}})(function($){$.ig=$.ig||{};$.ig.Validator=$.ig.Validator||{};$.ig.locale=$.ig.locale||{};$.ig.locale.it=$.ig.locale.it||{};$.ig.locale.it.Validator={defaultMessage:"Questo campo richiede attenzione",selectMessage:"\xc8 necessario selezionare un valore",rangeSelectMessage:"\xc8 necessario selezionare almeno {0} ma non pi\xf9 di {1} elementi",minSelectMessage:"\xc8 necessario selezionare almeno {0} elementi",maxSelectMessage:"Non selezionare pi\xf9 di {0} elementi",rangeLengthMessage:"La voce deve contenere da {0} a {1} caratteri",minLengthMessage:"La voce deve contenere almeno {0} caratteri",maxLengthMessage:"La voce non deve contenere pi\xf9 di {0} caratteri",requiredMessage:"Questo campo \xe8 obbligatorio",patternMessage:"La voce non corrisponde al modello richiesto",maskMessage:"Tutte le posizioni richieste devono essere riempite",dateFieldsMessage:"I valori del campo data devono essere immessi",invalidDayMessage:"\xc8 necessario immettere un giorno del mese valido",dateMessage:"\xc8 necessario immettere una data valida",numberMessage:"\xc8 necessario immettere un numero valido",rangeValueMessage:"\xc8 necessario immettere un valore compreso tra {0} e {1}",minValueMessage:"\xc8 necessario immettere un valore di almeno {0}",maxValueMessage:"\xc8 necessario immettere un valore non superiore a {0}",emailMessage:"\xc8 necessario inserire un indirizzo e-mail valido",creditCardMessage:"\xc8 necessario inserire un numero di carta di pagamento valido",equalToMessage:"I due valori non corrispondono",optionalString:"(facoltativo)"};$.ig.Validator.locale=$.ig.Validator.locale||$.ig.locale.it.Validator;return $.ig.locale.it.Validator});

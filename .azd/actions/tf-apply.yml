@@ -1,0 +1,99 @@
+parameters:
+- name: serviceConnection
+- name: storageAccountName
+- name: containerName
+- name: workingDirectory
+- name: laws_name
+- name: environment
+- name: version
+- name: authClientId
+- name: authScope
+- name: ipgSbnsConnection
+- name: ipgSubName
+- name: cr_subscription_id
+- name: cr_name
+- name: cr_resource_group
+- name: appTier
+- name: appSku
+- name: vnetName
+  default: ''
+- name: vnetSubnetRoot
+  default: ''
+- name: enablePrivateAccess
+  type: boolean
+  default: false
+- name: enableNewFrontend
+  type: boolean
+  default: false
+- name: showNewFrontendForAll
+  type: boolean
+  default: false
+
+steps:
+- task: ms-devlabs.custom-terraform-tasks.custom-terraform-installer-task.TerraformInstaller@1
+  displayName: Install Terraform 1.14.9
+  inputs:
+    terraformVersion: 1.14.9
+
+- task: TerraformCLI@1
+  displayName: 'Terraform Init'
+  inputs:
+    command: init
+    commandOptions: '-reconfigure -upgrade'
+    workingDirectory: ${{ parameters.workingDirectory }}
+    backendType: azurerm
+    backendServiceArm: ${{ parameters.serviceConnection }}
+    backendAzureRmSubscriptionId: $(tf_subscription_id)
+    backendAzureRmResourceGroupLocation: 'westeurope'
+    ensureBackend: false
+    backendAzureRmResourceGroupName: 'Landing-Zones-Default'
+    backendAzureRmStorageAccountName: ${{ parameters.storageAccountName }}
+    backendAzureRmContainerName: ${{ parameters.containerName }}
+    backendAzureRmKey: 'of.orchestrator.tfstate'
+
+- task: TerraformCLI@1
+  displayName: 'Terraform Validate'
+  inputs:
+    command: 'validate'
+    workingDirectory: ${{ parameters.workingDirectory }}
+
+- task: TerraformCLI@1
+  name: terraformApply
+  displayName: 'Terraform Apply'
+  inputs:
+    command: 'apply'
+    workingDirectory: ${{ parameters.workingDirectory }}
+    environmentServiceName: ${{ parameters.serviceConnection }}
+    commandOptions: '
+      -var="app_version=${{ parameters.version }}" 
+      -var="laws_name=${{ parameters.laws_name }}" 
+      -var="environment=${{ parameters.environment }}" 
+      -var="auth_client_id=${{ parameters.authClientId }}" 
+      -var="auth_scope=${{ parameters.authScope }}" 
+      -var="ipg_sbns_connection=${{ parameters.ipgSbnsConnection }}" 
+      -var="ipg_sub_name=${{ parameters.ipgSubName }}" 
+      -var="cr_subscription_id=${{ parameters.cr_subscription_id }}"
+      -var="cr_name=${{ parameters.cr_name }}"
+      -var="cr_resource_group=${{ parameters.cr_resource_group }}"
+      -var hub_subscription_id=$(hub_subscription_id) 
+      -var hub_resource_group=$(hub_resource_group) 
+      -var tf_subscription_id=$(tf_subscription_id) 
+      -var="app_tier=${{ parameters.appTier }}" 
+      -var="app_sku=${{ parameters.appSku }}"
+      -var="vnet_name=${{ parameters.vnetName }}"
+      -var="vnet_subnet_root=${{ parameters.vnetSubnetRoot }}"
+      -var="enable_private_access=${{ lower(parameters.enablePrivateAccess) }}"
+      -var="enable_new_frontend=${{ lower(parameters.enableNewFrontend) }}"
+      -var="show_new_frontend_for_all=${{ lower(parameters.showNewFrontendForAll) }}" '
+    
+- task: TerraformCLI@1
+  displayName: 'terraform output'
+  inputs:
+    command: output
+    workingDirectory: ${{ parameters.workingDirectory }}
+
+- task: Bash@3
+  displayName: 'List all environment variables'
+  inputs:
+    targetType: 'inline'
+    script: 'env | sort'

@@ -1,0 +1,211 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <Name>OF.Data.Design</Name>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectVersion>4.1</ProjectVersion>
+    <ProjectGuid>{59f5976a-0870-41e8-aec9-568f317bd7d2}</ProjectGuid>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.SqlAzureV12DatabaseSchemaProvider</DSP>
+    <OutputType>Database</OutputType>
+    <RootPath />
+    <RootNamespace>OF.Data.Design</RootNamespace>
+    <AssemblyName>OF.Data.Design</AssemblyName>
+    <ModelCollation>1033,CI</ModelCollation>
+    <DefaultFileStructure>BySchemaAndSchemaType</DefaultFileStructure>
+    <DeployToDatabase>True</DeployToDatabase>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetLanguage>CS</TargetLanguage>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <SqlServerVerification>False</SqlServerVerification>
+    <IncludeCompositeObjects>True</IncludeCompositeObjects>
+    <TargetDatabaseSet>True</TargetDatabaseSet>
+    <DefaultCollation>SQL_Latin1_General_CP1_CI_AS</DefaultCollation>
+    <DefaultFilegroup>PRIMARY</DefaultFilegroup>
+    <SuppressTSqlWarnings>71558</SuppressTSqlWarnings>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>False</TreatWarningsAsErrors>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BuildScriptName>$(MSBuildProjectName).sql</BuildScriptName>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">11.0</VisualStudioVersion>
+    <!-- Default to the v11.0 targets path if the targets file for the current VS version is not found -->
+    <SSDTExists Condition="Exists('$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets')">True</SSDTExists>
+    <VisualStudioVersion Condition="'$(SSDTExists)' == ''">11.0</VisualStudioVersion>
+  </PropertyGroup>
+  <Import Condition="'$(SQLDBExtensionsRefPath)' != ''" Project="$(SQLDBExtensionsRefPath)\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <Import Condition="'$(SQLDBExtensionsRefPath)' == ''" Project="$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\SSDT\Microsoft.Data.Tools.Schema.SqlTasks.targets" />
+  <ItemGroup>
+    <Folder Include="Properties" />
+    <Folder Include="dbo\" />
+    <Folder Include="dbo\Tables\" />
+    <Folder Include="dbo\Views\" />
+    <Folder Include="dbo\Stored Procedures\" />
+    <Folder Include="dbo\Triggers" />
+    <Folder Include="dbo\General" />
+    <Folder Include="Scripts\" />
+    <Folder Include="Scripts\PostDeployment\" />
+    <Folder Include="Scripts\PreDeployment" />
+    <Folder Include="Scripts\Migrations" />
+    <Folder Include="Scripts\Manual" />
+  </ItemGroup>
+  <ItemGroup>
+    <Build Include="dbo\Tables\CPQ_GenericRating.sql" />
+    <Build Include="dbo\Tables\CPQ_Log.sql" />
+    <Build Include="dbo\Tables\Users.sql" />
+    <Build Include="dbo\Tables\CPQ_Purpose.sql" />
+    <Build Include="dbo\Tables\Views.sql" />
+    <Build Include="dbo\Tables\ViewRecipients.sql" />
+    <Build Include="dbo\Tables\CPQ_Region.sql" />
+    <Build Include="dbo\Tables\CPQ_Version.sql" />
+    <Build Include="dbo\Tables\CPQ_Line.sql" />
+    <Build Include="dbo\Tables\Alerts.sql" />
+    <Build Include="dbo\Tables\CPQ_RegionCurrency.sql" />
+    <Build Include="dbo\Tables\Ringfences.sql" />
+    <Build Include="dbo\Tables\CPQ_Generic.sql" />
+    <Build Include="dbo\Tables\RetrofitCache.sql" />
+    <Build Include="dbo\Tables\CPQ_LineAttributePurpose.sql" />
+    <Build Include="dbo\Tables\RingfenceItems.sql" />
+    <Build Include="dbo\Tables\CPQ_LineSellingRule.sql" />
+    <Build Include="dbo\Tables\CPQ_Service.sql" />
+    <Build Include="dbo\Tables\CPQ_GenericSubstitution.sql" />
+    <Build Include="dbo\Tables\CPQ_GenericToGeneric.sql" />
+    <Build Include="dbo\Tables\CPQ_Item.sql" />
+    <Build Include="dbo\Tables\CPQ_Attribute_Staging.sql" />
+    <Build Include="dbo\Tables\CPQ_AttributeLookup_Staging.sql" />
+    <Build Include="dbo\Tables\CPQ_Family_Staging.sql" />
+    <Build Include="dbo\Tables\CPQ_RegionGeneric.sql" />
+    <Build Include="dbo\Tables\CPQ_RegionService.sql" />
+    <Build Include="dbo\Tables\CPQ_GenericToService.sql" />
+    <Build Include="dbo\Tables\CPQ_GenericRating_Staging.sql" />
+    <Build Include="dbo\Tables\CPQ_Purpose_Staging.sql" />
+    <Build Include="dbo\Tables\CPQ_Region_Staging.sql" />
+    <Build Include="dbo\Tables\CPQ_Version_Staging.sql" />
+    <Build Include="dbo\Tables\CPQ_RelatedSpecificSubstitution.sql" />
+    <Build Include="dbo\Tables\CPQ_Line_Staging.sql" />
+    <Build Include="dbo\Tables\CPQ_RegionCurrency_Staging.sql" />
+    <Build Include="dbo\Tables\ProductItems.sql" />
+    <Build Include="dbo\Tables\ProductItemsSyncList.sql" />
+    <Build Include="dbo\Tables\CPQ_Generic_Staging.sql" />
+    <Build Include="dbo\Tables\CPQ_LineAttributePurpose_Staging.sql" />
+    <Build Include="dbo\Tables\CPQ_LineSellingRule_Staging.sql" />
+    <Build Include="dbo\Tables\CPQ_Service_Staging.sql" />
+    <Build Include="dbo\Tables\ProductItems_Staging.sql" />
+    <Build Include="dbo\Tables\CPQ_GenericSubstitution_Staging.sql" />
+    <Build Include="dbo\Tables\Reservations.sql" />
+    <Build Include="dbo\Tables\CPQ_GenericToGeneric_Staging.sql" />
+    <Build Include="dbo\Tables\CPQ_Item_Staging.sql" />
+    <Build Include="dbo\Tables\CPQ_RegionGeneric_Staging.sql" />
+    <Build Include="dbo\Tables\CPQ_ItemAttributeValue.sql" />
+    <Build Include="dbo\Tables\CPQ_ItemAttributeValue_Staging.sql" />
+    <Build Include="dbo\Tables\CPQ_RelatedSpecificSubstitution_Staging.sql" />
+    <Build Include="dbo\Tables\WarehouseItems.sql" />
+    <Build Include="dbo\Tables\Assets.sql" />
+    <Build Include="dbo\Tables\CPQ_Attribute.sql" />
+    <Build Include="dbo\Tables\Headers.sql" />
+    <Build Include="dbo\Tables\CPQ_AttributeLookup.sql" />
+    <Build Include="dbo\Tables\Lines.sql" />
+    <Build Include="dbo\Tables\ProcessingErrors.sql" />
+    <Build Include="dbo\Tables\CPQ_Family.sql" />
+    <Build Include="dbo\Views\vwAssetItems.sql" />
+    <Build Include="dbo\Views\vwHeaders.sql" />
+    <Build Include="dbo\Stored Procedures\GenerateEvents.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\FulfilSerialized.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\FulfilNonSerialized.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\GetProductAttributesForGeneric.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\GetItemsForGenericsAndAttributes.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>Off</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\Notes.sql" />
+    <Build Include="dbo\Tables\DataRefresh.sql" />
+    <Build Include="dbo\Tables\AuditLog.sql" />
+    <Build Include="dbo\Triggers\AuditReservations.sql" />
+    <Build Include="dbo\Tables\AssetsStaging.sql" />
+    <Build Include="dbo\Tables\ProductHierarchy_Staging.sql" />
+    <Build Include="dbo\Tables\WarehouseItemsStaging.sql" />
+    <Build Include="dbo\Triggers\AuditLines.sql" />
+    <Build Include="dbo\Triggers\AuditHeaders.sql" />
+    <Build Include="dbo\Tables\AuditLog_Staging.sql" />
+    <Build Include="dbo\General\AuditLogPartitionFunction.sql" />
+    <Build Include="dbo\General\AuditLogPartitionScheme.sql" />
+    <Build Include="dbo\General\GetGenericsWithSubstitutions.sql" />
+    <Build Include="dbo\General\GetFulfilmentGenericsWithSubstitutions.sql" />
+    <Build Include="dbo\General\AttributeStringToTable.sql" />
+    <Build Include="dbo\Tables\AttributeLanguage.sql" />
+    <Build Include="dbo\Views\vwAllAttributes.sql" />
+    <Build Include="dbo\Tables\ChangeOrderHeaders.sql" />
+    <Build Include="dbo\Tables\ChangeOrderLines.sql" />
+    <Build Include="dbo\Tables\ChangeOrders.sql" />
+    <Build Include="dbo\Tables\ChangeOrderComments.sql" />
+    <Build Include="dbo\Stored Procedures\CPQAvailabilitySummary.sql" />
+    <Build Include="dbo\Stored Procedures\GetCPQAvailabilitySummary.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Stored Procedures\GetFulfilmentAvailabilitySummary.sql">
+      <AnsiNulls>On</AnsiNulls>
+      <QuotedIdentifier>On</QuotedIdentifier>
+    </Build>
+    <Build Include="dbo\Tables\ChangeOrderAddresses.sql" />
+    <Build Include="dbo\Tables\ChangeOrderContacts.sql" />
+    <None Include="Scripts\Manual\131609_Update_Headers_Remove_Duplicate_AgreementNumbersOnly.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="localdb-to-project.scmp" />
+    <None Include="Scripts\Migrations\README.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="OF.Data.Design.refactorlog" />
+  </ItemGroup>
+  <ItemGroup>
+    <PreDeploy Include="Script.PreDeployment1.sql">
+      <BuildAction>PreDeploy</BuildAction>
+    </PreDeploy>
+    <PostDeploy Include="Script.PostDeployment1.sql">
+      <BuildAction>PostDeploy</BuildAction>
+    </PostDeploy>
+    <None Include="Scripts\PostDeployment\*.sql" />
+    <None Include="Scripts\PreDeployment\000002_Update_Headers_Remove_Duplicate_AgreementNumbersOnly.sql" />
+    <None Include="Scripts\Migrations\*.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <SqlCmdVariable Include="DbEnvironment">
+      <DefaultValue>Dev</DefaultValue>
+      <Value>DbEnvironment</Value>
+    </SqlCmdVariable>
+  </ItemGroup>
+</Project>

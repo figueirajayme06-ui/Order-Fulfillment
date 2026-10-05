@@ -1,0 +1,161 @@
+/*
+  Aggreko Design Tokens — CSS Custom Properties
+  Based on CPQ-Next theme.css and Aggreko brand guidelines.
+  See: https://bynder.aggreko.com/guidelines/guide/651cc93e-5bc9-4b52-bcbc-efa11d693cc0
+*/
+
+@import url("https://fonts.googleapis.com/css2?family=Inter+Tight:ital,wght@0,100..900;1,100..900&family=Montserrat:wght@400;500;600;700&display=swap");
+
+:root {
+  /* Spacing */
+  --ref-spacing-xs: 0.25rem;
+  --ref-spacing-small: 0.5rem;
+  --ref-spacing-medium: 1rem;
+  --ref-spacing-large: 1.5rem;
+  --ref-spacing-xl: 2rem;
+  --ref-spacing-xxl: 3rem;
+
+  /* Colours — Aggreko brand */
+  --ref-colour-charcoal: #101010;
+  --ref-colour-charcoallight: #3e3e3e;
+  --ref-colour-charcoalfaded: #a19e9c;
+  --ref-colour-ink: #1d2c35;
+  --ref-colour-orange: #fd6e39;
+  --ref-colour-orangedark: #e46333;
+  --ref-colour-orangefaded: #f6baa3;
+  --ref-colour-snow: #fbfaf5;
+  --ref-colour-snowdark: #e1e1dc;
+  --ref-colour-snowfaded: #f6f2ee;
+  --ref-colour-grey10: #faf6f3;
+  --ref-colour-grey20: #f2ede9;
+  --ref-colour-grey30: #e9e5e2;
+  --ref-colour-grey60: #b8b4b3;
+  --ref-colour-grey90: #6c6c6c;
+
+  /* Semantic colours */
+  --colour-primary: var(--ref-colour-orange);
+  --colour-primary-hover: var(--ref-colour-orangedark);
+  --colour-primary-faded: var(--ref-colour-orangefaded);
+  --colour-primary-surface: #fff8f3;
+  --colour-action-primary: var(--colour-primary);
+  --colour-action-primary-hover: var(--colour-primary-hover);
+  --colour-background: var(--ref-colour-snow);
+  --colour-surface: #ffffff;
+  --colour-border: var(--ref-colour-grey30);
+  --colour-focus-ring: var(--ref-colour-orange);
+  --colour-focus-ring-glow: rgba(253, 110, 57, 0.25);
+  --colour-text: var(--ref-colour-charcoal);
+  --colour-text-secondary: var(--ref-colour-grey90);
+  --colour-text-muted: var(--ref-colour-charcoalfaded);
+
+  /* Status colours */
+  --colour-success: #2e7d32;
+  --colour-success-bg: #e8f5e9;
+  --colour-warning: #f57c00;
+  --colour-warning-bg: #fff3e0;
+  --colour-error: #c62828;
+  --colour-error-bg: #ffebee;
+  --colour-info: #1565c0;
+  --colour-info-bg: #e3f2fd;
+
+  /* Fonts — Aggreko brand */
+  --ref-font-size-xs: 12px;
+  --ref-font-size-small: 14px;
+  --ref-font-size-base: 16px;
+  --ref-font-size-medium: 18px;
+  --ref-font-size-large: 20px;
+  --ref-font-size-xl: 24px;
+  --ref-font-size-xxl: 32px;
+  --ref-font-size-xxxl: 40px;
+
+  --ref-font-weight-light: 300;
+  --ref-font-weight-regular: 400;
+  --ref-font-weight-medium: 500;
+  --ref-font-weight-semibold: 600;
+  --ref-font-weight-bold: 700;
+
+  --ref-font-lineheight-tight: 1.2;
+  --ref-font-lineheight-normal: 1.5;
+  --ref-font-lineheight-relaxed: 1.7;
+
+  --ref-font-face-primary: "Inter Tight", sans-serif;
+  --ref-font-face-secondary: "Inter Tight", sans-serif;
+
+  /* Borders & Radius */
+  --ref-border-radius-small: 4px;
+  --ref-border-radius-medium: 8px;
+  --ref-border-radius-large: 12px;
+  --ref-border-radius-full: 9999px;
+
+  /* Shadows */
+  --ref-shadow-small: 0 1px 3px rgba(0, 0, 0, 0.08);
+  --ref-shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.1);
+  --ref-shadow-large: 0 8px 24px rgba(0, 0, 0, 0.12);
+
+  /* Transitions */
+  --ref-transition-fast: 150ms ease;
+  --ref-transition-normal: 250ms ease;
+}
+
+:root[data-theme="ats"] {
+  --ref-colour-charcoal: #54565a;
+  --ref-colour-charcoallight: #696b6f;
+  --ref-colour-charcoalfaded: #8b8d90;
+  --ref-colour-ink: #54565a;
+  --ref-colour-orange: #fd6d39;
+  --ref-colour-orangedark: #e45c2b;
+  --ref-colour-orangefaded: #fde6e0;
+  --ref-colour-snow: #ffffff;
+  --ref-colour-snowdark: #e7f2fc;
+  --ref-colour-snowfaded: #f7fbfe;
+  --ref-colour-grey10: #ffffff;
+  --ref-colour-grey20: #e7f2fc;
+  --ref-colour-grey30: #d9dde0;
+  --ref-colour-grey60: #a9abad;
+  --ref-colour-grey90: #686a6d;
+
+  --colour-primary-surface: var(--ref-colour-orangefaded);
+  --colour-action-primary: var(--ref-colour-charcoal);
+  --colour-action-primary-hover: var(--ref-colour-charcoallight);
+  --colour-background: var(--ref-colour-snowfaded);
+  --colour-success-bg: #e2f4f0;
+  --colour-warning-bg: #fff4d8;
+  --colour-error-bg: var(--ref-colour-orangefaded);
+  --colour-info-bg: #e7f2fc;
+
+  --ref-font-face-primary: "Montserrat", sans-serif;
+  --ref-font-face-secondary: "Montserrat", sans-serif;
+}
+
+:root[data-theme="dark"] {
+  --ref-colour-grey10: #24343d;
+  --ref-colour-grey20: #2a3a43;
+  --ref-colour-grey30: #3b4b54;
+  --ref-colour-snowfaded: #22313a;
+
+  --colour-primary-hover: #ff8a5f;
+  --colour-primary-faded: #613725;
+  --colour-primary-surface: #34271f;
+  --colour-background: #101a20;
+  --colour-surface: #1d2c35;
+  --colour-border: #3b4b54;
+  --colour-focus-ring-glow: rgba(253, 110, 57, 0.38);
+  --colour-text: #f7f5f0;
+  --colour-text-secondary: #c0c8cc;
+  --colour-text-muted: #91a0a8;
+
+  --colour-success: #78d184;
+  --colour-success-bg: #183421;
+  --colour-warning: #ffb15c;
+  --colour-warning-bg: #3a2a18;
+  --colour-error: #ff8585;
+  --colour-error-bg: #3d2022;
+  --colour-info: #73b7ff;
+  --colour-info-bg: #192e44;
+
+  --ref-shadow-small: 0 1px 3px rgba(0, 0, 0, 0.28);
+  --ref-shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.32);
+  --ref-shadow-large: 0 8px 24px rgba(0, 0, 0, 0.38);
+
+  color-scheme: dark;
+}

@@ -1,0 +1,2 @@
+﻿CREATE PARTITION FUNCTION AuditLogTableNamePF (VARCHAR(128))
+AS RANGE RIGHT FOR VALUES ('Headers', 'Lines', 'Reservations'); 

@@ -1,0 +1,100 @@
+@inject OF.UI.Identity.IUserIdentity Identity
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+        <a class="navbar-brand" href="/TaskView?viewid=1">
+          <img src="~/images/logo.svg" alt="Aggreko Logo" height="24" style="margin-right:20px;">
+          <br/><h6>&nbsp;&nbsp;Order Fulfilment
+                @{
+                    var id = Identity.GetIdentity();
+                    if (id != null)
+                    {
+                        <text> - </text> @Identity.GetIdentity().FullName
+                    }
+                }
+            </h6>
+        </a>
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="border-top: 5px solid #fd6e39">
+    <div class="container-fluid">
+        <div class="d-flex">
+            @if (ViewData["HideDivisions"] == null || ViewData["HideDivisions"] as bool? == false)
+            {
+                <div id="lstDivisions"></div>
+            }
+        </div>
+        <div class="d-flex">
+            <div id="headerRefresh" style="display:none;float:right;margin-right:5px">
+                <div class="spinner-border text-success" role="status">
+                </div>
+            </div>
+            <button id="btnRefresh" class="btn btn-success" onclick="javascript:refreshDataCallback()"><i class="bi bi-arrow-repeat"></i>&nbsp;Refresh Data</button>&nbsp;
+            <a class="btn btn-primary" href='@Context.Request.Query["ReturnUrl"]'><i class="bi bi-card-checklist"></i>&nbsp;Back to Dashboard</a>
+        </div>
+    </div>
+</nav>
+
+<script type="text/javascript">
+    var cookieName = 'user_divisions';
+
+    // Cookies for divisons
+    var divCookie = Cookies.get(cookieName);
+    var divisions = '';
+    var dateFormat = 'MM/dd/yyyy';
+
+    @{
+        if (id != null)
+        {
+            <text>divisions = '</text>@id.Division<text>';</text>
+            <text>dateFormat = '</text>@id.DateFormat<text>';</text>
+        }
+    }
+
+    if (divCookie) {
+        divisions = divCookie;
+    }
+
+    var selDivs = [];
+    if (divisions.trim() != '') {
+        var divParts = divisions.split(",");
+        for (var i=0; i<divParts.length; i++) {
+            selDivs.push({ "value": divParts[i].trim() });
+        }
+    }
+
+    $("#lstDivisions").igCombo({
+        width: 300,
+        dataSourceUrl: '/api/Task/Divisions',
+        textKey: "code",
+        valueKey: "code",
+        mode: 'dropdown',
+        delayInputChangeProcessing: 200,
+        allowCustomValue: false,
+        locale: {
+            placeHolder: "Select divisions"
+        },
+        initialSelectedItems: selDivs,
+        multiSelection: {
+            enabled: true,
+            showCheckboxes: false
+        },
+        dropDownOrientation: "bottom",
+        selectionChanged: function (evt, ui) {
+            if (ui.items) {
+                var storeValue='';
+                for (var i=0; i<ui.items.length; i++) {
+                    storeValue = storeValue + ui.items[i].data.code.trim();
+                    if (i < ui.items.length-1) storeValue = storeValue + ',';
+                }
+                Cookies.set(cookieName, storeValue);
+            } else {
+                Cookies.remove(cookieName);
+            }
+            document.location = document.location;
+        }
+    });
+
+
+</script>

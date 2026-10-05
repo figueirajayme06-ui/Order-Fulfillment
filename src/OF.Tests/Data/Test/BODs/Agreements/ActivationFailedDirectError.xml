@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AcknowledgeAGKRentalAgreementActivation xmlns="http://schema.infor.com/InforOAGIS/2" releaseID="9.2" versionID="2.11.0" systemEnvironmentCode="Production">
+	<ApplicationArea>
+		<Sender>
+			<LogicalID schemeVersionID="1.020">lid://infor.m3.m3</LogicalID>
+			<ComponentID schemeVersionID="16.0.0.20240816161447.12">M3BE</ComponentID>
+		</Sender>
+		<CreationDateTime>2024-11-05T09:52:50.507Z</CreationDateTime>
+		<BODID>0c210706-35e5-42a4-9775-66edb5a5bfee</BODID>
+	</ApplicationArea>
+	<DataArea>
+		<Acknowledge>
+			<AccountingEntityID/>
+			<ResponseCriteria>
+				<ResponseExpression actionCode="Rejected"/>
+			</ResponseCriteria>
+		</Acknowledge>
+		<AGKRentalAgreementActivation>
+			<agreementNumber>T724365</agreementNumber>
+			<reasonCodeCreated>C09</reasonCodeCreated>
+			<orderRecordId>801J6000001EkFOIA0</orderRecordId>
+			<correlationId>443060d3-7a7b-4f1f-9e2b-1222fbd8dc4b</correlationId>
+			<timestamp>05112024</timestamp>
+			<orderStatus>901</orderStatus>
+			<orderCorrelationId>0ca48063-8432-169d-078d-1f2485bcfbf7</orderCorrelationId>
+			<technicalErrorMessage>NOK Mi Transaction Error: Transaction Name: CrtRentalAgrmnt, MI error: MIErrorImpl [errorCode= , messageId=C010003, errorMessage=Customer is blocked, errorField=AGCN]1;</technicalErrorMessage>
+		</AGKRentalAgreementActivation>
+	</DataArea>
+</AcknowledgeAGKRentalAgreementActivation>

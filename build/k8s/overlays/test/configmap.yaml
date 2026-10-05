@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-fulfillment-config
+  namespace: order-fulfillment
+  labels:
+    app.kubernetes.io/name: order-fulfillment
+data:
+  StorageAccountName: "stoftest"
+  KeyVaultUri: "https://kv-oftest.vault.azure.net/"
+  LOGGING__LOGLEVEL__DEFAULT: "Information"
+  LOGGING__APPLICATIONINSIGHTS__LOGLEVEL__DEFAULT: "Information"
+  LOGGING__APPLICATIONINSIGHTS__LOGLEVEL__AZURE: "Warning"
+  LOGGING__APPLICATIONINSIGHTS__LOGLEVEL__MICROSOFT: "Warning"

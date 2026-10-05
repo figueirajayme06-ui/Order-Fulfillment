@@ -1,0 +1,51 @@
+parameters:
+- name: serviceConnection
+- name: workingDirectory
+- name: environment
+
+steps:
+- checkout: self
+  path: "./self"
+  persistCredentials: true
+
+- script: sudo apt-get -yq install graphviz
+  displayName: Setup Graphviz
+
+- script: |
+   git config --global user.email "ofbuildservice@aggreko.com"
+   git config --global user.name "OF Build Service"
+   git pull origin HEAD:master
+  displayName: 'Get latest Wiki'
+  workingDirectory: "${{ parameters.workingDirectory }}/self"
+
+- task: AzureCLI@2
+  displayName: Generate Diagram
+  inputs:
+    azureSubscription: ${{ parameters.serviceConnection }}
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      python -m pip install --upgrade pip
+      pip install drawtf
+      drawtf draw --json-config-path "${{ parameters.workingDirectory }}/design/design.json"
+
+- script: |
+    cp -v design.png design-$ENV.png
+  displayName: 'Copy design with environment'
+  workingDirectory: '${{ parameters.workingDirectory }}/design'
+  env:
+    ENV: ${{ lower(parameters.environment) }}
+
+- task: CopyFiles@2
+  displayName: Move Design
+  inputs:
+    SourceFolder: '${{ parameters.workingDirectory }}/design'
+    Contents: '*.png'
+    TargetFolder: '${{ parameters.workingDirectory }}/self/build/docs/content/.attachments'
+    OverWrite: true
+
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish design'
+  inputs:
+    path: '${{ parameters.workingDirectory }}/design'
+    artifact: resources

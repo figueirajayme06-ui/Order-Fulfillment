@@ -1,0 +1,12 @@
+parameters:
+- name: serviceConnection
+- name: workingDirectory
+- name: appServiceName
+
+steps:
+- task: AzureWebApp@1
+  displayName: 'Deploy Web App'
+  inputs:
+    azureSubscription: '${{ parameters.serviceConnection }}'
+    appName: '${{ parameters.appServiceName }}'
+    package: '${{ parameters.workingDirectory }}/*.zip'

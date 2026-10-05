@@ -1,0 +1,55 @@
+parameters:
+- name: serviceConnection
+- name: storageAccountName
+- name: containerName
+- name: workingDirectory
+- name: laws_name
+- name: environment
+- name: version
+- name: authClientId
+- name: authScope
+- name: ipgSbnsConnection
+- name: ipgSubName
+- name: cr_subscription_id
+- name: cr_name
+- name: cr_resource_group
+- name: appTier
+- name: appSku
+- name: vnetName
+  default: ''
+- name: vnetSubnetRoot
+  default: ''
+- name: enablePrivateAccess
+  type: boolean
+  default: false
+- name: enableNewFrontend
+  type: boolean
+  default: false
+- name: showNewFrontendForAll
+  type: boolean
+  default: false
+
+steps:
+  - template: ./tf-apply.yml
+    parameters:
+      serviceConnection: ${{ parameters.serviceConnection }}
+      storageAccountName: ${{ parameters.storageAccountName }}
+      containerName: ${{ parameters.containerName }}
+      workingDirectory: ${{ parameters.workingDirectory }}
+      laws_name: ${{ parameters.laws_name }}
+      environment: ${{ parameters.environment }}
+      version: ${{ parameters.version }}
+      authClientId: ${{ parameters.authClientId }}
+      authScope: ${{ parameters.authScope }}
+      ipgSbnsConnection: ${{ parameters.ipgSbnsConnection }}
+      ipgSubName: ${{ parameters.ipgSubName }}
+      cr_subscription_id: ${{ parameters.cr_subscription_id }}
+      cr_name: ${{ parameters.cr_name }}
+      cr_resource_group: ${{ parameters.cr_resource_group }}
+      appTier: ${{ parameters.appTier }}
+      appSku: ${{ parameters.appSku }}
+      vnetName: ${{ parameters.vnetName }}
+      vnetSubnetRoot: ${{ parameters.vnetSubnetRoot }}
+      enablePrivateAccess: ${{ parameters.enablePrivateAccess }}
+      enableNewFrontend: ${{ parameters.enableNewFrontend }}
+      showNewFrontendForAll: ${{ parameters.showNewFrontendForAll }}

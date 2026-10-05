@@ -1,0 +1,210 @@
+.container {
+  position: relative;
+}
+
+.toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 7px 10px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background: var(--colour-surface);
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-small);
+  cursor: pointer;
+}
+
+.toggle:hover {
+  color: var(--colour-text);
+  background: var(--ref-colour-grey20);
+}
+
+.toggle:focus-visible,
+.input:focus-visible,
+.addField select:focus-visible,
+.removeButton:focus-visible {
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: 2px;
+}
+
+.badge {
+  min-width: 16px;
+  padding: 1px 5px;
+  border-radius: 10px;
+  background: var(--colour-primary);
+  color: white;
+  font-size: 11px;
+  font-weight: var(--ref-font-weight-semibold);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.activeSummary {
+  display: flex;
+  min-width: 0;
+  max-width: min(660px, 60vw);
+  gap: 6px;
+  overflow: hidden;
+}
+
+.activeFilter {
+  min-width: 0;
+  max-width: 240px;
+  overflow: hidden;
+  padding: 2px 7px;
+  border: 1px solid var(--colour-border);
+  border-radius: 999px;
+  background: var(--ref-colour-snowfaded);
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  font-weight: 400;
+  text-overflow: ellipsis;
+  text-transform: none;
+  white-space: nowrap;
+}
+
+.panel {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 8px);
+  left: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 280px));
+  justify-content: start;
+  gap: 10px;
+  width: min(900px, calc(100vw - 64px));
+  margin: 0;
+  padding: 12px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background: var(--colour-surface);
+  box-shadow: var(--ref-shadow-medium);
+}
+
+.filterRow {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 34px 10px 10px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background: var(--ref-colour-snowfaded);
+}
+
+.label,
+.addLabel {
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-small);
+  font-weight: var(--ref-font-weight-medium);
+}
+
+.input,
+.addField select {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 0;
+  padding: 7px 10px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background: var(--colour-surface);
+  color: var(--colour-text);
+  font: inherit;
+  font-size: var(--ref-font-size-small);
+}
+
+.dateRange {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 6px;
+}
+
+.dateValue {
+  display: grid;
+  min-width: 0;
+  grid-template-columns: 36px minmax(0, 1fr);
+  align-items: center;
+  gap: 6px;
+  color: var(--colour-text-muted);
+  font-size: var(--ref-font-size-xs);
+}
+
+.removeButton {
+  position: absolute;
+  top: 7px;
+  right: 6px;
+  width: 28px;
+  height: 28px;
+  border: 0;
+  border-radius: var(--ref-border-radius-small);
+  background: transparent;
+  color: var(--colour-text-muted);
+  font-size: 20px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.removeButton:hover {
+  background: var(--colour-error-bg);
+  color: var(--colour-error);
+}
+
+.addField {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  min-height: 58px;
+  padding: 10px;
+  border: 1px dashed var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background: var(--colour-surface);
+}
+
+.addField select {
+  width: 100%;
+}
+
+.actions {
+  display: flex;
+  grid-column: 1 / -1;
+  gap: 8px;
+  margin-top: 2px;
+  padding-top: 2px;
+}
+
+.applyButton,
+.clearButton {
+  padding: 7px 12px;
+  border-radius: var(--ref-border-radius-small);
+  font-size: var(--ref-font-size-small);
+  cursor: pointer;
+}
+
+.applyButton {
+  border: 0;
+  background: var(--colour-primary);
+  color: white;
+}
+
+.clearButton {
+  border: 1px solid var(--colour-border);
+  background: var(--colour-surface);
+  color: var(--colour-text-secondary);
+}
+
+@media (max-width: 680px) {
+  .panel {
+    grid-template-columns: 1fr;
+    width: min(360px, calc(100vw - 32px));
+  }
+
+  .filterRow {
+    min-width: 0;
+  }
+
+  .activeSummary {
+    max-width: 55vw;
+  }
+}

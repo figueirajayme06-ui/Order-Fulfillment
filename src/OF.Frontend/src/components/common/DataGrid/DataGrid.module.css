@@ -1,0 +1,56 @@
+.pagination {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ref-spacing-medium);
+  padding: 6px var(--ref-spacing-medium);
+  border-top: 1px solid var(--colour-border);
+}
+
+.pageSizeControl {
+  position: absolute;
+  right: var(--ref-spacing-medium);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-small);
+  white-space: nowrap;
+}
+
+.pageSizeSelect {
+  height: 30px;
+  padding: 4px 28px 4px 9px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background-color: var(--colour-surface);
+  color: var(--colour-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.pageButton {
+  padding: 6px 14px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background-color: var(--colour-surface);
+  color: var(--colour-text);
+  font-size: var(--ref-font-size-small);
+  cursor: pointer;
+  transition: background-color var(--ref-transition-fast);
+}
+
+.pageButton:hover:not(:disabled) {
+  background-color: var(--ref-colour-grey20);
+}
+
+.pageButton:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.pageInformation {
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-small);
+}

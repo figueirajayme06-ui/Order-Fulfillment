@@ -1,0 +1,205 @@
+@using Infragistics.Web.Mvc
+@using OF.Common
+@inject OF.UI.Identity.IUserIdentity Identity
+@inject OF.Common.Infrastructure.Features.FeatureProvider FeatureProvider
+@inject OF.UI.Database.IDataRepository DbContext
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@model GridContainer
+
+
+@{
+    var id = Identity.GetIdentity();
+}
+
+<div class="container-fluid">
+    <!-- Page-Title -->
+    <div class="row">
+    </div>
+    <!--end row-->
+    <!-- end page title end breadcrumb -->
+    <div class="row">
+        <div class="card text-bg-light">
+            <div class="card-body">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid" style="padding-left:0">
+                        <div class="col-sm-6">
+                            <div id="container_edit_title" class="row" style='@(Model.View == null ? "" : "display:none!important")'>
+                                <div class="col mr-2">
+                                    <div class="form-floating">
+                                        <input type="text" class="form-control" id="txtViewTitle" placeholder="Enter a title for the view" value="@(Model.View == null ? "" : Model.View.Name)">
+                                        <label for="txtViewTitle">View title</label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="chkViewTarget" id="chkViewMe" @(Model.View == null || Model.View.ForEveryone == 0 ? "checked" : "") @(Model.View != null && Model.View.Id == 1 ? "disabled" : "")>
+                                        <label class="form-check-label" for="chkViewMe">
+                                            This view is for me
+                                        </label>
+                                    </div>
+                                    @if (id != null && id.IsAdmin)
+                                    {
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="chkViewTarget" id="chkViewEveryone" @(
+                                        Model.View != null && Model.View.ForEveryone == 1 ? "checked" : ""
+                                        )>
+                                            <label class="form-check-label" for="chkViewEveryone">
+                                                For everyone
+                                            </label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="radio" name="chkViewTarget" id="chkViewDivision" @(Model.View != null && Model.View.ForEveryone == 2 ? "checked" : "") @(Model.View != null && Model.View.Id == 1 ? "disabled" : "")>
+                                            <label class="form-check-label" for="chkViewDivision">
+                                                Everyone in my division
+                                            </label>
+                                        </div>
+                                    }
+                                </div>
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="chkViewType" id="chkStandardView" @(Model.View == null || !Model.View.GanttView ? "checked" : "") @(Model.View != null ? "disabled" : "")>
+                                        <label class="form-check-label" for="chkViewType">
+                                            Standard view
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="chkViewType" id="chkGanttView" @(Model.View != null && Model.View.GanttView ? "checked" : "") @(Model.View != null ? "disabled" : "")>
+                                        <label class="form-check-label" for="chkGanttView">
+                                            Gantt chart
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col">
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="chkViewSource" id="chkAgreementView" @(!Model.IsAssetView ? "checked" : "") disabled>
+                                        <label class="form-check-label" for="chkViewSource">
+                                            Agreement view
+                                        </label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="radio" name="chkViewSource" id="chkAssetView" @(Model.IsAssetView ? "checked" : "") disabled>
+                                        <label class="form-check-label" for="chkViewSource">
+                                            Asset view
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="container_view_title" class="row" style='@(Model.View == null ? "display:none!important" : "")'>
+                                <h1 class="display-6"><i class="bi bi-database-check"></i>&nbsp;@(Model.View == null ? "" : Model.View.Name)</h1>                      
+                            </div>
+                            @if (!Model.IsAssetView)
+                            {
+                                <div class="form-check form-switch">
+                                    <label class="form-check-label" for="flexSwitchCheckChecked">Show fulfilled </label>
+                                    <input class="form-check-input" type="checkbox" role="switch" id="flexSwitchCheckChecked">
+                                </div>
+                            }
+                        </div>
+
+                        <div id="container_view_buttons" class="d-flex" style='@(Model.View == null ? "display:none!important" : "")'>
+                            <button id="btnChangeOrders" class="btn btn-warning" style="display: none"><i class="bi bi-pencil"></i>&nbsp Change Orders</button>
+
+                            <text>&nbsp;</text>
+                            <button id="btnExport" class="btn btn-primary"><i class="bi bi-file-spreadsheet"></i>&nbsp Export</button>
+                            @if (id != null && (id.IsAdmin || (Model.View != null && Model.View.Owner == id.LoginName && Model.View.Id != 1)))
+                            {
+                                <text>&nbsp;</text>
+                                <button id="btnEdit" class="btn btn-warning"><i class="bi bi-pencil-square"></i>&nbsp Edit View</button>
+                            }
+                            @if (id != null && Model.View != null)
+                            {
+                                <text>&nbsp;</text>
+                                <a id="btnClone" class="btn btn-info" href="/TaskView?cloneid=@Model.View.Id"><i class="bi bi-clipboard-check"></i>&nbsp Clone View</a>
+                            }
+                            <text>&nbsp;</text>
+                            <button id="btnRefresh" class="btn btn-success"><i class="bi bi-arrow-repeat"></i>&nbsp Refresh Data</button>
+                        </div>
+
+                        <div id="container_edit_buttons" class="d-flex" style='@(Model.View != null ? "display:none!important" : "")'>
+                            @if (Model.View != null && Model.View.Id != 1)
+                            {
+                                <button id="btnDelete" class="btn btn-danger"><i class="bi bi-x-circle"></i>&nbsp Delete</button>
+                                <text>&nbsp;</text>
+                            }
+                            <button id="btnSave" class="btn btn-success"><i class="bi bi-save"></i>&nbsp Save</button>
+                            <text>&nbsp;</text>
+                            <button id="btnCancel" class="btn btn-secondary"><i class="bi bi-backspace-reverse"></i>&nbsp Cancel</button>
+                        </div>
+                    </div>
+                </nav>
+                @if (Model.IsAssetView)
+                {
+                    @await Html.PartialAsync("~/Views/TaskView/_AssetSelector.cshtml")
+                }
+                <div style="font-size:0.9em">
+                    @(Html.Infragistics().Grid(Model.Grid))
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="dialogWindow" style="display:none;overflow:hidden">
+    <iframe id="frameFulfilment" style="overflow:hidden" src="about:blank" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+<div id="dialogWindowChange" style="display:none;overflow:hidden">
+    <iframe id="frameChange" style="overflow:hidden" src="about:blank" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+
+@section Scripts {
+    <script type="text/javascript">
+        var pageView = "@(Model.View?.Name ?? "")";
+        @if (Model.IsAssetView)
+        {
+            <text>var isAssetView=true;</text>
+        }
+        else
+        {
+            <text>var isAssetView=false; </text>
+        }
+
+        @if (Model.IsGanttView)
+        {
+            <text>var isGanttView = true; </text>
+        }
+        else
+        {
+            <text>var isGanttView = false; </text>
+        }
+
+        let showHideFulfilledCokieName = "showFulfilled"
+        window.canChangeOrder = @((FeatureProvider.ChangeOrdersEnabled && (User.IsInRole(Constants.Roles.ChangeOrder) || User.IsInRole(Constants.Roles.ChangeApproval))).ToString().ToLower());
+        window.userDivisions = [
+            @foreach (var division in id.Division?.Split(",", StringSplitOptions.RemoveEmptyEntries)?.ToList())
+            {
+                    <text>'@division',</text>
+            }
+        ]
+
+        $(document).ready(function () {
+            var value = Cookies.get(showHideFulfilledCokieName);
+            if (value == "true") {
+                $("#flexSwitchCheckChecked").attr("checked", "checked");
+            } else {
+                $("#flexSwitchCheckChecked").removeAttr("checked");
+            }
+
+            resizeGridToFitWindow("#@(Model.Grid.ID)");
+        });
+
+        $(window).resize(function() {
+            resizeGridToFitWindow("#@(Model.Grid.ID)");
+        });
+
+        $("#flexSwitchCheckChecked").change(function () {
+            Cookies.set(showHideFulfilledCokieName, this.checked ? "true" : "false");
+            window.location.reload();
+        });
+    </script>
+    <script type="text/javascript" src="~/js/site/tasksExportExcel.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/site/tasksMetadata.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/site/tasksSettings.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/site/tasksFunctions.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/site/tasksGrid.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/site/gridCopy.js" asp-append-version="true"></script>
+    <script type="text/javascript" src="~/js/site/notes.js" asp-append-version="true"></script>
+}

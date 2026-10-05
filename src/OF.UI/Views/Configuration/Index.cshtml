@@ -1,0 +1,305 @@
+@using Newtonsoft.Json
+@model IndexModel
+@{
+    Layout = "_LayoutConfiguration";
+    ViewData["Title"] = "Product Configuration";
+    var pricingJson = JsonConvert.SerializeObject(Model.Query.PricingRequest);
+}
+
+<div class="d-flex flex-column" style="min-height: 100vh;">
+    <div class="row grow w-100">
+        <nav class="navbar navbar-expand-lg custom-navbar">
+            <div class="container-fluid">
+                <div class="navbar-brand d-flex flex-column align-items-start m-1">
+                    <h1 class="display-6" style="font-size: 1.7rem;">
+                        <i class="bi bi-magic"></i>
+                        Product Configuration
+                    </h1>
+                    <small id="quote_label" class="text-muted">Quote</small>
+                </div>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+                    </ul>
+                    <div class="d-flex ms-auto">
+                        <div class="btn-group" role="group" aria-label="Action buttons">
+                            <button type="button" onclick="javascript:broadcastCancel()" class="btn btn-outline-secondary btn-lg">Cancel</button>
+                            <button type="button" onclick="javascript:broadcastSend()" class="btn btn-primary btn-lg">Save</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="row grow w-100">
+        <div class="col col-12" style="margin:5px">
+            <div class="card">
+                <div class="card-header">
+                    Product Configuration for <span style="font-weight:300" id="configuration_header"></span>
+                </div>
+                <div class="card-body">
+                    <div id="configuration_extra_props" class="row m-2" style="padding-right: 20px">
+                    </div>
+                    <ul class="nav nav-tabs" id="configTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active" id="attributes-tab" data-bs-toggle="tab" data-bs-target="#attributes" type="button" role="tab" aria-controls="attributes" aria-selected="true">Attributes</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="required-tab" data-bs-toggle="tab" data-bs-target="#required" type="button" role="tab" aria-controls="required" aria-selected="false">Required Items</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link" id="services-tab" data-bs-toggle="tab" data-bs-target="#services" type="button" role="tab" aria-controls="services" aria-selected="false">Services</button>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="configTabContent">
+                        <div class="tab-pane fade show active" id="attributes" role="tabpanel" aria-labelledby="attributes-tab">
+                            <div class="row grow-100 w-100">
+                                <div class="col col-12">
+                                    <div id="option-main-error" style="display:none" class="alert alert-danger m-2" role="alert">
+                                        Error message
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="configuration_props" class="row m-2">
+                            </div>
+                            <div id="configuration_extra_props_bottom" class="row m-2">
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="required" role="tabpanel" aria-labelledby="required-tab">
+                            <div id="required_list" class="row m-2">
+                            </div>
+                        </div>
+                        <div class="tab-pane fade" id="services" role="tabpanel" aria-labelledby="services-tab">
+                            <div id="services_list" class="row m-2">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row flex-grow-1 w-100">
+        <div class="col col-6">
+            <div class="card h-100" style="margin-left: 5px">
+                <div class="card-header">
+                    Availability Information
+                </div>
+                <div class="card-body">
+                    <div class="row m-2">
+                        <div id="fulfilment_spinner" class="d-flex justify-content-center">
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        </div>
+                        <div id="fulfilment_output" class="m-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col col-6">
+            <div class="card h-100" style="margin-left: 10px">
+                <div class="card-header">
+                    Suggested Items (based on previous hires)
+                </div>
+                <div class="card-body">
+                    <div class="row m-2">
+                        <div id="options_output" class="m-2">
+                            <ul class="nav nav-tabs" id="configTab" role="tablist">
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="recommended-tab" data-bs-toggle="tab" data-bs-target="#recommended" type="button" role="tab" aria-controls="recommended" aria-selected="false">Recommended Items</button>
+                                </li>
+                                <li class="nav-item" role="presentation">
+                                    <button class="nav-link" id="additional-tab" data-bs-toggle="tab" data-bs-target="#additional" type="button" role="tab" aria-controls="additional" aria-selected="false">Additional Items</button>
+                                </li>
+                            </ul>
+                            <div class="tab-content tab-content-full">
+                                <div class="tab-pane fade show active" id="recommended" role="tabpanel" aria-labelledby="recommended-tab">
+                                    <div id="recommended_list" class="row m-2">
+                                    </div>
+                                </div>
+                                <div class="tab-pane fade" id="additional" role="tabpanel" aria-labelledby="additional-tab">
+                                    <div id="additional_list" class="row m-2">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Modal for product options -->
+<div class="modal fade" id="option-modal" tabindex="-1" role="dialog" aria-labelledby="option-modal-title" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="option-modal-title">Option Configuration</h5>
+                <button type="button" class="close" data-dismiss="modal" id="option-modal-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- Modal Body -->
+            <div class="modal-body">
+                <div class="row grow-100 w-100">
+                    <div class="col col-12">
+                        <div id="option-modal-error" style="display:none" class="alert alert-danger" role="alert">
+                            Error message
+                        </div>
+                    </div>
+                </div>
+                <div class="row grow w-100">
+                    <div class="col col-12">
+                        <div id="option-modal-body" class="row m-2">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal Footer -->
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" id="option-modal-cancel">Cancel</button>
+                <button type="button" class="btn btn-primary" id="option-modal-save">Save</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for alerts -->
+<div class="modal fade" id="alert-modal" tabindex="-1" role="dialog" aria-labelledby="alert-modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="alert-modal-title">Modal title</h5>
+                <button type="button" class="close close-alert" data-dismiss="modal" id="alert-modal-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p id="alert-modal-text">Modal body text goes here.</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-alert">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for AI info -->
+<div class="modal fade" id="chat-modal" tabindex="-1" role="dialog" aria-labelledby="chat-modal-title" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 id="chat-modal-title">Modal title</h5>
+                <button type="button" class="close close-alert" data-dismiss="modal" id="chat-modal-close" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="chat-output">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary close-alert">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/js/site/configuration.js"></script>
+    <script src="~/js/site/fulfilment.js"></script>
+    <script src="~/js/site/translation.js"></script>
+
+    <script type="text/javascript">
+        var language = '@Model.Language';
+        var translator = new Translator(language);
+        window.translator = translator;
+
+        $(document).ready(function () {
+            $(".close-alert").on("click", function () {
+                $('#alert-modal').modal('hide');
+            })
+        });
+
+        function showAlert(title, text) {
+            $('#alert-modal-text').text(text);
+            $('#alert-modal-title').text(title);
+            $('#alert-modal').modal('show');
+        }
+
+        var configuration = null;
+        var fulfilment = new Fulfilment();
+
+        $(document).ready(function () {
+            var response = getAttributesAndAdditionalItemsForConfigurator(
+                "@(Model.GenericCode ?? Model.Query.PricingRequest.Quote.Lines[0].Generic)",
+                "@(Model.Query.Attributes)",
+                "@(Model.Query.Quantity)");
+
+            const json = {
+                customAttributes: {
+                    lineId: '@(Model.Query.LineId)',
+                    pricingRequest: @Html.Raw(pricingJson)
+                },
+                configurationAttributes: {},
+                product: {
+                    configurationAttributes: response.configurationAttributes,
+                    configuredGenericCode: "@(Model.GenericCode ?? Model.Query.PricingRequest.Quote.Lines[0].Generic)",
+                    optionConfigurations: {
+                        "Required Items": response.optionConfigurations.requiredItems,
+                        "Recommended Items": response.optionConfigurations.recommendedItems,
+                        "Additional Items": response.optionConfigurations.additionalItems,
+                        "Services": response.optionConfigurations.services
+                    }
+                },
+                quote: {
+                    name: "@(Model.Query.AgreementNumber)",
+                    "On_Hire_Date__c": "@(Model.Query.PricingRequest.Quote.Details.OnHireDate)",
+                    "Off_Hire_Date__c": "@(Model.Query.PricingRequest.Quote.Details.OnHireDate)",
+                    "Division__c": "@(Model.Query.PricingRequest.Quote.Details.Division)"
+                }
+            }
+
+            console.log(json);
+
+            // Initialize the configuration object
+            configuration = new Configuration(
+                json,
+                () => {
+                    fulfilment.drawFulfilmentInfoFromProductAndQuote(configuration);
+                },
+                () => {
+                    fulfilment.drawFulfilmentInfoFromProductAndQuote(configuration);
+                }
+            );
+
+            configuration.drawMainConfiguration(
+                $('#configuration_props'),
+                $('#configuration_header'),
+                $('#quote_label'),
+                $('#required_list'),
+                $('#services_list'),
+                $('#recommended_list'),
+                $('#additional_list')
+            );
+        });
+
+        const broadcastSend = () => {
+
+            if (configuration.validatePanel(configuration.configurationAttributes, configuration.configurationData.product.configurationAttributes, $('#option-main-error'))) {
+                var conf = configuration.getConfiguration();
+                var message = JSON.stringify(conf);
+                window.parent.postMessage("saving " + window.location, "*");
+                window.parent.configuratorCallback(message);
+                window.parent.closeConfiguratorDialog();
+            }
+        };
+
+        const broadcastCancel = () => {
+            window.parent.postMessage("closing " + window.location, "*");
+            window.parent.closeConfiguratorDialog();
+        };
+    </script>
+}

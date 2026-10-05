@@ -1,0 +1,25 @@
+steps:
+- task: MSBuild@1
+  displayName: 'Build SQL Database Project'
+  inputs:
+    solution: '$(Build.SourcesDirectory)/src/OF.Data.Design/OF.Data.Design.sqlproj'
+    msbuildArguments: '/p:Configuration=Release'
+
+# Stage the DACPAC together with the CDC scripts (.azd/sql/*.sql) so the deploy stage gets them in
+# one artifact (deployment jobs do not check out source). flattenFolders puts them all at the
+# artifact root, so the deploy template can read $(Agent.BuildDirectory)/sql/<name>.sql.
+- task: CopyFiles@2
+  displayName: 'Stage DACPAC and CDC scripts'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)'
+    Contents: |
+      src/OF.Data.Design/bin/Release/OF.Data.Design.dacpac
+      .azd/sql/*.sql
+    TargetFolder: '$(Build.ArtifactStagingDirectory)/sql'
+    flattenFolders: true
+
+- task: PublishPipelineArtifact@1
+  displayName: 'Publish SQL Artifact'
+  inputs:
+    path: '$(Build.ArtifactStagingDirectory)/sql'
+    artifact: sql

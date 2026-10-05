@@ -1,0 +1,39 @@
+.navigation {
+  display: inline-flex;
+  overflow: hidden;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background-color: var(--colour-surface);
+}
+
+.button {
+  border: 0;
+  border-right: 1px solid var(--colour-border);
+  padding: 5px 10px;
+  background-color: transparent;
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  cursor: pointer;
+}
+
+.button:last-child {
+  border-right: 0;
+}
+
+.button:hover:not(:disabled) {
+  background-color: var(--ref-colour-grey20);
+  color: var(--colour-text);
+}
+
+.button:focus-visible {
+  position: relative;
+  z-index: 1;
+  outline: 2px solid var(--colour-primary);
+  outline-offset: -2px;
+}
+
+.button:disabled {
+  color: var(--colour-text-muted);
+  cursor: not-allowed;
+  opacity: 0.55;
+}

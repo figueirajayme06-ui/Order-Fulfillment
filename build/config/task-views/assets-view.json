@@ -1,0 +1,34 @@
+{
+    "Filter": [],
+    "Columns": [
+        { "Key": "StatusInDateRange", "Hidden": false, "Width": "60px" },
+        { "Key": "Id", "Hidden": false, "Width": "112px", "HeaderText": "Assets Id." },
+        { "Key": "ItemNumber", "Hidden": false, "Width": "137px" },
+        { "Key": "Description", "Hidden": false, "Width": "154px" },
+        { "Key": "Facility", "Hidden": false, "Width": "112px" },
+        { "Key": "Warehouse", "Hidden": false, "Width": "80px", "HeaderText": "Whs" },
+        { "Key": "WarehouseName", "Hidden": false, "Width": "155px" },
+        { "Key": "Status", "Hidden": false, "Width": "97px" },
+        { "Key": "WarehouseLocation", "Hidden": false, "Width": "148px" },  
+        { "Key": "DeliveryDate", "Hidden": false, "Width": "140px", "HeaderText": "Del. Date" },
+        { "Key": "LineValidFrom", "Hidden": false, "Width": "140px", "HeaderText": "Valid From" },
+        { "Key": "LineValidTo", "Hidden": false, "Width": "140px", "HeaderText": "Valid To" },
+        { "Key": "TerminationDate", "Hidden": false, "Width": "140px", "HeaderText": "Term. Date" },
+        { "Key": "CollectionDate", "Hidden": false, "Width": "140px", "HeaderText": "Coll. Date" },
+        { "Key": "AgreementNumber", "Hidden": false, "Width": "100px", "HeaderText": "Agree." },
+        { "Key": "CustomerName", "Hidden": false, "Width": "200px", "HeaderText": "Cust. Name" },
+        { "Key": "CustomerNumber", "Hidden": false, "Width": "140px", "HeaderText": "Cust. Num." },
+        { "Key": "EstimatedReadyDate", "Hidden": false, "Width": "140px", "HeaderText": "Ready Date" },
+        { "Key": "ProductGroup", "Hidden": false, "Width": "129px", "HeaderText": "Prod. Group" },
+        { "Key": "ProductCategory", "Hidden": false, "Width": "145px", "HeaderText": "Prod. Cat." },
+        { "Key": "RunHours", "Hidden": false, "Width": "80px", "HeaderText": "Run hours" },
+        { "Key": "Size", "Hidden": false, "Width": "96px" },
+        { "Key": "TelemetryStatus", "Hidden": false, "Width": "76px" },
+        { "Key": "Remark", "Hidden": false, "Width": "100px" },
+        { "Key": "Division", "Hidden": true, "Width": "100px" }
+    ],
+    "Sort": [
+        { "Index": 0, "Key": "LineValidFrom", "Dir": "desc" }
+    ],
+    "Group": []
+}

@@ -1,0 +1,202 @@
+parameters:
+- name: showNewFrontendForAll
+  displayName: 'Show the new frontend link to all OF Dev users'
+  type: boolean
+  default: false
+
+pool:
+  name: 'Self-Hosted-Ubuntu-Shared'
+
+trigger: none
+pr: none
+
+variables:
+  - template: ../actions/variables.yml
+
+stages:
+- stage: 'Build'
+  displayName: 'Version, Plan Infra'
+  variables:
+  - group: OF-Dev
+
+  jobs:
+  - job: 'Version'
+    displayName: 'Version'
+    steps:
+    - template: ../actions/version.yml
+      parameters:
+        version: $(version)
+
+  - job: 'Infra'
+    displayName: 'Plan Infra'
+    dependsOn: ["Version"]
+    steps:
+    - template: ../actions/tf-plan.yml
+      parameters:
+        serviceConnection: $(serviceConnection)
+        storageAccountName: $(tf-storage_account_name)
+        containerName: $(tf-container_name)
+        workingDirectory: '$(Build.SourcesDirectory)/build/infra'
+        laws_name: $(laws_name)
+        environment: $(environment)
+        version: $(version)
+        authClientId: $(auth_client_id)
+        authScope: $(auth_scope)
+        ipgSbnsConnection: $(ipg_sbns_connection)
+        ipgSubName: $(ipg_sub_name)
+        cr_subscription_id: $(cr_subscription_id)
+        cr_name: $(cr_name)
+        cr_resource_group: $(cr_resource_group)
+        vnetName: 'vnet-nof-dvtst'
+        vnetSubnetRoot: 'agk-nof-dev'
+        enablePrivateAccess: true
+        enableNewFrontend: true
+        showNewFrontendForAll: ${{ parameters.showNewFrontendForAll }}
+
+- stage: 'Deploy_Dev'
+  displayName: 'Dev Deployment'
+  variables:
+  - group: OF-Dev
+  dependsOn: ['Build']
+  jobs:
+  - deployment: 'Deploy_Dev'
+    displayName: 'Dev Deploy Infra'
+    environment: 'dev'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../actions/deploy-infra.yml
+            parameters:
+              serviceConnection: $(serviceConnection)
+              storageAccountName: $(tf-storage_account_name)
+              containerName: $(tf-container_name)
+              workingDirectory: '$(Agent.BuildDirectory)/infra'
+              laws_name: $(laws_name)
+              environment: $(environment)
+              version: $(version)
+              authClientId: $(auth_client_id)
+              authScope: $(auth_scope)
+              ipgSbnsConnection: $(ipg_sbns_connection)
+              ipgSubName: $(ipg_sub_name)
+              cr_subscription_id: $(cr_subscription_id)
+              cr_name: $(cr_name)
+              cr_resource_group: $(cr_resource_group)
+              appTier: 'Standard'
+              appSku: 'S1'
+              vnetName: 'vnet-nof-dvtst'
+              vnetSubnetRoot: 'agk-nof-dev'
+              enablePrivateAccess: true
+              enableNewFrontend: true
+              showNewFrontendForAll: ${{ parameters.showNewFrontendForAll }}
+
+- stage: 'Deploy_SIT'
+  displayName: 'SIT Deployment'
+  variables:
+  - group: OF-SIT
+  dependsOn: ['Build']
+  jobs:
+  - deployment: 'Deploy_SIT'
+    displayName: 'SIT Deploy Infra'
+    environment: 'sit'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../actions/deploy-infra.yml
+            parameters:
+              serviceConnection: $(serviceConnection)
+              storageAccountName: $(tf-storage_account_name)
+              containerName: $(tf-container_name)
+              workingDirectory: '$(Agent.BuildDirectory)/infra'
+              laws_name: $(laws_name)
+              environment: $(environment)
+              version: $(version)
+              authClientId: $(auth_client_id)
+              authScope: $(auth_scope)
+              ipgSbnsConnection: $(ipg_sbns_connection)
+              ipgSubName: $(ipg_sub_name)
+              cr_subscription_id: $(cr_subscription_id)
+              cr_name: $(cr_name)
+              cr_resource_group: $(cr_resource_group)
+              appTier: 'Standard'
+              appSku: 'S1'
+              vnetName: 'vnet-nof-dvtst'
+              vnetSubnetRoot: 'agk-nof-sit'
+              enablePrivateAccess: true
+              enableNewFrontend: false
+              showNewFrontendForAll: false
+
+- stage: 'Deploy_Test'
+  displayName: 'Test Deployment'
+  variables:
+  - group: OF-Test
+  dependsOn: ['Build']
+  jobs:
+  - deployment: 'Deploy_Test'
+    displayName: 'Test Deploy Infra'
+    environment: 'test'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../actions/deploy-infra.yml
+            parameters:
+              serviceConnection: $(serviceConnection)
+              storageAccountName: $(tf-storage_account_name)
+              containerName: $(tf-container_name)
+              workingDirectory: '$(Agent.BuildDirectory)/infra'
+              laws_name: $(laws_name)
+              environment: $(environment)
+              version: $(version)
+              authClientId: $(auth_client_id)
+              authScope: $(auth_scope)
+              ipgSbnsConnection: $(ipg_sbns_connection)
+              ipgSubName: $(ipg_sub_name)
+              cr_subscription_id: $(cr_subscription_id)
+              cr_name: $(cr_name)
+              cr_resource_group: $(cr_resource_group)
+              appTier: 'Standard'
+              appSku: 'S1'
+              vnetName: 'vnet-nof-dvtst'
+              vnetSubnetRoot: 'agk-nof-test'
+              enablePrivateAccess: true
+              enableNewFrontend: false
+              showNewFrontendForAll: false
+
+- stage: 'Deploy_Live'
+  displayName: 'Live Deployment'
+  variables:
+  - group: OF-Live
+  dependsOn: ['Build']
+  jobs:
+  - deployment: 'Deploy_Live'
+    displayName: 'Live Deploy Infra'
+    environment: 'live'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - template: ../actions/deploy-infra.yml
+            parameters:
+              serviceConnection: $(serviceConnectionLive)
+              storageAccountName: $(tf-storage_account_name)
+              containerName: $(tf-container_name)
+              workingDirectory: '$(Agent.BuildDirectory)/infra'
+              laws_name: $(laws_name)
+              environment: $(environment)
+              version: $(version)
+              authClientId: $(auth_client_id)
+              authScope: $(auth_scope)
+              ipgSbnsConnection: $(ipg_sbns_connection)
+              ipgSubName: $(ipg_sub_name)
+              cr_subscription_id: $(cr_subscription_id)
+              cr_name: $(cr_name)
+              cr_resource_group: $(cr_resource_group)
+              appTier: 'Premium'
+              appSku: 'P1v3'
+              vnetName: 'vnet-nof-lv'
+              vnetSubnetRoot: 'agk-nof-live'
+              enablePrivateAccess: true
+              enableNewFrontend: false
+              showNewFrontendForAll: false

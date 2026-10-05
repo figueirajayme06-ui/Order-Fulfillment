@@ -1,0 +1,21 @@
+IF NOT EXISTS(
+    SELECT *
+    FROM INFORMATION_SCHEMA.COLUMNS columns
+    WHERE columns.TABLE_SCHEMA = N'dbo'
+        and columns.TABLE_NAME = N'Headers'
+        and columns.COLUMN_NAME = N'OpportunityName')
+BEGIN
+    ALTER TABLE [dbo].[Headers]
+    ADD OpportunityName NVARCHAR(255) NULL;
+END
+
+IF NOT EXISTS(
+    SELECT *
+    FROM INFORMATION_SCHEMA.COLUMNS columns
+    WHERE columns.TABLE_SCHEMA = N'dbo'
+        and columns.TABLE_NAME = N'Headers'
+        and columns.COLUMN_NAME = N'OpportunityStage')
+BEGIN
+    ALTER TABLE [dbo].[Headers]
+    ADD OpportunityStage NVARCHAR(100) NULL;
+END

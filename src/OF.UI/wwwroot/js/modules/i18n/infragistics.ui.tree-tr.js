@@ -1,0 +1,9 @@
+/*!@license
+* Infragistics.Web.ClientUI Tree localization resources 23.1.9
+*
+* Copyright (c) 2011-2023 Infragistics Inc.
+*
+* http://www.infragistics.com/
+*
+*/
+(function(factory){if(typeof define==="function"&&define.amd){define(["jquery"],factory)}else{return factory(jQuery)}})(function($){$.ig=$.ig||{};$.ig.Tree=$.ig.Tree||{};$.ig.locale=$.ig.locale||{};$.ig.locale.tr=$.ig.locale.tr||{};$.ig.locale.tr.Tree={invalidArgumentType:"Ge\xe7ersiz ba\u011f\u0131ms\u0131z de\u011fi\u015fken t\xfcr\xfc sa\u011fland\u0131.",errorOnRequest:"Veriler al\u0131n\u0131rken bir hata olu\u015ftu: ",noDataSourceUrl:"\u0130gTree kontrol\xfc, s\xf6z konusu URL'ye veri talebi ba\u015flatmak i\xe7in sa\u011flanan bir dataSourceUrl gerektirir.",incorrectPath:"Sa\u011flanan yolda bir d\xfc\u011f\xfcm bulunamad\u0131: ",incorrectNodeObject:"Sa\u011flanan ba\u011f\u0131ms\u0131z de\u011fi\u015fken bir jQuery d\xfc\u011f\xfcm \xf6\u011fesi de\u011fil.",setOptionError:"A\u015fa\u011f\u0131daki se\xe7enek i\xe7in \xe7al\u0131\u015fma zaman\u0131 de\u011fi\u015fikliklerine izin verilmez: ",moveTo:"{0} konumuna <strong>ta\u015f\u0131</strong>",moveBetween:"{0} ve {1} <strong>aras\u0131nda ta\u015f\u0131</strong>",moveAfter:"{0} <strong>sonras\u0131na ta\u015f\u0131</strong>",moveBefore:"{0} <strong>\xf6ncesine ta\u015f\u0131</strong>",copyTo:"{0} konumuna <strong>kopyala</strong>",copyBetween:"{0} ve {1} <strong>aras\u0131na kopyala</strong>",copyAfter:"{0} <strong>sonras\u0131na kopyala</strong>",copyBefore:"{0} tarihinden <strong>\xf6ncesine kopyala</strong>",and:"ve"};$.ig.Tree.locale=$.ig.Tree.locale||$.ig.locale.tr.Tree;return $.ig.locale.tr.Tree});

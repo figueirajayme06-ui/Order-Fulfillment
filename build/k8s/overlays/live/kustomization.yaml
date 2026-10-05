@@ -1,0 +1,35 @@
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: order-fulfillment
+
+resources:
+  - ../../base
+  - configmap.yaml
+  - secretproviderclass.yaml
+
+patches:
+  - target:
+      kind: ServiceAccount
+      name: order-fulfillment-sa
+    patch: |-
+      - op: replace
+        path: /metadata/annotations/azure.workload.identity~1client-id
+        value: "4d5c109a-c9c9-4475-b5ab-4f68bc926cff"
+
+images:
+  - name: ACR_PLACEHOLDER/nof/warehouses
+    newName: acragkapgj9r7vkuplv.azurecr.io/nof/warehouses
+    newTag: latest
+  - name: ACR_PLACEHOLDER/nof/assets
+    newName: acragkapgj9r7vkuplv.azurecr.io/nof/assets
+    newTag: latest
+  - name: ACR_PLACEHOLDER/nof/quotes
+    newName: acragkapgj9r7vkuplv.azurecr.io/nof/quotes
+    newTag: latest
+  - name: ACR_PLACEHOLDER/nof/products
+    newName: acragkapgj9r7vkuplv.azurecr.io/nof/products
+    newTag: latest
+
+commonLabels:
+  environment: live

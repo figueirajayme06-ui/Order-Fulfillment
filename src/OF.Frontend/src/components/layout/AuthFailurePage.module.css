@@ -1,0 +1,113 @@
+.page {
+  display: grid;
+  min-height: 100vh;
+  min-height: 100dvh;
+  place-items: center;
+  padding: var(--ref-spacing-large);
+  background: var(--colour-background);
+}
+
+.panel {
+  width: min(100%, 560px);
+  overflow: hidden;
+  border: 1px solid var(--colour-border);
+  border-top: 4px solid var(--colour-primary);
+  border-radius: var(--ref-border-radius-medium);
+  background: var(--colour-surface);
+  box-shadow: var(--ref-shadow-medium);
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: var(--ref-spacing-medium);
+  padding: var(--ref-spacing-medium) var(--ref-spacing-large);
+  border-bottom: 1px solid var(--colour-border);
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-small);
+  font-weight: var(--ref-font-weight-medium);
+}
+
+.brand img {
+  width: 96px;
+  height: auto;
+}
+
+.content {
+  padding: var(--ref-spacing-xxl);
+}
+
+.icon {
+  display: grid;
+  width: 48px;
+  height: 48px;
+  margin-bottom: var(--ref-spacing-large);
+  place-items: center;
+  border-radius: var(--ref-border-radius-full);
+  background: var(--colour-primary-surface);
+  color: var(--colour-primary-hover);
+  font-size: var(--ref-font-size-xl);
+}
+
+.eyebrow {
+  margin: 0 0 var(--ref-spacing-small);
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-semibold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.content h1 {
+  max-width: 440px;
+  color: var(--colour-text);
+  font-size: var(--ref-font-size-xxl);
+  line-height: var(--ref-font-lineheight-tight);
+}
+
+.description,
+.nextStep {
+  max-width: 440px;
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-base);
+  line-height: var(--ref-font-lineheight-relaxed);
+}
+
+.description {
+  margin: var(--ref-spacing-medium) 0 0;
+}
+
+.nextStep {
+  margin: var(--ref-spacing-small) 0 0;
+}
+
+.action {
+  margin-top: var(--ref-spacing-xl);
+}
+
+@media (max-width: 599px) {
+  .page {
+    place-items: stretch;
+    padding: 0;
+    background: var(--colour-background);
+  }
+
+  .panel {
+    width: 100%;
+    min-height: 100vh;
+    min-height: 100dvh;
+    border-right: 0;
+    border-bottom: 0;
+    border-left: 0;
+    border-radius: 0;
+    box-shadow: none;
+  }
+
+  .content {
+    padding: var(--ref-spacing-xxl) var(--ref-spacing-large);
+  }
+
+  .content h1 {
+    font-size: var(--ref-font-size-xl);
+  }
+}

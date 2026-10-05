@@ -1,0 +1,9 @@
+/*!@license
+* Infragistics.Web.ClientUI Validator localization resources 23.1.9
+*
+* Copyright (c) 2011-2023 Infragistics Inc.
+*
+* http://www.infragistics.com/
+*
+*/
+(function(factory){if(typeof define==="function"&&define.amd){define(["jquery"],factory)}else{return factory(jQuery)}})(function($){$.ig=$.ig||{};$.ig.Validator=$.ig.Validator||{};$.ig.locale=$.ig.locale||{};$.ig.locale.nb=$.ig.locale.nb||{};$.ig.locale.nb.Validator={defaultMessage:"Dette feltet trenger oppmerksomhet",selectMessage:"En verdi b\xf8r velges",rangeSelectMessage:"Du m\xe5 velge minst {0} men ikke mer enn {1} elementer",minSelectMessage:"Minst {0} element(er) b\xf8r velges",maxSelectMessage:"Du m\xe5 ikke velge mer enn {0} element(er)",rangeLengthMessage:"Oppf\xf8ringen skal v\xe6re mellom {0} og {1} tegn lang",minLengthMessage:"Oppf\xf8ringen skal v\xe6re minst {0} tegn(er) lang",maxLengthMessage:"Oppf\xf8ringen m\xe5 ikke v\xe6re mer enn {0} tegn(er) lang",requiredMessage:"Dette feltet er obligatorisk",patternMessage:"Oppf\xf8ringen samsvarer ikke med det n\xf8dvendige m\xf8nsteret",maskMessage:"Alle n\xf8dvendige stillinger b\xf8r fylles ut",dateFieldsMessage:"Datofeltverdier b\xf8r angis",invalidDayMessage:"Du m\xe5 angi en gyldig dag i m\xe5neden",dateMessage:"En gyldig dato b\xf8r angis",numberMessage:"Du m\xe5 angi et gyldig nummer",rangeValueMessage:"En verdi mellom {0} og {1} b\xf8r angis",minValueMessage:"Du m\xe5 angi en verdi p\xe5 minst {0}",maxValueMessage:"Du m\xe5 angi en verdi som ikke er mer enn {0}",emailMessage:"Du m\xe5 angi en gyldig e-postadresse",creditCardMessage:"Du m\xe5 angi et gyldig betalingskortnummer",equalToMessage:"De to verdiene stemmer ikke overens",optionalString:"(valgfri)"};$.ig.Validator.locale=$.ig.Validator.locale||$.ig.locale.nb.Validator;return $.ig.locale.nb.Validator});

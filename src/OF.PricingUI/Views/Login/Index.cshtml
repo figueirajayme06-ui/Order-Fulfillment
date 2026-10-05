@@ -1,0 +1,14 @@
+@using OF.PricingUI.ViewModels
+@model LoginViewModel
+@{
+}
+
+<form method="post" method="post">
+    <input type="email" name="email" required />
+    <input type="text" name="code" required />
+
+    <!-- Hidden input for ReturnUrl -->
+    <input type="hidden" name="ReturnUrl" value="@Model.ReturnUrl" />
+
+    <button type="submit">Login</button>
+</form>

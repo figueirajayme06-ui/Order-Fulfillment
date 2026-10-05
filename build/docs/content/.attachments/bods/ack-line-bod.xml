@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AcknowledgeAGKRentalAgreementLines xmlns="http://schema.infor.com/InforOAGIS/2" releaseID="9.2" versionID="2.12.2" systemEnvironmentCode="Production" languageCode="en-US">
+    <ApplicationArea>
+        <Sender>
+            <LogicalID schemeVersionID="1.003">lid://infor.m3.m3</LogicalID>
+            <ComponentID>M3BE</ComponentID>
+            <ConfirmationCode>OnError</ConfirmationCode>
+        </Sender>
+        <CreationDateTime>2024-04-30T21:33:58.195Z</CreationDateTime>
+        <BODID>18089834-aad1-4fec-8ce3-076018e8488c</BODID>
+    </ApplicationArea>
+    <DataArea>
+        <Acknowledge>
+            <ResponseCriteria>
+                <ResponseExpression actionCode="Rejected"/>
+            </ResponseCriteria>
+        </Acknowledge>
+        <AGKRentalAgreementLines>
+            <detailLines>
+                <agreementNumber>T712925</agreementNumber>
+                <agreementLineNumber/>
+                <correlationId>1365149c-2f68-476c-ba2f-29f25a7131f8</correlationId>
+                <orderCorrelationId/>
+                <orderProcessStatus>901</orderProcessStatus>
+                <technicalErrorMessage>NOK Mi Transaction Error: 9a1fd406-7906-4ac1-8466-f59cffc272c7, Transaction Name: UpdRentalLine, API ID:099467ed-cbb8-47ea-8d96-2f8176be4a17, MI error: MIErrorImpl [errorCode= , messageId=WAG1103, errorMessage=Agreement number T712925 does not exist, errorField=AGNB] Truncation: No truncation</technicalErrorMessage>
+                <orderItemRecordId/>
+            </detailLines>
+            <UserArea>
+                <Property>
+                    <NameValue name="CorrelationId">1365149c-2f68-476c-ba2f-29f25a7131f8</NameValue>
+                </Property>
+                <Property>
+                    <NameValue name="M3AgreementNumber">T712925</NameValue>
+                </Property>
+                <Property>
+                    <NameValue name="technicalErrorMessage">NOK Mi Transaction Error: 9a1fd406-7906-4ac1-8466-f59cffc272c7, Transaction Name: UpdRentalLine, API ID:099467ed-cbb8-47ea-8d96-2f8176be4a17, MI error: MIErrorImpl [errorCode= , messageId=WAG1103, errorMessage=Agreement number T712925 does not exist, errorField=AGNB] Truncation: No truncation</NameValue>
+                </Property>
+            </UserArea>
+        </AGKRentalAgreementLines>
+    </DataArea>
+</AcknowledgeAGKRentalAgreementLines>
+<?xml version="1.0" encoding="UTF-8" ?>
+<AcknowledgeAGKRentalAgreementLines xmlns="http://schema.infor.com/InforOAGIS/2" releaseID="9.2" versionID="2.12.2" systemEnvironmentCode="Production" languageCode="en-US">
+    <ApplicationArea>
+        <Sender>
+            <LogicalID schemeVersionID="1.003">lid://infor.m3.m3</LogicalID>
+            <ComponentID>M3BE</ComponentID>
+            <ConfirmationCode>OnError</ConfirmationCode>
+        </Sender>
+        <CreationDateTime>2024-04-30T21:33:58.064Z</CreationDateTime>
+        <BODID>d55a35f7-42f4-4967-898b-e99c94fe28a3</BODID>
+    </ApplicationArea>
+    <DataArea>
+        <Acknowledge>
+            <ResponseCriteria>
+                <ResponseExpression actionCode="Rejected"/>
+            </ResponseCriteria>
+        </Acknowledge>
+        <AGKRentalAgreementLines>
+            <detailLines>
+                <agreementNumber>T712925</agreementNumber>
+                <agreementLineNumber/>
+                <correlationId>ab18b20c-d79f-4983-bf45-1098fb55e0f1</correlationId>
+                <orderCorrelationId/>
+                <orderProcessStatus>901</orderProcessStatus>
+                <technicalErrorMessage>NOK Mi Transaction Error: 586bb897-efa2-442b-a5cc-7fec1d52850a, Transaction Name: AddRentalLine, API ID:747bff4c-561d-4205-9202-9148d69578ac, MI error: MIErrorImpl [errorCode= , messageId=XAD0001, errorMessage=A record has been entered by user, errorField=AGNB] Truncation: No truncation</technicalErrorMessage>
+                <orderItemRecordId/>
+            </detailLines>
+            <UserArea>
+                <Property>
+                    <NameValue name="CorrelationId">ab18b20c-d79f-4983-bf45-1098fb55e0f1</NameValue>
+                </Property>
+                <Property>
+                    <NameValue name="M3AgreementNumber">T712925</NameValue>
+                </Property>
+                <Property>
+                    <NameValue name="technicalErrorMessage">NOK Mi Transaction Error: 586bb897-efa2-442b-a5cc-7fec1d52850a, Transaction Name: AddRentalLine, API ID:747bff4c-561d-4205-9202-9148d69578ac, MI error: MIErrorImpl [errorCode= , messageId=XAD0001, errorMessage=A record has been entered by user, errorField=AGNB] Truncation: No truncation</NameValue>
+                </Property>
+            </UserArea>
+        </AGKRentalAgreementLines>
+    </DataArea>
+</AcknowledgeAGKRentalAgreementLines>
+<?xml version="1.0" encoding="UTF-8" ?>
+<AcknowledgeAGKRentalAgreementLines xmlns="http://schema.infor.com/InforOAGIS/2" releaseID="9.2" versionID="2.12.2" systemEnvironmentCode="Production" languageCode="en-US">
+    <ApplicationArea>
+        <Sender>
+            <LogicalID schemeVersionID="1.003">lid://infor.m3.m3</LogicalID>
+            <ComponentID>M3BE</ComponentID>
+            <ConfirmationCode>OnError</ConfirmationCode>
+        </Sender>
+        <CreationDateTime>2024-04-30T21:34:07.583Z</CreationDateTime>
+        <BODID>bc158bf4-e776-4c8c-9eea-10362e2407bd</BODID>
+    </ApplicationArea>
+    <DataArea>
+        <Acknowledge>
+            <ResponseCriteria>
+                <ResponseExpression actionCode="Rejected"/>
+            </ResponseCriteria>
+        </Acknowledge>
+        <AGKRentalAgreementLines>
+            <detailLines>
+                <agreementNumber>T712925</agreementNumber>
+                <agreementLineNumber/>
+                <correlationId>c10cae4f-34c9-4697-8ada-03c32fea8384</correlationId>
+                <orderCorrelationId/>
+                <orderProcessStatus>901</orderProcessStatus>
+                <technicalErrorMessage>NOK Mi Transaction Error: ac0c8253-241a-40b6-baae-9ceb74f585a7, Transaction Name: AddRentalLine, API ID:099467ed-cbb8-47ea-8d96-2f8176be4a17, MI error: MIErrorImpl [errorCode= , messageId=WAG1103, errorMessage=Agreement number T712925 does not exist, errorField=AGNB] Truncation: No truncation</technicalErrorMessage>
+                <orderItemRecordId/>
+            </detailLines>
+            <UserArea>
+                <Property>
+                    <NameValue name="CorrelationId">c10cae4f-34c9-4697-8ada-03c32fea8384</NameValue>
+                </Property>
+                <Property>
+                    <NameValue name="M3AgreementNumber">T712925</NameValue>
+                </Property>
+                <Property>
+                    <NameValue name="technicalErrorMessage">NOK Mi Transaction Error: ac0c8253-241a-40b6-baae-9ceb74f585a7, Transaction Name: AddRentalLine, API ID:099467ed-cbb8-47ea-8d96-2f8176be4a17, MI error: MIErrorImpl [errorCode= , messageId=WAG1103, errorMessage=Agreement number T712925 does not exist, errorField=AGNB] Truncation: No truncation</NameValue>
+                </Property>
+            </UserArea>
+        </AGKRentalAgreementLines>
+    </DataArea>
+</AcknowledgeAGKRentalAgreementLines>

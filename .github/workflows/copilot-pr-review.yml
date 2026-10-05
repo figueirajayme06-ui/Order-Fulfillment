@@ -1,0 +1,35 @@
+name: Copilot PR Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches:
+      - master
+      - release/*
+      - hotfix/*
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  request-copilot-review:
+    runs-on: ubuntu-latest
+    name: Request Copilot review
+    if: github.actor != 'dependabot[bot]'
+    steps:
+      - name: Request Copilot as reviewer
+        env:
+          GH_TOKEN: ${{ github.token }}
+          REPO: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
+        run: |
+          response=$(curl -sS -o /tmp/copilot_response.json -w "%{http_code}" -X POST \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            "https://api.github.com/repos/${REPO}/pulls/${PR}/requested_reviewers" \
+            -d '{"reviewers":["copilot-pull-request-reviewer"]}')
+          if [ "$response" != "201" ]; then
+            echo "Warning: Could not request Copilot review (HTTP $response). Copilot code review may not be enabled for this repository."
+            cat /tmp/copilot_response.json
+          fi

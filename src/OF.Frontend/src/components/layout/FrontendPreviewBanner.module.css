@@ -1,0 +1,101 @@
+.banner {
+  display: flex;
+  align-items: center;
+  gap: var(--ref-spacing-small);
+  min-height: 42px;
+  padding: var(--ref-spacing-xs) var(--ref-spacing-large);
+  border-bottom: 1px solid var(--colour-info);
+  background-color: var(--colour-info-bg);
+  color: var(--colour-text);
+  font-size: var(--ref-font-size-small);
+}
+
+.badge {
+  flex: none;
+  padding: 2px var(--ref-spacing-xs);
+  border-radius: var(--ref-border-radius-small);
+  background-color: var(--colour-info);
+  color: var(--colour-surface);
+  font-family: var(--ref-font-face-secondary);
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-semibold);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.message {
+  color: var(--colour-text-secondary);
+}
+
+.deploymentDetails {
+  position: relative;
+  flex: none;
+  color: var(--colour-text-secondary);
+}
+
+.deploymentDetails summary {
+  cursor: pointer;
+  font-family: var(--ref-font-face-primary);
+  font-size: var(--ref-font-size-xs);
+  white-space: nowrap;
+}
+
+.deploymentMetadata {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + var(--ref-spacing-xs));
+  right: 0;
+  width: min(430px, 80vw);
+  margin: 0;
+  padding: var(--ref-spacing-small);
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background: var(--colour-surface);
+  box-shadow: var(--ref-shadow-medium);
+}
+
+.deploymentMetadata div {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr);
+  gap: var(--ref-spacing-small);
+}
+
+.deploymentMetadata dt {
+  font-weight: var(--ref-font-weight-semibold);
+}
+
+.deploymentMetadata dd {
+  min-width: 0;
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.returnLink {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--ref-spacing-xs);
+  margin-left: auto;
+  color: var(--colour-info);
+  font-weight: var(--ref-font-weight-semibold);
+  white-space: nowrap;
+}
+
+.returnLink:hover {
+  text-decoration-thickness: 2px;
+}
+
+@media (max-width: 899px) {
+  .banner {
+    flex-wrap: wrap;
+    padding: var(--ref-spacing-small) var(--ref-spacing-medium);
+  }
+
+  .message {
+    flex: 1 1 220px;
+  }
+
+  .returnLink {
+    flex-basis: 100%;
+    margin-left: 0;
+  }
+}

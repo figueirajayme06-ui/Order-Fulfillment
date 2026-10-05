@@ -1,0 +1,103 @@
+@using OF.Common
+@using Infragistics.Web.Mvc
+@using OF.Data.Database
+@using OF.UI.Helpers
+@model OF.UI.ViewModels.ChangeOrders.ChangeOrdersListViewModel
+@inject OF.UI.Identity.IUserIdentity Identity
+
+@{
+    Layout = "/Views/Shared/_LayoutDialog.cshtml";
+    var user = Identity.GetIdentity();
+    var dateFormat = user.DateFormat;
+}
+
+<div class="container-fluid" style="margin:0;padding:0">
+    <div class="row" style="margin:0;padding:0">
+        <div id="colLines" class="col-12 mr-1 mt-1">
+            <div class="card">
+                <h5 class="card-header"><i class="bi bi-box-seam"></i>&nbsp;Change Orders for @Model.Header.AgreementNumber</h5>
+                <div class="card-body change-body" style="overflow:auto">
+                    <div class="row">
+                        <div asp-validation-summary="All" class="text-danger"></div>
+
+                        @if (Model.ChangeOrders?.Any() == false)
+                        {
+                            <div class="col-md-12 text-center">
+                                <p>No change orders have been created for this agreement.</p>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-md-12">
+                                <table style="width:100%" class="table table-fixed">
+                                    <thead>
+                                        <tr>
+                                            <th style="width:40px">Status</th>
+                                            <th style="width:100px">Created By</th>
+                                            <th style="width:100px">Created On</th>
+                                            <th style="width:100px">Last message</th>
+                                            <th style="width:100px"></th>
+                                        </tr>
+                                    </thead>    
+                                    <tbody>
+                                        @foreach (ChangeOrder change in Model.ChangeOrders.OrderByDescending(i => i.CreatedDate))
+                                        {
+                                            <tr>
+                                                <td class="nowrap">@((ChangeStatus)change.Status)&nbsp;
+                                                    @switch ((ChangeStatus)change.Status)
+                                                    {
+                                                        case ChangeStatus.Approved:
+                                                            <i class="bi bi-check text-success"></i>
+                                                            break;
+                                                        case ChangeStatus.Rejected:
+                                                            <i class="bi bi-x-circle text-danger"></i>
+                                                            break;
+                                                        case ChangeStatus.Requested:
+                                                            <i class="bi bi-arrow-clockwise text-info"></i>
+                                                            break;
+                                                        case ChangeStatus.Completed:
+                                                            <i class="bi bi-check-circle-fill text-success"></i>
+                                                            break;
+                                                        default:
+                                                            <i class="bi bi-patch-question text-info"></i>
+                                                            break;
+                                                    }
+                                                </td>
+                                                <td class="nowrap">@change.CreatedBy</td>
+                                                <td class="nowrap">@change.CreatedDate.ToString(dateFormat)</td>
+                                                <td class="nowrap">@change.ApprovedBy</td>
+                                                <td class="nowrap">
+                                                    <a disabled onclick="updateUrl(@(change.Id))" href="/ChangeOrder/Details?headerId=@change.HeaderId&changeId=@change.Id" title="View change." class="btn btn-sm btn-primary float-end">
+                                                        <i class="bi bi-box-arrow-up-right"></i>
+                                                    </a>
+                                                </td>
+                                            </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        }
+                        @if (!Model.HasActiveChanges)
+                        {
+                            <div class="col-md-12 text-center">
+                                <form method="post">
+                                    <input type="hidden" id="headerId" value="@Model.Header.Id" />
+                                    <button class="btn btn-success" type="submit">New Change Order <i class="bi bi-plus"></i></button>
+                                </form>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script type="text/javascript" src="~/js/site/changeCore.js" asp-append-version="true"></script>
+    <script>
+        function updateUrl(changeId) {
+            window.parent.addChangePushState(changeId);
+        }
+    </script>
+}

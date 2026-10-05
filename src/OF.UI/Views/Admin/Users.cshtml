@@ -1,0 +1,253 @@
+@using Infragistics.Web.Mvc
+@using OF.Data.Database
+@using OF.Data.Enums
+@inject OF.UI.Identity.IUserIdentity Identity
+@inject OF.Common.Infrastructure.Features.FeatureProvider FeatureProvider
+@model IQueryable<User>
+
+@{
+    Layout = "/Views/Shared/_LayoutBasic.cshtml";
+    var id = Identity.GetIdentity();
+}
+
+<div class="container-fluid">
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+        </div>
+        <!--end col-->
+    </div>
+    <!--end row-->
+    <!-- end page title end breadcrumb -->
+    <div class="row">
+        <div class="card text-bg-light">
+            <div class="card-body">
+                <nav class="navbar navbar-expand-lg navbar-light bg-light">
+                    <div class="container-fluid" style="padding-left:0">
+                        <div class="col-sm-6">
+                            <div id="container_view_title" class="row">
+                                <h1 class="display-6"><i class="bi bi-database-check"></i>&nbsp;User Administration</h1>
+                            </div>
+                        </div>
+                        <div class="d-flex">
+                            <button id="btnSave" class="btn btn-success"><i class="bi bi-check-circle"></i>&nbsp Save</button>
+                        </div>
+                    </div>
+                </nav>
+                <div>
+                    <div id="lstPeople"></div>
+                </div>
+                @(
+                    Html.Infragistics()
+                    .Grid(Model)
+                    .ID("taskgrid")
+                    .Width("100%")
+                    .Height("500px")
+                    .PrimaryKey("LoginName")
+                    .AutoGenerateColumns(false)
+                    .AutoGenerateLayouts(false)
+                    .RenderCheckboxes(true)
+                    .Columns(column =>
+                    {
+                        column.For(x => x.LoginName).HeaderText("Login Name").Width("30%");
+                        column.For(x => x.FullName).HeaderText("Full Name").Width("20%");
+                        column.For(x => x.Division).HeaderText("Divisions").Width("10%");
+                        column.For(x => x.Language).HeaderText("Language").Width("25%").FormatterFunction("languageFormatter");
+                        column.For(x => x.IsAdmin).HeaderText("Is Admin").Width("5%");
+                        column.For(x => x.DateFormat).HeaderText("Date Format").Width("10%");
+                        if (FeatureProvider.RolesEnabled)
+                        {
+                            column.For(x => x.Roles).HeaderText("Roles").Width("10%");
+                        }
+                    })
+                    .DataSourceUrl(Url.Action("GetUsers"))
+                    .UpdateUrl(Url.Action("UpdateUsers"))
+                    .Features(features =>
+                    {
+                        features.GroupBy();
+                        features.Updating()
+                        .EnableDeleteRow(true)
+                        .EnableAddRow(false)
+                        .EditMode(GridEditMode.Row)
+                        .ColumnSettings(settings =>
+                        {
+                            settings.ColumnSetting().ColumnKey("LoginName").EditorType(ColumnEditorType.Text).ReadOnly(true);
+                            settings.ColumnSetting().ColumnKey("FullName").EditorType(ColumnEditorType.Text).ReadOnly(true);
+                            settings.ColumnSetting().ColumnKey("Division").EditorProvider("new $.ig.ExtendedComboEditorProvider()").EditorType(ColumnEditorType.Combo).EditorOptions("'dataSourceUrl': getDivisions(), 'filteringType': 'local','mode': 'dropdown', 'textKey': 'code', 'valueKey': 'code', 'allowCustomValue': false, 'locale': { 'placeHolder': 'Select divisions' }, 'multiSelection': { 'enabled': true, 'showCheckboxes': 'false', 'itemSeparator':',' },'dropDownOrientation': 'bottom'").Required(true).Validation(true);
+                            settings.ColumnSetting().ColumnKey("Language").EditorType(ColumnEditorType.Combo).EditorOptions("'dataSource': getLanguages(), 'textKey': 'value', 'valueKey': 'key', 'filteringType': 'local','mode': 'dropdown', 'allowCustomValue': false, 'locale': { 'placeHolder': 'Select language' },'dropDownOrientation': 'bottom'");
+                            settings.ColumnSetting().ColumnKey("IsAdmin").EditorType(ColumnEditorType.Checkbox);
+                            settings.ColumnSetting().ColumnKey("DateFormat").EditorType(ColumnEditorType.Combo).EditorOptions("'dataSourceUrl': getDateFormats(), 'filteringType': 'local','mode': 'dropdown', 'textKey': 'code', 'valueKey': 'code', 'allowCustomValue': false, 'locale': { 'placeHolder': 'Select date format' },'dropDownOrientation': 'bottom'").Required(true).Validation(true);
+                            if (FeatureProvider.RolesEnabled)
+                            {
+                                settings.ColumnSetting().ColumnKey("Roles").EditorProvider("new $.ig.ExtendedComboEditorProviderRoles()").EditorType(ColumnEditorType.Combo).EditorOptions("'dataSourceUrl': getRoles(), 'filteringType': 'local','mode': 'dropdown', 'textKey': 'code', 'valueKey': 'code', 'allowCustomValue': false, 'locale': { 'placeHolder': 'Select roles' }, 'multiSelection': { 'enabled': true, 'showCheckboxes': 'false', 'itemSeparator':',' },'dropDownOrientation': 'bottom'").Required(false).Validation(true);
+                            }
+                        });
+                    })
+                    .Render()
+                    )
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+
+    var dateFormats = [
+        {
+            'code': 'dd/MM/yyyy'
+        },
+        {
+            'code': 'MM/dd/yyyy'
+        }
+
+    ];
+
+    function getDateFormats() {
+        return dateFormats;
+    }
+
+    var divisionsJSON = [];
+
+    function getDivisions() {
+
+        if (divisionsJSON.length == 0) {
+            $.ajax({
+                url: "/api/Task/Divisions",
+                type: "get",
+                async: false,
+                success: function (data) {
+                    divisionsJSON = data;
+                }
+            });
+        }
+
+        return divisionsJSON;
+    }
+
+    var rolesJSON = [];
+
+    function getRoles() {
+        if (rolesJSON.length == 0) {
+            $.ajax({
+                url: "/api/Task/Roles",
+                type: "get",
+                async: false,
+                success: function (data) {
+                    rolesJSON = data;
+                }
+            });
+        }
+
+        return rolesJSON;
+    }
+
+    function getLanguages() {
+        return [
+    @foreach (var item in Enum.GetValues(typeof(Languages)).Cast<Languages>().ToList())
+    {
+        <text>{ key: @((int)item), value: "@(item.ToString())" }, </text>
+    }
+                    ]
+    }
+
+    function languageFormatter(val) {
+        var languages = getLanguages();
+        var language = languages.find(lang => lang.key === val);
+        return language ? language.value : val;
+    }
+
+    $.ig.ExtendedComboEditorProvider = $.ig.EditorProviderCombo.extend({
+        getValue: function () {
+            var val = this.editor.value();
+            var text = this.editor.text();
+            if ($.type(val) === "array") {
+                //When the passed value is of complex type return the text instead.
+                //This will be the value saved in the grid data source after editing ends.
+                return text;
+            }
+            return val;
+        },
+        setValue: function (val, fire) {
+            var array = [];
+            this.editor.deselectAll();
+            if (val && this.options.multiSelection.enabled && val?.contains(this.options.multiSelection.itemSeparator)) {
+                //if multiSelection is enabled and the value passed from the grid cell to the editor contains the specified itemSeparator
+                //Then split the value by the separator and set a complex value back to the editor so that the matching items will get selected.
+                array = val.split(this.options.multiSelection.itemSeparator);
+                return this.editor.value(array, null, fire);
+            }
+            return this.editor.value(val, null, fire);
+        }
+    });
+
+    $.ig.ExtendedComboEditorProviderRoles = $.ig.EditorProviderCombo.extend({
+        getValue: function () {
+            var val = this.editor.value();
+            var text = this.editor.text();
+            if ($.type(val) === "array") {
+                //When the passed value is of complex type return the text instead.
+                //This will be the value saved in the grid data source after editing ends.
+                return text;
+            }
+            return val;
+        },
+        setValue: function (val, fire) {
+            var array = [];
+            this.editor.deselectAll();
+            if (val && this.options.multiSelection.enabled && val?.contains(this.options.multiSelection.itemSeparator)) {
+                //if multiSelection is enabled and the value passed from the grid cell to the editor contains the specified itemSeparator
+                //Then split the value by the separator and set a complex value back to the editor so that the matching items will get selected.
+                array = val.split(this.options.multiSelection.itemSeparator);
+                return this.editor.value(array, null, fire);
+            }
+            return this.editor.value(val, null, fire);
+        }
+    });
+
+    $("#lstPeople").igCombo({
+        width: 500,
+        dataSourceUrl: '/api/Graph/People',
+        filteringType: 'remote',
+        filterExprUrlKey: 'filter',
+        textKey: "displayName",
+        valueKey: "userPrincipalName",
+        autoComplete: false,
+        autoSelectFirstMatch: false,
+        selectItemBySpaceKey: false,
+        allowCustomValue: false,
+        locale: {
+            placeHolder: "Add a new user from Active Directory"
+        },
+        initialSelectedItems: selDivs,
+        multiSelection: {
+            enabled: false
+        },
+        dropDownOrientation: "bottom",
+        selectionChanged: function (evt, ui) {
+            if (ui.items) {
+                var user = ui.items[0].data.userPrincipalName.toLowerCase();
+                var name = ui.items[0].data.displayName;
+                var record = $('#taskgrid').igGrid("findRecordByKey", user);
+
+                if (record != null) {
+                    showError('You have already added this user. To change their division or admin role edit their existing record.');
+                } else {
+
+                    $('#taskgrid').igGridUpdating('addRow', { 'LoginName': user, 'FullName': name, 'Division': '110', 'IsAdmin': false });
+                    $("#taskgrid").igGridUpdating('startEdit', user);
+                }
+                $("#lstPeople").igCombo("clearInput");
+            }
+        }
+    });
+
+    $('#btnSave').click(function () {
+        $('#taskgrid').igGrid("saveChanges", function (data) {
+            showSaveSuccess();
+        },
+            function (jqXHR, textStatus, errorThrown) {
+                showSaveError();
+            });
+    });
+</script>

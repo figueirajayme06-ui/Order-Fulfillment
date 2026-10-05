@@ -1,0 +1,26 @@
+﻿SELECT 
+	AGCN,
+	DIVI,
+	FACI,
+	AGNB,
+	ASTH,
+	ASTL,
+	AYRF,
+	CFJ7,
+	CUOR,
+	CUPL,
+	ACNM,
+	ADR1, 
+	ADR2, 
+	ADR3, 
+	ADR4,
+	DPOT,
+	SAID,
+	UCA2,
+	UCA3,
+	UCA4,
+	UCA6,
+	UDN1,
+	UDN2
+FROM default.staghe
+WHERE AGNB = 'A{0}' OR AGNB = 'T{0}'

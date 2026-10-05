@@ -1,0 +1,448 @@
+.page {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  gap: var(--ref-spacing-medium);
+}
+
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--ref-spacing-large);
+}
+
+.header h1 {
+  margin: 0;
+  font-size: var(--ref-font-size-xxl);
+}
+
+.header p {
+  margin: 3px 0 0;
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-small);
+}
+
+.alertContent {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--ref-spacing-medium);
+}
+
+.editor {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ref-spacing-medium);
+}
+
+.directorySection {
+  max-width: 780px;
+}
+
+.directorySearch {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.directorySearch > label,
+.identityGrid label,
+.preferenceFields label,
+.tableControls label {
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-small);
+  font-weight: var(--ref-font-weight-medium);
+}
+
+.searchControl {
+  display: flex;
+  align-items: stretch;
+  gap: var(--ref-spacing-small);
+}
+
+.searchControl input {
+  min-width: 260px;
+  flex: 1;
+}
+
+.editor input[type="text"],
+.editor input[type="search"],
+.editor input:not([type]),
+.editor select,
+.tableControls input,
+.tableControls select {
+  min-height: 36px;
+  padding: 7px 10px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background: var(--colour-surface);
+  color: var(--colour-text);
+  font: inherit;
+  outline: none;
+}
+
+.editor input:focus,
+.editor select:focus,
+.tableControls input:focus,
+.tableControls select:focus {
+  border-color: var(--colour-focus-ring);
+  box-shadow: 0 0 0 3px var(--colour-focus-ring-glow);
+}
+
+.editor input[readonly] {
+  background: var(--ref-colour-grey10);
+  color: var(--colour-text-secondary);
+}
+
+.directoryResults {
+  display: grid;
+  max-height: 240px;
+  margin: 6px 0 0;
+  padding: 4px;
+  overflow-y: auto;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-medium);
+  background: var(--colour-surface);
+  list-style: none;
+}
+
+.directoryResults li + li {
+  border-top: 1px solid var(--ref-colour-grey20);
+}
+
+.directoryResults button {
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(180px, 0.8fr) minmax(240px, 1.2fr) auto;
+  align-items: center;
+  gap: var(--ref-spacing-medium);
+  padding: 9px 10px;
+  border-radius: var(--ref-border-radius-small);
+  color: var(--colour-text);
+  text-align: left;
+}
+
+.directoryResults button:hover:not(:disabled),
+.directoryResults button:focus-visible {
+  background: var(--ref-colour-grey10);
+}
+
+.directoryResults button:disabled {
+  cursor: not-allowed;
+  opacity: 0.62;
+}
+
+.directoryResults small {
+  color: var(--colour-text-secondary);
+}
+
+.directoryResults strong {
+  color: var(--colour-warning);
+  font-size: var(--ref-font-size-xs);
+}
+
+.directoryEmpty {
+  margin: 7px 0 0;
+  color: var(--colour-text-muted);
+  font-size: var(--ref-font-size-small);
+}
+
+.identityGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--ref-spacing-medium);
+}
+
+.identityGrid label,
+.preferenceFields label {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.settingsGrid {
+  display: grid;
+  grid-template-columns: minmax(260px, 1.2fr) minmax(190px, 0.8fr) minmax(180px, 0.7fr) minmax(240px, 1fr);
+  align-items: start;
+  gap: var(--ref-spacing-medium);
+}
+
+.choiceFieldset,
+.accessFieldset {
+  min-width: 0;
+  margin: 0;
+  padding: 9px 11px 11px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-medium);
+}
+
+.choiceFieldset legend,
+.accessFieldset legend {
+  padding: 0 4px;
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-small);
+  font-weight: var(--ref-font-weight-semibold);
+}
+
+.choiceList {
+  display: grid;
+  max-height: 132px;
+  gap: 6px;
+  overflow-y: auto;
+}
+
+.choiceList label,
+.accessFieldset label {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  color: var(--colour-text);
+  cursor: pointer;
+  font-size: var(--ref-font-size-small);
+  font-weight: var(--ref-font-weight-regular);
+}
+
+.choiceList input,
+.accessFieldset input {
+  flex: 0 0 auto;
+  margin-top: 2px;
+}
+
+.accessFieldset {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.preferenceFields {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ref-spacing-medium);
+}
+
+.fieldError {
+  display: block;
+  margin: 5px 0 0;
+  color: var(--colour-error);
+  font-size: var(--ref-font-size-xs);
+}
+
+.formActions {
+  display: flex;
+  gap: var(--ref-spacing-small);
+  padding-top: 2px;
+}
+
+.usersSection {
+  display: flex;
+  min-height: 0;
+  flex-direction: column;
+  gap: var(--ref-spacing-small);
+}
+
+.usersToolbar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: var(--ref-spacing-medium);
+}
+
+.usersToolbar h2 {
+  margin: 0;
+  font-size: var(--ref-font-size-large);
+}
+
+.usersToolbar > div:first-child > span {
+  color: var(--colour-text-muted);
+  font-size: var(--ref-font-size-xs);
+}
+
+.tableControls {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--ref-spacing-small);
+}
+
+.tableControls label {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.tableControls input {
+  width: 270px;
+}
+
+.tableControls select {
+  min-width: 150px;
+}
+
+.tableContainer {
+  min-height: 0;
+  overflow: auto;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-medium);
+  background: var(--colour-surface);
+}
+
+.table {
+  width: 100%;
+  min-width: 1100px;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: var(--ref-font-size-small);
+}
+
+.table thead {
+  position: sticky;
+  z-index: 2;
+  top: 0;
+  background: var(--ref-colour-grey20);
+}
+
+.table th {
+  padding: 9px 11px;
+  border-bottom: 1px solid var(--colour-border);
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  font-weight: var(--ref-font-weight-semibold);
+  letter-spacing: 0.03em;
+  text-align: left;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+
+.table td {
+  max-width: 260px;
+  padding: 8px 11px;
+  overflow: hidden;
+  border-bottom: 1px solid var(--ref-colour-grey20);
+  text-overflow: ellipsis;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+.table thead th:nth-last-child(2),
+.table thead th:last-child,
+.table tbody tr:not(.groupRow) td:nth-last-child(2),
+.table tbody tr:not(.groupRow) td:last-child {
+  position: sticky;
+}
+
+.table thead th:nth-last-child(2),
+.table thead th:last-child {
+  z-index: 3;
+  background: var(--ref-colour-grey20);
+}
+
+.table tbody tr:not(.groupRow) td:nth-last-child(2),
+.table tbody tr:not(.groupRow) td:last-child {
+  z-index: 1;
+  background: var(--colour-surface);
+}
+
+.table thead th:nth-last-child(2),
+.table tbody tr:not(.groupRow) td:nth-last-child(2) {
+  right: 112px;
+  width: 116px;
+  box-shadow: -8px 0 10px -10px var(--colour-text-muted);
+}
+
+.table thead th:last-child,
+.table tbody tr:not(.groupRow) td:last-child {
+  right: 0;
+  width: 112px;
+}
+
+.table tr:last-child td {
+  border-bottom: 0;
+}
+
+.loginCell {
+  font-family: "SF Mono", "Cascadia Code", monospace;
+  font-size: var(--ref-font-size-xs);
+}
+
+.badges,
+.rowActions {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.groupRow th {
+  position: sticky;
+  z-index: 1;
+  top: 35px;
+  padding: 7px 11px;
+  background: var(--ref-colour-grey10);
+  color: var(--colour-text);
+  text-transform: none;
+}
+
+.emptyState {
+  padding: var(--ref-spacing-xxl);
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-medium);
+  background: var(--colour-surface);
+  color: var(--colour-text-secondary);
+  text-align: center;
+}
+
+.emptyState h3 {
+  margin: 0 0 5px;
+  color: var(--colour-text);
+}
+
+.emptyState p {
+  margin: 0;
+}
+
+.forbidden {
+  display: flex;
+  min-height: 40vh;
+  align-items: center;
+  justify-content: center;
+  color: var(--colour-error);
+  font-size: var(--ref-font-size-medium);
+}
+
+@media (max-width: 1250px) {
+  .settingsGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 720px) {
+  .header,
+  .usersToolbar,
+  .tableControls,
+  .alertContent {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .identityGrid,
+  .settingsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .searchControl {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .searchControl input,
+  .tableControls input,
+  .tableControls select {
+    width: 100%;
+    min-width: 0;
+  }
+
+  .directoryResults button {
+    grid-template-columns: 1fr;
+    gap: 2px;
+  }
+}

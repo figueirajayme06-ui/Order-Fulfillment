@@ -1,0 +1,382 @@
+﻿html {
+    font-size: 12px;
+}
+
+.ui-igdialog-content {
+    overflow:hidden !important;
+}
+
+.page-wrapper {
+    overflow-x: hidden;
+}
+
+.ui-iggrid th {
+    height: 64px !important;
+}
+
+#grid td {
+    white-space: nowrap !important;
+}
+
+#grid_fixed td {
+    white-space: nowrap !important;
+}
+
+td.nowrap {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+div.nowrap {
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    white-space: nowrap !important;
+}
+
+.user-identity {
+    color: #fff;
+}
+
+.picker {
+    width: 600px;
+    display: block;
+    border: solid 1px #cacaca;
+    height: 33px;
+    list-style: none;
+    padding-left: 0;
+    float:right;
+    margin-left: 10px;
+}
+
+.picker li {
+    display: inline;
+    margin-left: 5px;
+}
+
+.picker button {
+    border: none;
+    background-color: transparent;
+}
+
+div.messageCell {
+    width: 100%;
+    min-height: 80px;
+    padding: 20px;
+    font-family: 'Courier New';
+}
+
+div.userCell {
+    border-left: solid 5px #ff6a00;
+}
+
+div.botCell {
+    border-left: solid 5px #b6ff00;
+}
+
+.exporting-indicator {
+    position: absolute;
+    background-color: rgba(181, 181, 181, 0.9);
+    top: 0;
+    left: 0;
+    z-index: 100000;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.exporting-indicator:after {
+    content: "";
+    display: inline-block;
+    vertical-align: middle;
+    height: 100%;
+}
+
+.exporting-text {
+    font-size: 46px;
+    font-weight: bold;
+    vertical-align: middle;
+}
+
+.barItemsContainer {
+    overflow-x: auto;
+    overflow-y: auto;
+    margin-top: 10px;
+}
+
+.fulfilResults {
+    text-align: center;
+    font-size: 4em;
+    color: #cacaca;
+}
+
+.fulfilMessage {
+    text-align: center;
+    font-size: 4em;
+    color: #cacaca;
+    position: relative;
+    top: 40%
+}
+
+.fulfilSpinnerContainer {
+    width: 100%;
+    height: 200px;
+    text-align: center;
+    margin-top: 50px
+}
+
+
+.div-primary {
+    color: #000;
+    background-color: #cfe2ff;
+    border-color: #bacbe6;
+}
+
+.div-secondary {
+    color: #000;
+    background-color: #e2e3e5;
+    border-color: #cbccce;
+}
+
+.div-success {
+    color: #000;
+    background-color: #d1e7dd;
+    border-color: #bcd0c7;
+}
+
+.div-info {
+    color: #000;
+    background-color: #cff4fc;
+    border-color: #badce3;
+}
+
+.div-warning {
+    color: #000;
+    background-color: #fff3cd;
+    border-color: #e6dbb9;
+}
+
+.div-danger {
+    color: #000;
+    background-color: #f8d7da;
+    border-color: #dfc2c4;
+}
+
+.div-color {
+    color: #000;
+    background-color: #f7c6f3c0;
+    border-color: #dfc2c485;
+}
+
+.div-light {
+    color: #000;
+    background-color: #f8f9fa;
+    border-color: #dfe0e1;
+}
+
+.div-dark {
+    color: #000;
+    background-color: #adf7a498;
+    border-color: #373b3e;
+}
+
+.transport_event {
+    color: #000;
+    background-color: #ffff00;
+    border-color: #bacbe6;
+}
+
+.collection_event {
+    color: #000;
+    background-color: #d7ec9ee0;
+    border-color: #cbccce;
+}
+
+.reserved_event {
+    color: #fff;
+    background-color: #0f9ed5;
+    border-color: #bcd0c7;
+}
+
+.service_event {
+    color: #fff;
+    background-color: #e97132;
+    border-color: #badce3;
+}
+
+.repair_event {
+    color: #fff;
+    background-color: #ff0000;
+    border-color: #e6dbb9;
+}
+
+.onhold_event {
+    color: #fff;
+    background-color: #4ea72e;
+    border-color: #dfc2c4;
+}
+
+.onhire_event {
+    color: #fff;
+    background-color: #4ea72e;
+    border-color: #dfc2c485;
+}
+
+.ringfence_event {
+    color: #fff;
+    background-color: #156082;
+    border-color: #373b3e;
+}
+
+tr.line_child td {
+    font-style: italic;
+    font-weight: bold;
+}
+
+tr.line_quote td {
+    background-color: #ff9cbd
+}
+
+#grid_fixedBodyContainer, #grid_fixedHeaderContainer, #grid_fixedBodyContainer {
+    border-right: none !important;
+}
+
+@-webkit-keyframes rotating /* Safari and Chrome */ {
+    from {
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes rotating {
+    from {
+        -ms-transform: rotate(0deg);
+        -moz-transform: rotate(0deg);
+        -webkit-transform: rotate(0deg);
+        -o-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    to {
+        -ms-transform: rotate(360deg);
+        -moz-transform: rotate(360deg);
+        -webkit-transform: rotate(360deg);
+        -o-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
+.rotating {
+    -webkit-animation: rotating 2s linear infinite;
+    -moz-animation: rotating 2s linear infinite;
+    -ms-animation: rotating 2s linear infinite;
+    -o-animation: rotating 2s linear infinite;
+    animation: rotating 2s linear infinite;
+}
+
+.change-body label {
+    font-weight: bold;
+}
+
+.change-body .form-group.row {
+    border-bottom: 1px solid #dcdcdc;
+}
+.change-body .form-group.row:last-of-type {
+    border-bottom: none;
+}
+
+.value-changed {
+    background-color: #ffe3af !important;
+}
+
+tr.row-added td,
+tr.row-added input.value-changed {
+    background-color: #c6e3c6 !important;
+}
+
+tr.row-deleted td,
+tr.row-deleted input.value-changed {
+    background-color: #fbc9c9 !important;
+}
+
+
+ul.timeline {
+    list-style-type: none;
+    position: relative;
+}
+
+    ul.timeline:before {
+        content: ' ';
+        background: #d4d9df;
+        display: inline-block;
+        position: absolute;
+        left: 29px;
+        width: 2px;
+        height: 100%;
+        z-index: 400;
+    }
+
+    ul.timeline > li {
+        margin: 20px 0;
+        padding-left: 20px;
+    }
+
+        ul.timeline > li:before {
+            content: ' ';
+            background: white;
+            display: inline-block;
+            position: absolute;
+            border-radius: 50%;
+            border: 3px solid #22c0e8;
+            left: 20px;
+            width: 20px;
+            height: 20px;
+            z-index: 400;
+        }
+        ul.timeline > li.change-comment-requested:before {
+            background: #0dcaf0 !important;
+        }
+        ul.timeline > li.change-comment-approved:before {
+            background: #198754 !important;
+        }
+        ul.timeline > li.change-comment-rejected:before {
+            background: #dc3545 !important;
+        }
+        ul.timeline > li.change-comment-completed:before {
+            background: #ffc107 !important;
+        }
+
+.gantt-text-display {
+    position: absolute;
+    top: 1px;
+    left : 2px;
+    white-space: nowrap;
+    pointer-events: none;
+}
+
+/* Grid cell copy - row highlight (applied via JS on click) */
+#grid tr.grid-row-selected > td,
+#grid tr.grid-row-selected > td.ui-state-active,
+#grid_fixed tr.grid-row-selected > td,
+#grid_fixed tr.grid-row-selected > td.ui-state-active {
+    background-color: rgba(13, 110, 253, 0.15) !important;
+    background: rgba(13, 110, 253, 0.15) !important;
+    border-color: transparent !important;
+}
+
+/* Grid cell copy - active cell deeper blue (applied via JS on click) */
+#grid tr.grid-row-selected > td.grid-cell-selected,
+#grid tr.grid-row-selected > td.grid-cell-selected.ui-state-active,
+#grid_fixed tr.grid-row-selected > td.grid-cell-selected,
+#grid_fixed tr.grid-row-selected > td.grid-cell-selected.ui-state-active {
+    background-color: rgba(13, 110, 253, 0.45) !important;
+    background: rgba(13, 110, 253, 0.45) !important;
+}
+
+

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<SyncAGKRentalOrderHeader xmlns="http://schema.infor.com/InforOAGIS/2" releaseID="9.2" versionID="2.14.3" systemEnvironmentCode="Production">
+    <ApplicationArea>
+        <Sender>
+            <LogicalID schemeVersionID="1.005">lid://infor.m3.m3</LogicalID>
+            <ComponentID schemeVersionID="16.0.0.20240221054708.9">M3BE</ComponentID>
+            <ConfirmationCode>OnError</ConfirmationCode>
+        </Sender>
+        <CreationDateTime>2024-04-18T05:17:33.806Z</CreationDateTime>
+        <BODID>954c6654-1d63-4f68-82f9-68b10f53d912</BODID>
+    </ApplicationArea>
+    <DataArea>
+        <Sync>
+            <AccountingEntityID>001_200</AccountingEntityID>
+            <ActionCriteria>
+                <ActionExpression actionCode="Replace"/>
+            </ActionCriteria>
+        </Sync>
+        <AGKRentalOrderHeader>
+            <AgreementHeaders>
+                <agreementNumber>A712565</agreementNumber>
+                <agreementOrderType>RAW</agreementOrderType>
+                <division>200</division>
+                <currencyCode>USD</currencyCode>
+                <facility>USG</facility>
+                <agreementCustomer>US00103535</agreementCustomer>
+                <agreementHighestStatus>20</agreementHighestStatus>
+                <agreementLowestStatus>20</agreementLowestStatus>
+                <reasonCodeCreated>C09</reasonCodeCreated>
+                <salesPerson>DEF</salesPerson>
+                <customerSiteAddress>900000</customerSiteAddress>
+                <customerSiteAddressLine1>1320 Bank Ave</customerSiteAddressLine1>
+                <agreementOwner>DEBOREFFE</agreementOwner>
+                <customerName>NAM05Apr24180655</customerName>
+                <agreementPhoneNumber>+010123456789</agreementPhoneNumber>
+                <proposalNumber>Q-438254</proposalNumber>
+                <poAmount>0.0</poAmount>
+                <rentalDepot>BD1</rentalDepot>
+                <fuelManagement>4</fuelManagement>
+                <orderSource>ORF</orderSource>
+                <company>001</company>
+                <correlationId>954c6654-1d63-4f68-82f9-68b10f53d912</correlationId>
+                <customerSiteAccount>US00103535</customerSiteAccount>
+                <jobAICCode>0101</jobAICCode>
+                <minRentalPeriod>0</minRentalPeriod>
+                <minRentalType>0</minRentalType>
+                <orderNumber>0</orderNumber>
+                <orderRecordId>8017a000003GAerAAG</orderRecordId>
+                <payerAddress>900000</payerAddress>
+                <timestamp>2024-04-18T05:17:33.806Z</timestamp>
+                <agreementVersion>0</agreementVersion>
+                <changeSequence>1713417422608|5</changeSequence>
+                <orderCorrelationId>3675feed-13a2-9d73-9f73-ca26d0f0524b</orderCorrelationId>
+                <aRMContactCode>US00103535-900000</aRMContactCode>
+                <billingContactCode>US00103535-900000</billingContactCode>
+                <proposalContactCode>US00103535-900000</proposalContactCode>
+                <siteContactCode>US00103535-900000</siteContactCode>
+            </AgreementHeaders>
+            <UserArea>
+                <Property>
+                    <NameValue name="orderProcessStatus">140.000000</NameValue>
+                </Property>
+            </UserArea>
+        </AGKRentalOrderHeader>
+    </DataArea>
+</SyncAGKRentalOrderHeader>

@@ -1,0 +1,17 @@
+.card {
+  background-color: var(--colour-surface);
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-medium);
+  box-shadow: var(--ref-shadow-small);
+}
+
+.title {
+  padding: var(--ref-spacing-medium) var(--ref-spacing-large);
+  border-bottom: 1px solid var(--colour-border);
+  font-size: var(--ref-font-size-medium);
+  font-weight: var(--ref-font-weight-semibold);
+}
+
+.body {
+  padding: var(--ref-spacing-large);
+}

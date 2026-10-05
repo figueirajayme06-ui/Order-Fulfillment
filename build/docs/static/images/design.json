@@ -1,0 +1,158 @@
+{
+  "name": "Order Fulfillment: Design",
+  "state": "of.orchestrator.tfstate",
+  "storage-azure": {
+    "subscription-id": "bac9cfa1-7f78-4238-8d82-ae90f5f1be45",
+    "resource-group": "Landing-Zones-Default",
+    "account": "terraformofdvtstwe1",
+    "container": "terraformstate-dev"
+  },
+  "excludes": [
+    "sbnsofdev-azurerm_servicebus_namespace",
+    "agreement-out-azurerm_servicebus_queue",
+    "agreement-line-out-azurerm_servicebus_queue",
+    "asset-out-azurerm_servicebus_queue",
+    "cae-ofdev-azurerm_container_app_environment"
+  ],
+  "components": [
+    {
+      "name": "Internet",
+      "type": "draw_custom",
+      "resource_group_name": "",
+      "attributes": {},
+      "components": [
+        {
+          "name": "ION",
+          "type": "draw_custom",
+          "resource_group_name": "",
+          "custom": "diagrams.generic.place.Datacenter",
+          "attributes": {}
+        },
+        {
+          "name": "Salesforce",
+          "type": "draw_custom",
+          "resource_group_name": "",
+          "custom": "diagrams.generic.place.Datacenter",
+          "attributes": {}
+        }
+      ]
+    },
+    {
+      "name": "IPG",
+      "type": "draw_custom",
+      "resource_group_name": "",
+      "custom": "diagrams.azure.general.Resourcegroups",
+      "attributes": {},
+      "components": [
+        {
+            "name": "Service-Bus-Namespace",
+            "type": "draw_custom",
+            "resource_group_name": "diagrams.azure.integration.ServiceBus",
+            "attributes": {},
+            "components": [
+                {
+                    "name": "Agreement-Line-BOD",
+                    "type": "draw_custom",
+                    "resource_group_name": "",
+                    "custom": "diagrams.azure.integration.ServiceBus",
+                    "attributes": {}
+                },
+                {
+                    "name": "Agreement-BOD",
+                    "type": "draw_custom",
+                    "resource_group_name": "",
+                    "custom": "diagrams.azure.integration.ServiceBus",
+                    "attributes": {}
+                },
+                {
+                    "name": "Asset-Sync-BOD",
+                    "type": "draw_custom",
+                    "resource_group_name": "",
+                    "custom": "diagrams.azure.integration.ServiceBus",
+                    "attributes": {}
+                }
+            ]
+        },
+        {
+          "name": "APIM",
+          "type": "draw_custom",
+          "resource_group_name": "",
+          "custom": "diagrams.azure.integration.APIManagement",
+          "attributes": {}
+        }
+      ]
+    }
+  ],
+  "links": [
+    {
+      "from": "asofdev-azurerm_app_service",
+      "to": "db-ofdev-azurerm_mssql_database",
+      "color": "firebrick",
+      "label": "",
+      "type": "dotted"
+    },
+    {
+      "from": "faofdev-azurerm_function_app",
+      "to": "db-ofdev-azurerm_mssql_database",
+      "color": "firebrick",
+      "label": "",
+      "type": "dotted"
+    },
+    {
+      "from": "faofdev-azurerm_function_app",
+      "to": "SSAS-Cube-draw_custom",
+      "color": "darkgreen",
+      "label": "",
+      "type": "dotted"
+    },
+    {
+      "from": "faofdev-azurerm_function_app",
+      "to": "agreement-out-azurerm_servicebus_queue",
+      "color": "firebrick",
+      "label": "",
+      "type": "dotted"
+    },
+    {
+      "from": "faofdev-azurerm_function_app",
+      "to": "agreement-line-out-azurerm_servicebus_queue",
+      "color": "firebrick",
+      "label": "",
+      "type": "dotted"
+    },
+    {
+      "from": "faofdev-azurerm_function_app",
+      "to": "asset-out-azurerm_servicebus_queue",
+      "color": "firebrick",
+      "label": "",
+      "type": "dotted"
+    },
+    {
+      "from": "asofdev-azurerm_app_service",
+      "to": "faofdev-azurerm_function_app",
+      "color": "firebrick",
+      "label": "",
+      "type": "dotted"
+    },
+    {
+      "from": "faofdev-azurerm_function_app",
+      "to": "APIM-draw_custom",
+      "color": "darkgreen",
+      "label": "",
+      "type": "dotted"
+    },
+    {
+      "from": "APIM-draw_custom",
+      "to": "Salesforce-draw_custom",
+      "color": "darkgreen",
+      "label": "",
+      "type": "dotted"
+    },
+    {
+      "from": "APIM-draw_custom",
+      "to": "ION-draw_custom",
+      "color": "darkgreen",
+      "label": "",
+      "type": "dotted"
+    }
+  ]
+}

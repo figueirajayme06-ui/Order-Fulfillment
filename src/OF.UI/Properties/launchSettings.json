@@ -1,0 +1,72 @@
+ {
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:5196",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KeyVaultUri": "https://kv-ofdev.vault.azure.net/",
+        "StorageAccountName": "stofdev"
+      }
+    },
+    "https": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7024",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KeyVaultUri": "https://kv-ofdev.vault.azure.net/",
+        "StorageAccountName": "stofdev",
+        "SqlConnection": "Server=mssql-ofdev.database.windows.net,1433;Database=db-ofdev;Authentication=Active Directory Default;Encrypt=True;MultipleActiveResultSets=true"
+      }
+    },
+    "https.Test": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7024",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KeyVaultUri": "https://kv-oftest.vault.azure.net/"
+      }
+    },
+    "https.SIT": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7024",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KeyVaultUri": "https://kv-ofsit.vault.azure.net/"
+      }
+    },
+    "http.LocalDB": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:5196",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KeyVaultUri": "https://kv-ofdev.vault.azure.net/",
+        "SqlConnection": "Server=(localdb)\\mssqllocaldb;Database=db-ofdev;Trusted_Connection=True;MultipleActiveResultSets=true",
+        "StorageConnection": "DefaultEndpointsProtocol=http;AccountName=devstoreaccount1;AccountKey=Eby8vdM02xNOcqFlqUwJPLlmEtlCDXJ1OUzFT50uSRZ6IFsuFq2UVErCz4I6tq/K1SZFPTOtr/KBHBeksoGMGw==;BlobEndpoint=http://127.0.0.1:11000/devstoreaccount1;QueueEndpoint=http://127.0.0.1:11001/devstoreaccount1;TableEndpoint=http://127.0.0.1:11002/devstoreaccount1;"
+      }
+    },
+    "https.LocalDB": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7024",
+      "environmentVariables": {
+        "Data-LogLevel": "Warning",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KeyVaultUri": "https://kv-ofdev.vault.azure.net/",
+        "SqlConnection": "Server=(localdb)\\mssqllocaldb;Database=db-ofdev;Trusted_Connection=True;MultipleActiveResultSets=true",
+        "StorageConnection": "UseDevelopmentStorage=true"
+      }
+    }
+  }
+}

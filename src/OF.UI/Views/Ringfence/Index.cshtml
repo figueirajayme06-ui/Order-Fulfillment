@@ -1,0 +1,129 @@
+@using Infragistics.Web.Mvc
+@using OF.UI.Helpers
+@model OF.UI.ViewModels.Ringfence.RingfenceViewModel
+@inject OF.UI.Identity.IUserIdentity Identity
+
+@{
+	Layout = "/Views/Shared/_LayoutBasic.cshtml";
+	var id = Identity.GetIdentity();
+}
+
+@Html.Hidden("user-divisions", id.Division)
+@Html.Hidden("user-login-name", id.LoginName)
+@Html.Hidden("user-date-format", id.DateFormat)
+
+<div class="container-fluid">
+	<div class="row">
+		<div id="colRingfences" class="col-6 mr-2 mt-2">
+			<div class="card mt-1">
+				<h5 class="card-header">
+					<i class="bi bi-card-text"></i>
+					<span id="actionTitle"></span>
+				</h5>
+				<div class="card-body">
+					<form>
+						<input type="hidden" id="ringfenceId" />
+						<div class="row mb-3">
+							<div class="col">
+								<input class="form-control mb-4" type="text" id="ringFenceName">
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col">
+								<div class="input-group">
+									<input class="form-control start_date mb-4" type="text" id="ringFenceFromDate">
+								</div>
+							</div>
+							<div class="col">
+								<div class="input-group" style="width: 100%">
+									<input class="form-control end_date mb-4" type="text" id="ringFenceToDate">
+								</div>
+							</div>
+						</div>
+						<div class="row mb-3">
+							<div class="col">
+								<div id="ringFenceDivision"></div>
+							</div>
+							<div class="col">
+								<div id="ringFenceOwner"></div>
+							</div>
+							<div class="col">
+								<div id="ringFenceWarehouse"></div>
+							</div>
+						</div>
+						<button id="btnCreateRingfence" title="Creates a new ringfence for the date range" class="btn btn-primary" disabled><i class="bi bi-file-earmark-lock"></i>&nbsp;Create</button>
+						<button id="btnUpdateRingfence" title="Updates the ringfence for the date range" class="btn btn-success" disabled><i class="bi bi-save"></i>&nbsp;Update</button>
+						<button id="btnCancel" title="Cancel ringfence edit." class="btn btn-secondary"><i class="bi bi-backspace-reverse"></i>&nbsp;Cancel</button>
+					</form>
+				</div>
+			</div>
+			<div id="card_ringfences" class="card mt-1">
+				<h5 class="card-header"><i class="bi bi-card-text"></i>&nbsp;Ringfences</h5>
+				<div class="card-body" style="overflow:auto">
+					@(
+												Html.Infragistics()
+												.Grid(Model.Ringfences.AsQueryable())
+												.ID("ringFences")
+												.AutoGenerateColumns(false)
+												.PrimaryKey("Id")
+												.Columns(column =>
+												{
+													column.For(x => x.Title).HeaderText("Ringfence Name");
+													column.For(x => x.Divisions);
+													column.For(x => x.Owner);
+													column.For(x => x.Warehouse);
+													column.For(x => x.FromDate).HeaderText("Start Date").DataType("date").Format(id.DateFormat);
+													column.For(x => x.ToDate).HeaderText("End Date").DataType("date").Format(id.DateFormat);
+													column
+													.For(x => x.Id)
+													.HeaderText("")
+													.Template(
+													"<button type='button' class='btn btn-warning' title='Edit this ringfence' onclick='javascript:pf_editRingfence(${Id})'><i class='bi bi-pencil-square'></i></button>" +
+													"<button type='button' class='btn btn-primary' title='View assets in this ringfence' onclick='javascript:pf_selectRingfence(${Id})'><i class='bi bi-boxes'></i></button>" +
+													"<button type='button' class='btn btn-danger' title='Delete this ringfence' onclick='javascript:pf_deleteRingfence(${Id})'><i class='bi bi-x-circle'></i></button>"
+													);
+												})
+												.Features(f =>
+												{
+													f.Sorting()
+													.Type(OpType.Local)
+													.CaseSensitive(true)
+													.ColumnSettings(s =>
+													s.ColumnSetting().ColumnKey("Id").AllowSorting(false));
+
+													f.Filtering()
+													.Type(OpType.Local)
+													.ColumnSettings(s =>
+													s.ColumnSetting().ColumnKey("Id").AllowFiltering(false));
+
+													f.Selection()
+													.Mode(SelectionMode.Row)
+													.MultipleSelection(false);
+												})
+												.DataBind()
+												.Render()
+												)
+				</div>
+			</div>
+		</div>
+		<div id="colRingfence" class="col-6 mt-2">
+			<div id="card_ringfence_items" class="card">
+				<h5 class="card-header"><i class="bi bi-calendar3-range"></i>&nbsp;Ringfenced Assets</h5>
+				<div class="card-body" style="width:100%;height:100%;overflow:hidden">
+					<div id="panel_ringfence_blank" class="fulfilMessage ringfence-panel">
+						<i class="bi bi-boxes"></i>&nbsp;Select a ringfence to see assets
+					</div>
+					<div id="panel_ringfence_none" class="fulfilMessage ringfence-panel" style="display:none">
+						<i class="bi bi-boxes"></i>&nbsp;There are no assets in this ringfence
+					</div>
+					<div id="panel_ringfence_item" class="ringfence-panel" style="display:none;width:100%;overflow-y:auto">
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+@section Scripts {
+	<script type="text/javascript" src="~/js/site/ringfences.js" asp-append-version="true"></script>
+}

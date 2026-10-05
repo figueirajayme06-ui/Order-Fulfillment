@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="UTF-8" ?>
+<SyncAGKRentalOrderLine xmlns="http://schema.infor.com/InforOAGIS/2" releaseID="9.2" versionID="2.14.3" systemEnvironmentCode="Production">
+	<ApplicationArea>
+		<Sender>
+			<LogicalID schemeVersionID="3.013">lid://infor.m3.m3</LogicalID>
+			<ComponentID schemeVersionID="16.0.0.20240221054708.11">M3BE</ComponentID>
+			<ConfirmationCode>OnError</ConfirmationCode>
+		</Sender>
+		<CreationDateTime>2024-05-03T12:55:57.433Z</CreationDateTime>
+		<BODID>78d6abe8-aef1-4684-9795-7661cb5eaac4</BODID>
+	</ApplicationArea>
+	<DataArea>
+		<Sync>
+			<AccountingEntityID>001_200</AccountingEntityID>
+			<ActionCriteria>
+				<ActionExpression actionCode="Replace"/>
+			</ActionCriteria>
+		</Sync>
+		<AGKRentalOrderLine>
+			<agreementNumber>T713033</agreementNumber>
+      <agreementNumberId>713033</agreementNumberId>
+			<agreementLineNumber>2</agreementLineNumber>
+			<agreementLineId>T713033-2</agreementLineId>
+			<AgreementLines>
+				<agreementLineSuffix>0</agreementLineSuffix>
+				<company>001</company>
+				<division>200</division>
+				<facility>USG</facility>
+				<itemNumber>GN0125GHPCAN</itemNumber>
+				<lotNumber>XAPP004</lotNumber>
+				<purchaseOrderLineNumber>0</purchaseOrderLineNumber>
+				<agreementLineType>5</agreementLineType>
+				<agreementLineStatus>50</agreementLineStatus>
+				<customerSiteAccount>US00103535</customerSiteAccount>
+				<customerSiteAddress>900000</customerSiteAddress>
+				<daysPerWeek>7</daysPerWeek>
+				<fromWarehouse>BD0</fromWarehouse>
+				<holdInvoicing>0</holdInvoicing>
+				<invoicedToDate>0</invoicedToDate>
+				<invoiceMethod>2</invoiceMethod>
+				<deliveryOrderLine>0</deliveryOrderLine>
+				<collectionOrderLine>0</collectionOrderLine>
+				<netDailyRate>27.700000</netDailyRate>
+				<netRate>831.080000</netRate>
+				<numberOfShifts>1</numberOfShifts>
+				<orderedQuantity>1.0</orderedQuantity>
+				<payerAccount>US00103535</payerAccount>
+				<deliveryDate>2024-05-13T00:00:00Z</deliveryDate>
+				<collectionDate>2024-05-17T00:00:00Z</collectionDate>
+				<priceList>L10</priceList>
+				<rateType>4</rateType>
+				<siteAddressLine1>400 North Blvd</siteAddressLine1>
+				<siteAddressLine3>Baton Rouge</siteAddressLine3>
+				<siteAddressLine4>LA LA 70802</siteAddressLine4>
+				<pRTextTextIdentity>0</pRTextTextIdentity>
+				<pOTextTextIdentity>0</pOTextTextIdentity>
+				<deliveryTextIdentity>25644726</deliveryTextIdentity>
+				<collectionTextIdentity>0</collectionTextIdentity>
+				<correlationId>78d6abe8-aef1-4684-9795-7661cb5eaac4</correlationId>
+				<TextIdentityDeliveryText>
+					<textBlock>Attributes</textBlock>
+					<text>Quantity (Pieces):2;{0}Additional information:Electrical Distribution 100 amp Circuit Breaker</text>
+				</TextIdentityDeliveryText>
+				<toWarehouse>BD0</toWarehouse>
+				<AgreementLineTextId>0</AgreementLineTextId>
+				<validFromDate>2024-05-14T00:00:00Z</validFromDate>
+				<validToDate>2024-05-16T00:00:00Z</validToDate>
+				<daysOnHire>0</daysOnHire>
+				<discount>0.0</discount>
+				<netWeeklyRate>0</netWeeklyRate>
+				<itemDescription>Electrical Distribution 100 am</itemDescription>
+				<substitute>0</substitute>
+				<nextInvoiceDate>2024-06-10T00:00:00Z</nextInvoiceDate>
+				<modelDescription>Dist 100 amp Circuit Breaker</modelDescription>
+				<accumulatedLineValue>0.0</accumulatedLineValue>
+				<genericItemNumber>XGDP0100CBL</genericItemNumber>
+				<netHourlyRate>0</netHourlyRate>
+				<deliveredQuantity>0.0</deliveredQuantity>
+				<returnedQuantity>0.0</returnedQuantity>
+				<allocatedQuantity>0.0</allocatedQuantity>
+				<soldQuantity>0.0</soldQuantity>
+				<deliveryStartTime>08:00</deliveryStartTime>
+				<collectionStartTime>08:00</collectionStartTime>
+				<deliveryEndTime>12:00</deliveryEndTime>
+				<collectionEndTime>12:00</collectionEndTime>
+				<agentCommission>0.0</agentCommission>
+				<minRentalAmount>0.0</minRentalAmount>
+				<minRentalPeriod>0</minRentalPeriod>
+				<minRentalType>0</minRentalType>
+				<orderItemLine>0</orderItemLine>
+				<orderItemRecordId>8027a000007OxtQAAS</orderItemRecordId>
+				<linkedAgreementLine>0</linkedAgreementLine>
+				<changeSequence>1714740907927|4</changeSequence>
+				<deliveryOrderLineHighestStatus>99</deliveryOrderLineHighestStatus>
+				<orderSource>ORF</orderSource>
+				<notificationFlag>false</notificationFlag>
+				<payerAddress>900000</payerAddress>
+			</AgreementLines>
+			<UserArea>
+				<Property>
+					<NameValue name="orderLineProcessStatus">0</NameValue>
+				</Property>
+			</UserArea>
+		</AGKRentalOrderLine>
+	</DataArea>
+</SyncAGKRentalOrderLine>

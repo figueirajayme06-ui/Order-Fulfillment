@@ -1,0 +1,79 @@
+:root {
+  font-family: var(--ref-font-face-primary);
+  line-height: var(--ref-font-lineheight-normal);
+  font-weight: var(--ref-font-weight-regular);
+  font-size: var(--ref-font-size-base);
+
+  color-scheme: light;
+  color: var(--colour-text);
+  background-color: var(--colour-background);
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  overscroll-behavior: none;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  overscroll-behavior: none;
+}
+
+a {
+  font-weight: var(--ref-font-weight-medium);
+  color: var(--colour-primary);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+  color: var(--colour-primary-hover);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  font-weight: var(--ref-font-weight-semibold);
+  font-family: var(--ref-font-face-secondary);
+}
+
+input,
+select,
+textarea,
+button {
+  font-family: inherit;
+}
+
+button {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+}
+
+/* Keep keyboard focus highly visible for dense desktop workflows. */
+a[href]:focus-visible,
+button:focus-visible,
+input:not([type="hidden"]):focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:not([tabindex="-1"]):focus-visible {
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: 2px;
+  box-shadow: 0 0 0 3px var(--colour-focus-ring-glow);
+}

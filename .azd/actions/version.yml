@@ -1,0 +1,26 @@
+parameters:
+- name: version
+
+steps:
+- script: |
+      echo "##vso[build.updatebuildnumber]$VERSION_NUMBER"
+  displayName: Set build number
+  env:
+    VERSION_NUMBER: ${{ parameters.version }}
+
+- script: |
+      version="$VERSION_NUMBER" # Your version, which can be from Git tags, pipeline variables, etc.
+
+      for csprojFile in $(find . -name "*.csproj"); do
+          # Check if the Version tag exists in the .csproj
+          if grep -q "<Version>.*</Version>" $csprojFile; then
+              # Replace the existing Version tag
+              sed -i "s|<Version>.*</Version>|<Version>$version</Version>|" $csprojFile
+          else
+              # Insert a Version tag before the closing </Project> tag
+              sed -i "/<\/Project>/i <Version>$version</Version>" $csprojFile
+          fi
+      done
+  displayName: 'Update .csproj versions'
+  env:
+    VERSION_NUMBER: ${{ parameters.version }}

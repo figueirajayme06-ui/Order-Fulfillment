@@ -1,0 +1,42 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Dev: Check Prereqs",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/build/dev/check.ps1"
+      ],
+      "problemMatcher": []
+    },
+    {
+      "label": "Dev: Start All",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/build/dev/start.ps1"
+      ],
+      "problemMatcher": [],
+      "group": "build"
+    },
+    {
+      "label": "Dev: Stop All",
+      "type": "shell",
+      "command": "powershell",
+      "args": [
+        "-ExecutionPolicy",
+        "Bypass",
+        "-File",
+        "${workspaceFolder}/build/dev/stop.ps1"
+      ],
+      "problemMatcher": []
+    }
+  ]
+}

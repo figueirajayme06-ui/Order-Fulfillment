@@ -1,0 +1,67 @@
+.bar {
+  display: flex;
+  align-items: center;
+  gap: var(--ref-spacing-small);
+  flex-wrap: wrap;
+}
+.select,
+.nameInput,
+.scopeSelect {
+  padding: 8px 12px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  font-size: var(--ref-font-size-small);
+  background-color: var(--colour-surface);
+  outline: none;
+}
+.select,
+.nameInput {
+  min-width: 220px;
+}
+.scopeSelect {
+  min-width: 140px;
+}
+.select:focus,
+.nameInput:focus,
+.scopeSelect:focus {
+  border-color: var(--colour-primary);
+}
+.sharingSummary {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-small);
+  white-space: nowrap;
+}
+.editSharingButton {
+  padding: 2px 4px;
+  border: 0;
+  background: transparent;
+  color: var(--colour-primary);
+  font: inherit;
+  text-decoration: underline;
+  cursor: pointer;
+}
+.editSharingButton:disabled {
+  color: var(--colour-text-muted);
+  cursor: not-allowed;
+}
+.unsaved {
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-xs);
+  white-space: nowrap;
+}
+.feedback {
+  margin: -8px 0 0;
+}
+.error,
+.success {
+  font-size: var(--ref-font-size-xs);
+}
+.error {
+  color: var(--colour-error);
+}
+.success {
+  color: var(--colour-success);
+}

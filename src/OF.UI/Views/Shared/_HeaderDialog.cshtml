@@ -1,0 +1,104 @@
+@using Infragistics.Web.Mvc
+@inject OF.UI.Identity.IUserIdentity Identity
+
+<nav class="navbar navbar-expand-lg navbar-secondary">
+    <div class="container-fluid">
+        <div class="d-flex">
+            @if (ViewData["HideDivisions"] == null || ViewData["HideDivisions"] as bool? == false)
+            {
+                <div id="lstDivisions"></div>
+            }
+        </div>
+        <div class="d-flex">
+            <div id="headerRefresh" style="display:none;float:right;margin-right:5px">
+                <div class="spinner-border text-success" role="status">
+                </div>
+            </div>
+            <button id="btnRefresh" class="btn btn-success" onclick="javascript:window.location.reload()"><i class="bi bi-arrow-repeat"></i>&nbsp;Refresh Data</button>&nbsp;
+             @if (ViewData["BackUrl"] != null)
+            {
+                <a id="btnBackClick" href="@ViewData["BackUrl"]" class="btn btn-primary" onclick="updateUrl()"><i class="bi bi-arrow-90deg-left"></i>&nbsp;Back to Change Orders</a><span>&nbsp;</span>
+                
+            }
+            <a id="dialogCloseButton" class="btn btn-primary"><i class="bi bi-card-checklist"></i>&nbsp;Back to Dashboard</a>
+        </div>
+    </div>
+</nav>
+
+<script type="text/javascript">
+    var cookieName = 'user_divisions';
+
+    // Cookies for divisons
+    var divCookie = Cookies.get(cookieName);
+    var divisions = '';
+    var dateFormat = 'MM/dd/yyyy';
+    var userFullName = '';
+    var userLoginName = '';
+
+    @{
+        var id = Identity.GetIdentity();
+
+        if (id != null)
+        {
+            <text>divisions = '</text>@id.Division<text>';</text>
+            <text>dateFormat = '</text>@id.DateFormat<text>';</text>
+            <text>userFullName = '</text>@id.FullName<text>';</text>
+            <text>userLoginName = '</text>@id.LoginName<text>';</text>
+        }
+    }
+
+    function formatDateAsLocal(date) {
+        var theDate = new Date(date);
+        if (dateFormat == "MM/DD/yyyy") {
+            return (theDate.getMonth()+1).toString().padStart(2, '0') + "/" + theDate.getDate().toString().padStart(2, '0') + "/" + theDate.getFullYear().toString();
+        } else {
+            return theDate.getDate().toString().padStart(2, '0') + "/" + (theDate.getMonth()+1).toString().padStart(2, '0') + "/" + theDate.getFullYear().toString();
+        }
+    }
+
+    if (divCookie) {
+        divisions = divCookie;
+    }
+
+    var selDivs = [];
+    if (divisions.trim() != '') {
+        var divParts = divisions.split(",");
+        for (var i=0; i<divParts.length; i++) {
+            selDivs.push({ "value": divParts[i].trim() });
+        }
+    }
+
+    $("#lstDivisions").igCombo({
+        width: 300,
+        dataSourceUrl: '/api/Task/Divisions',
+        textKey: "code",
+        valueKey: "code",
+        mode: 'dropdown',
+        delayInputChangeProcessing: 200,
+        allowCustomValue: false,
+        locale: {
+            placeHolder: "Select divisions"
+        },
+        initialSelectedItems: selDivs,
+        multiSelection: {
+            enabled: true,
+            showCheckboxes: false
+        },
+        dropDownOrientation: "bottom",
+        selectionChanged: function (evt, ui) {
+            if (ui.items) {
+                var storeValue='';
+                for (var i=0; i<ui.items.length; i++) {
+                    storeValue = storeValue + ui.items[i].data.code.trim();
+                    if (i < ui.items.length-1) storeValue = storeValue + ',';
+                }
+                Cookies.set(cookieName, storeValue);
+            } else {
+                Cookies.remove(cookieName);
+            }
+            document.location = document.location;
+        }
+    });
+
+
+</script>

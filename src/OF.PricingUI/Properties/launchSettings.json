@@ -1,0 +1,59 @@
+ {
+  "profiles": {
+    "http": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:5196",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KeyVaultUri": "https://kv-ofdev.vault.azure.net/"
+      }
+    },
+    "https": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7024",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KeyVaultUri": "https://kv-ofdev.vault.azure.net/"
+      }
+    },
+    "https.Test": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7024",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KeyVaultUri": "https://kv-oftest.vault.azure.net/"
+      }
+    },
+    "http.LocalDB": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "http://localhost:5196",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KeyVaultUri": "https://kv-ofdev.vault.azure.net/",
+        "SqlConnection": "Server=(localdb)\\mssqllocaldb;Database=db-ofdev;Trusted_Connection=True;MultipleActiveResultSets=true",
+        "StorageConnection": "UseDevelopmentStorage=true"
+      }
+    },
+    "https.LocalDB": {
+      "commandName": "Project",
+      "dotnetRunMessages": true,
+      "launchBrowser": true,
+      "applicationUrl": "https://localhost:7024",
+      "environmentVariables": {
+        "Data-LogLevel": "Warning",
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "KeyVaultUri": "https://kv-ofdev.vault.azure.net/",
+        "SqlConnection": "Server=(localdb)\\mssqllocaldb;Database=db-ofdev;Trusted_Connection=True;MultipleActiveResultSets=true",
+        "StorageConnection": "UseDevelopmentStorage=true"
+      }
+    }
+  }
+}

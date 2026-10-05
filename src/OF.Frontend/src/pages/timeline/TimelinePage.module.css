@@ -1,0 +1,130 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ref-spacing-medium);
+}
+
+.page h1 {
+  font-size: var(--ref-font-size-xl);
+}
+
+.subtitle {
+  color: var(--colour-text-muted);
+  font-size: var(--ref-font-size-small);
+}
+
+.ganttContainer {
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-medium);
+  background-color: var(--colour-surface);
+  overflow: hidden;
+}
+
+.timelineToolbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  border-bottom: 1px solid var(--colour-border);
+  background: linear-gradient(180deg, var(--colour-surface) 0%, var(--colour-background) 100%);
+}
+
+/* Frappe Gantt custom bar colours */
+:global(.bar-unfulfilled .bar-progress) {
+  fill: var(--colour-error) !important;
+}
+
+:global(.bar-unfulfilled .bar) {
+  fill: #ffcdd2 !important;
+  stroke: var(--colour-error) !important;
+}
+
+:global(.bar-partial .bar-progress) {
+  fill: var(--colour-warning) !important;
+}
+
+:global(.bar-partial .bar) {
+  fill: var(--colour-warning-bg) !important;
+  stroke: var(--colour-warning) !important;
+}
+
+:global(.bar-fulfilled .bar-progress) {
+  fill: var(--colour-success) !important;
+}
+
+:global(.bar-fulfilled .bar) {
+  fill: var(--colour-success-bg) !important;
+  stroke: var(--colour-success) !important;
+}
+
+:global(.bar-reserved .bar-progress) {
+  fill: var(--colour-info) !important;
+}
+
+:global(.bar-reserved .bar) {
+  fill: var(--colour-info-bg) !important;
+  stroke: var(--colour-info) !important;
+}
+
+:global(.bar-reservation .bar-progress) {
+  fill: #1565c0 !important;
+}
+
+:global(.bar-reservation .bar) {
+  fill: #bbdefb !important;
+  stroke: #1565c0 !important;
+}
+
+:global(.bar-depot .bar-progress) {
+  fill: #6a1b9a !important;
+}
+
+:global(.bar-depot .bar) {
+  fill: #e1bee7 !important;
+  stroke: #6a1b9a !important;
+}
+
+:global(.bar-rehire .bar-progress) {
+  fill: #e65100 !important;
+}
+
+:global(.bar-rehire .bar) {
+  fill: #ffe0b2 !important;
+  stroke: #e65100 !important;
+}
+
+/* Loading/Error */
+.loading {
+  display: flex;
+  justify-content: center;
+  padding: var(--ref-spacing-xxl);
+}
+
+.error {
+  text-align: center;
+  color: var(--colour-error);
+  padding: var(--ref-spacing-xxl);
+}
+
+.legend {
+  display: flex;
+  gap: var(--ref-spacing-medium);
+  flex-wrap: wrap;
+  font-size: var(--ref-font-size-small);
+}
+
+.legend span {
+  padding: 3px 8px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+}
+
+.legend :global(.bar-reservation) {
+  background: var(--colour-info-bg);
+}
+.legend :global(.bar-depot) {
+  background: var(--colour-success-bg);
+}
+.legend :global(.bar-rehire) {
+  background: var(--colour-warning-bg);
+}

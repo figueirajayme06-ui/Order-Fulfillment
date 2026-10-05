@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AcknowledgeAGKRentalAgreementActivation xmlns="http://schema.infor.com/InforOAGIS/2" releaseID="9.2" versionID="2.12.2" systemEnvironmentCode="Production" languageCode="en-US">
+    <ApplicationArea>
+        <Sender>
+            <LogicalID schemeVersionID="2.008">lid://infor.m3.m3</LogicalID>
+            <ComponentID>M3BE</ComponentID>
+            <ConfirmationCode>OnError</ConfirmationCode>
+        </Sender>
+        <CreationDateTime>2024-04-05T11:01:47.321Z</CreationDateTime>
+        <BODID>20577cf8-dd32-46ab-8d94-d9703fef275a</BODID>
+    </ApplicationArea>
+    <DataArea>
+        <Acknowledge>
+            <ResponseCriteria>
+                <ResponseExpression actionCode="Rejected"/>
+            </ResponseCriteria>
+        </Acknowledge>
+        <AGKRentalAgreementActivation>
+            <agreementNumber>A712565</agreementNumber>
+            <reasonCodeCreated>13</reasonCodeCreated>
+            <orderRecordId>8017a000003GAerAAG</orderRecordId>
+            <correlationId>84f11a64-d76c-4362-be21-e0573c3d9cc2</correlationId>
+            <orderCorrelationId>442c582a-b6e8-6212-7f52-1e13ece6da9e</orderCorrelationId>
+            <orderProcessStatus>901</orderProcessStatus>
+            <UserArea>
+                <Property>
+                    <NameValue name="technicalErrorMessage">NOK Mi Transaction Error: f116ebaa-fd23-42b5-a065-4ae3d6963a32, Transaction Name: CrtRentalAgrmnt, API ID:fd5c7186-9e25-4290-8385-e2515eadd2bb, MI error: MIErrorImpl [errorCode= , messageId=WARC103, errorMessage=Reason code - created agreement 13 does not exist, errorField=ARCC] Truncation: No truncation</NameValue>
+                </Property>
+            </UserArea>
+        </AGKRentalAgreementActivation>
+    </DataArea>
+</AcknowledgeAGKRentalAgreementActivation>

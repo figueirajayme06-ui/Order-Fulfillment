@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - External Configurator</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link href="/css/site.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link href="/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+    <link href="/css/structure/infragistics.css" rel="stylesheet" />
+
+    <script src="~/js/modernizr.js"></script>
+    <script src="~/js/jquery-1.11.3.min.js"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/moment.js"></script>
+
+    <!-- Ignite UI for jQuery Required Combined JavaScript Files -->
+    <script src="~/js/infragistics.core.js"></script>
+    <script src="~/js/infragistics.lob.js"></script>
+
+    <!-- Required for igGridExcelExporter -->
+    <script type="text/javascript" src="~/js/infragistics.excel-bundled.js"></script>
+    <script type="text/javascript" src="~/js/modules/infragistics.gridexcelexporter.js"></script>
+    <script type="text/javascript" src="~/js/infragistics.spreadsheet-bundled.js"></script>
+</head>
+<body>
+    <div class="page-wrapper">
+        <div class="page-content">
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <script src="~/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="~/js/showdown.min.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

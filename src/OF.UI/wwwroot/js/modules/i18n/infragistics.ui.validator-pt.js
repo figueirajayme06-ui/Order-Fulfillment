@@ -1,0 +1,9 @@
+/*!@license
+* Infragistics.Web.ClientUI Validator localization resources 23.1.9
+*
+* Copyright (c) 2011-2023 Infragistics Inc.
+*
+* http://www.infragistics.com/
+*
+*/
+(function(factory){if(typeof define==="function"&&define.amd){define(["jquery"],factory)}else{return factory(jQuery)}})(function($){$.ig=$.ig||{};$.ig.Validator=$.ig.Validator||{};$.ig.locale=$.ig.locale||{};$.ig.locale.pt=$.ig.locale.pt||{};$.ig.locale.pt.Validator={defaultMessage:"Este campo precisa de aten\xe7\xe3o",selectMessage:"Um valor deve ser selecionado",rangeSelectMessage:"Pelo menos {0}, mas n\xe3o mais que {1} itens devem ser selecionados",minSelectMessage:"Pelo menos {0} item (s) devem ser selecionados",maxSelectMessage:"N\xe3o devem ser selecionados mais que {0} item (s)",rangeLengthMessage:"A entrada deve ter entre {0} e {1} caracteres",minLengthMessage:"A entrada deve ter pelo menos {0} caracteres",maxLengthMessage:"A entrada n\xe3o deve ter mais de {0} caracteres",requiredMessage:"Este campo \xe9 obrigat\xf3rio",patternMessage:"A entrada n\xe3o corresponde ao padr\xe3o necess\xe1rio",maskMessage:"Todas as posi\xe7\xf5es necess\xe1rias devem ser preenchidas",dateFieldsMessage:"Os valores do campo de data devem ser introduzidos",invalidDayMessage:"Deve ser inserido um dia v\xe1lido do m\xeas",dateMessage:"Dever\xe1 ser introduzida uma data v\xe1lida",numberMessage:"Um n\xfamero v\xe1lido deve ser inserido",rangeValueMessage:"Um valor entre {0} e {1} deve ser inserido",minValueMessage:"Um valor de pelo menos {0} deve ser inserido",maxValueMessage:"Um valor n\xe3o superior a {0} deve ser introduzido",emailMessage:"Deve ser introduzido um endere\xe7o de e-mail v\xe1lido",creditCardMessage:"Deve ser introduzido o n\xfamero de um cart\xe3o de pagamento v\xe1lido",equalToMessage:"Os dois valores n\xe3o correspondem",optionalString:"(opcional)"};$.ig.Validator.locale=$.ig.Validator.locale||$.ig.locale.pt.Validator;return $.ig.locale.pt.Validator});

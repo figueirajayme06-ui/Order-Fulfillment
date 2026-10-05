@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<SyncAGKRentalOrderLine xmlns="http://schema.infor.com/InforOAGIS/2" releaseID="9.2" versionID="2.14.3" systemEnvironmentCode="Production">
+    <ApplicationArea>
+        <Sender>
+            <LogicalID schemeVersionID="3.011">lid://infor.m3.m3</LogicalID>
+            <ComponentID schemeVersionID="16.0.0.20240221054708.9">M3BE</ComponentID>
+            <ConfirmationCode>OnError</ConfirmationCode>
+        </Sender>
+        <CreationDateTime>2024-04-18T05:18:37.376Z</CreationDateTime>
+        <BODID>c820ebf9-a534-4374-a681-50370a09dc85</BODID>
+    </ApplicationArea>
+    <DataArea>
+        <Sync>
+            <AccountingEntityID>001_200</AccountingEntityID>
+            <ActionCriteria>
+                <ActionExpression actionCode="Replace"/>
+            </ActionCriteria>
+        </Sync>
+        <AGKRentalOrderLine>
+            <agreementNumber>A712565</agreementNumber>
+            <agreementNumberId>712565</agreementNumberId>
+            <agreementLineNumber>3</agreementLineNumber>
+            <agreementLineId>A712565-3</agreementLineId>
+            <AgreementLines>
+                <agreementLineSuffix>0</agreementLineSuffix>
+                <company>001</company>
+                <division>200</division>
+                <facility>USG</facility>
+                <itemNumber>XDH51005R</itemNumber>
+                <purchaseOrderLineNumber>0</purchaseOrderLineNumber>
+                <agreementLineType>5</agreementLineType>
+                <agreementLineStatus>20</agreementLineStatus>
+                <customerSiteAccount>US00103535</customerSiteAccount>
+                <customerSiteAddress>900000</customerSiteAddress>
+                <daysPerWeek>7</daysPerWeek>
+                <fromWarehouse>BD0</fromWarehouse>
+                <holdInvoicing>0</holdInvoicing>
+                <invoicedToDate>0</invoicedToDate>
+                <invoiceMethod>2</invoiceMethod>
+                <deliveryOrderLine>3</deliveryOrderLine>
+                <collectionOrderLine>3</collectionOrderLine>
+                <netDailyRate>1.490000</netDailyRate>
+                <netRate>44.610000</netRate>
+                <numberOfShifts>1</numberOfShifts>
+                <orderedQuantity>1.0</orderedQuantity>
+                <payerAccount>US00103535</payerAccount>
+                <deliveryDate>2024-04-22T00:00:00Z</deliveryDate>
+				<terminationDate>2024-04-25T00:00:00Z</terminationDate>
+                <collectionDate>2024-04-26T00:00:00Z</collectionDate>
+                <priceList>L10</priceList>
+                <rateType>4</rateType>
+                <siteAddressLine1>400 North Blvd</siteAddressLine1>
+                <siteAddressLine3>Baton Rouge</siteAddressLine3>
+                <siteAddressLine4>LA LA 70802</siteAddressLine4>
+                <pRTextTextIdentity>0</pRTextTextIdentity>
+                <pOTextTextIdentity>0</pOTextTextIdentity>
+                <deliveryTextIdentity>25643877</deliveryTextIdentity>
+                <collectionTextIdentity>0</collectionTextIdentity>
+                <correlationId>c820ebf9-a534-4374-a681-50370a09dc85</correlationId>
+                <TextIdentityDeliveryText>
+                    <textBlock>Attributes</textBlock>
+                    <text>Additional information:Environmental Fee (Recurring) — 5.00%</text>
+                </TextIdentityDeliveryText>
+                <toWarehouse>BD0</toWarehouse>
+                <AgreementLineTextId>0</AgreementLineTextId>
+                <validFromDate>2024-04-23T00:00:00Z</validFromDate>
+                <validToDate>2024-04-26T00:00:00Z</validToDate>
+                <daysOnHire>0</daysOnHire>
+                <discount>0.0</discount>
+                <netWeeklyRate>0</netWeeklyRate>
+                <deliveryOrderTextIdentity>12911634</deliveryOrderTextIdentity>
+                <collectionOrderTextIdentity>0</collectionOrderTextIdentity>
+                <TextIdentityDeliveryOrderText>
+                    <textBlock>Attributes</textBlock>
+                    <text>Additional information:Environmental Fee (Recurring) — 5.00%</text>
+                </TextIdentityDeliveryOrderText>
+                <deliveryOrderNumber>0004110133</deliveryOrderNumber>
+                <collectionOrderNumber>0004110134</collectionOrderNumber>
+                <itemDescription>Environmental Fee (Recurring)</itemDescription>
+                <substitute>0</substitute>
+                <nextInvoiceDate>2024-05-20T00:00:00Z</nextInvoiceDate>
+                <modelDescription>Environmental Fee Recurring</modelDescription>
+                <accumulatedLineValue>0.0</accumulatedLineValue>
+                <netHourlyRate>0</netHourlyRate>
+                <deliveredQuantity>0.0</deliveredQuantity>
+                <returnedQuantity>0.0</returnedQuantity>
+                <allocatedQuantity>0.0</allocatedQuantity>
+                <soldQuantity>0.0</soldQuantity>
+                <deliveryStartTime>08:00</deliveryStartTime>
+                <collectionStartTime>12:00</collectionStartTime>
+                <deliveryEndTime>12:00</deliveryEndTime>
+                <collectionEndTime>16:00</collectionEndTime>
+                <agentCommission>0.0</agentCommission>
+                <minRentalAmount>0.0</minRentalAmount>
+                <minRentalPeriod>0</minRentalPeriod>
+                <minRentalType>0</minRentalType>
+                <orderItemLine>0</orderItemLine>
+                <orderItemRecordId>8027a000007OnNjAAK</orderItemRecordId>
+                <linkedAgreementLine>0</linkedAgreementLine>
+                <changeSequence>1713417424448|6</changeSequence>
+                <deliveryOrderLineHighestStatus>22</deliveryOrderLineHighestStatus>
+                <orderSource>CPQ</orderSource>
+                <notificationFlag>false</notificationFlag>
+                <payerAddress>900000</payerAddress>
+				<packageGroupNumber>ABC</packageGroupNumber>
+            </AgreementLines>
+            <UserArea>
+                <Property>
+                    <NameValue name="orderLineProcessStatus">0</NameValue>
+                </Property>
+            </UserArea>
+        </AGKRentalOrderLine>
+    </DataArea>
+</SyncAGKRentalOrderLine>

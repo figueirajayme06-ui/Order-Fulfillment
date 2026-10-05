@@ -1,0 +1,9 @@
+/*!@license
+* Infragistics.Web.ClientUI Validator localization resources 23.1.9
+*
+* Copyright (c) 2011-2023 Infragistics Inc.
+*
+* http://www.infragistics.com/
+*
+*/
+(function(factory){if(typeof define==="function"&&define.amd){define(["jquery"],factory)}else{return factory(jQuery)}})(function($){$.ig=$.ig||{};$.ig.Validator=$.ig.Validator||{};$.ig.locale=$.ig.locale||{};$.ig.locale.tr=$.ig.locale.tr||{};$.ig.locale.tr.Validator={defaultMessage:"Bu alana dikkat edilmesi gerekiyor",selectMessage:"Bir de\u011fer se\xe7ilmelidir",rangeSelectMessage:"En az {0}, en fazla {1} \xf6\u011fe se\xe7ilmelidir",minSelectMessage:"En az {0} \xf6\u011fe se\xe7ilmelidir",maxSelectMessage:"{0} \xf6\u011feden fazlas\u0131 se\xe7ilmemelidir",rangeLengthMessage:"Giri\u015f, {0} ile {1} karakter uzunlu\u011funda olmal\u0131d\u0131r",minLengthMessage:"Giri\u015f en az {0} karakter uzunlu\u011funda olmal\u0131d\u0131r",maxLengthMessage:"Giri\u015f, {0} karakterden uzun olmamal\u0131d\u0131r",requiredMessage:"Bu alan gereklidir",patternMessage:"Giri\u015f, gerekli modelle e\u015fle\u015fmiyor",maskMessage:"Gerekli t\xfcm pozisyonlar doldurulmal\u0131d\u0131r",dateFieldsMessage:"Tarih alan\u0131 de\u011ferleri girilmelidir",invalidDayMessage:"Ay\u0131n ge\xe7erli bir g\xfcn\xfc girilmelidir",dateMessage:"Ge\xe7erli bir tarih girilmelidir",numberMessage:"Ge\xe7erli bir say\u0131 girilmelidir",rangeValueMessage:"{0} ile {1} aras\u0131nda bir de\u011fer girilmelidir",minValueMessage:"En az {0} de\u011feri girilmelidir",maxValueMessage:"En fazla {0} de\u011feri girilmelidir",emailMessage:"Ge\xe7erli bir e-posta adresi girilmelidir",creditCardMessage:"Ge\xe7erli bir \xf6deme kart\u0131 numaras\u0131 girilmelidir",equalToMessage:"\u0130ki de\u011fer uyu\u015fmuyor",optionalString:"(iste\u011fe ba\u011fl\u0131)"};$.ig.Validator.locale=$.ig.Validator.locale||$.ig.locale.tr.Validator;return $.ig.locale.tr.Validator});

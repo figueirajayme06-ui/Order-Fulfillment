@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<SyncAGKRentalOrderLine xmlns="http://schema.infor.com/InforOAGIS/2" releaseID="9.2" versionID="2.14.3" systemEnvironmentCode="Production">
+    <ApplicationArea>
+        <Sender>
+            <LogicalID schemeVersionID="3.013">lid://infor.m3.m3</LogicalID>
+            <ComponentID schemeVersionID="16.0.0.20240221054708.11">M3BE</ComponentID>
+            <ConfirmationCode>OnError</ConfirmationCode>
+        </Sender>
+        <CreationDateTime>2024-05-02T15:38:32.725Z</CreationDateTime>
+        <BODID>79285760-33c9-46ed-96e3-3259699dde70</BODID>
+    </ApplicationArea>
+    <DataArea>
+        <Sync>
+            <AccountingEntityID>001_200</AccountingEntityID>
+            <ActionCriteria>
+                <ActionExpression actionCode="Replace"/>
+            </ActionCriteria>
+        </Sync>
+        <AGKRentalOrderLine>
+            <agreementNumber>A713020</agreementNumber>
+            <agreementNumberId>713020</agreementNumberId>
+            <agreementLineNumber>1</agreementLineNumber>
+            <agreementLineId>A713020-1</agreementLineId>
+            <AgreementLines>
+                <agreementLineSuffix>0</agreementLineSuffix>
+                <company>001</company>
+                <division>200</division>
+                <facility>USG</facility>
+                <itemNumber>XGCB0535_NA</itemNumber>
+                <purchaseOrderLineNumber>0</purchaseOrderLineNumber>
+                <agreementLineType>5</agreementLineType>
+                <agreementLineStatus>20</agreementLineStatus>
+                <customerSiteAccount>US00103535</customerSiteAccount>
+                <customerSiteAddress>900000</customerSiteAddress>
+                <daysPerWeek>7</daysPerWeek>
+                <fromWarehouse>BD0</fromWarehouse>
+                <holdInvoicing>0</holdInvoicing>
+                <invoicedToDate>0</invoicedToDate>
+                <invoiceMethod>2</invoiceMethod>
+                <deliveryOrderLine>1</deliveryOrderLine>
+                <collectionOrderLine>1</collectionOrderLine>
+                <netDailyRate>1.720000</netDailyRate>
+                <netRate>51.560000</netRate>
+                <numberOfShifts>1</numberOfShifts>
+                <orderedQuantity>2.0</orderedQuantity>
+                <payerAccount>US00103535</payerAccount>
+                <deliveryDate>2024-05-02T00:00:00Z</deliveryDate>
+                <collectionDate>2024-05-05T00:00:00Z</collectionDate>
+                <priceList>L10</priceList>
+                <rateType>4</rateType>
+                <siteAddressLine1>400 North Blvd</siteAddressLine1>
+                <siteAddressLine3>Baton Rouge</siteAddressLine3>
+                <siteAddressLine4>LA LA 70802</siteAddressLine4>
+                <pRTextTextIdentity>0</pRTextTextIdentity>
+                <pOTextTextIdentity>0</pOTextTextIdentity>
+                <deliveryTextIdentity>25644694</deliveryTextIdentity>
+                <collectionTextIdentity>0</collectionTextIdentity>
+                <correlationId>79285760-33c9-46ed-96e3-3259699dde70</correlationId>
+                <TextIdentityDeliveryText>
+                    <textBlock>Attributes</textBlock>
+                    <text>Calculated Amperage: 731;Length (m): 50</text>
+                </TextIdentityDeliveryText>
+                <toWarehouse>BD0</toWarehouse>
+                <AgreementLineTextId>0</AgreementLineTextId>
+                <validFromDate>2024-05-02T00:00:00Z</validFromDate>
+                <validToDate>2024-05-02T00:00:00Z</validToDate>
+                <daysOnHire>0</daysOnHire>
+                <discount>0.0</discount>
+                <netWeeklyRate>0</netWeeklyRate>
+                <deliveryOrderTextIdentity>12912117</deliveryOrderTextIdentity>
+                <collectionOrderTextIdentity>0</collectionOrderTextIdentity>
+                <TextIdentityDeliveryOrderText>
+                    <textBlock>Attributes</textBlock>
+                    <text>Calculated Amperage: 731;Length (m): 50</text>
+                </TextIdentityDeliveryOrderText>
+                <deliveryOrderNumber>0004111045</deliveryOrderNumber>
+                <collectionOrderNumber>0004111046</collectionOrderNumber>
+                <itemDescription>50 Meter x Cable 535MCM AWG</itemDescription>
+                <substitute>0</substitute>
+                <nextInvoiceDate>2024-05-29T00:00:00Z</nextInvoiceDate>
+                <modelDescription>Cable 535MCM AWG</modelDescription>
+                <accumulatedLineValue>0.0</accumulatedLineValue>
+                <genericItemNumber>XGCB0535_NA</genericItemNumber>
+                <netHourlyRate>0</netHourlyRate>
+                <deliveredQuantity>0.0</deliveredQuantity>
+                <returnedQuantity>0.0</returnedQuantity>
+                <allocatedQuantity>0.0</allocatedQuantity>
+                <soldQuantity>0.0</soldQuantity>
+                <deliveryStartTime>00:15</deliveryStartTime>
+                <collectionStartTime>12:00</collectionStartTime>
+                <deliveryEndTime>00:30</deliveryEndTime>
+                <collectionEndTime>16:00</collectionEndTime>
+                <agentCommission>0.0</agentCommission>
+                <POExpiryDate>x</POExpiryDate>
+                <minRentalAmount>0.0</minRentalAmount>
+                <minRentalPeriod>0</minRentalPeriod>
+                <minRentalType>0</minRentalType>
+                <orderItemLine>0</orderItemLine>
+                <orderItemRecordId>8027a000007OxW5AAK</orderItemRecordId>
+                <linkedAgreementLine>0</linkedAgreementLine>
+                <changeSequence>1714664206743|11</changeSequence>
+                <deliveryOrderLineHighestStatus>22</deliveryOrderLineHighestStatus>
+                <orderSource>CPQ</orderSource>
+                <notificationFlag>false</notificationFlag>
+                <payerAddress>900000</payerAddress>
+            </AgreementLines>
+            <UserArea>
+                <Property>
+                    <NameValue name="orderLineProcessStatus">0</NameValue>
+                </Property>
+            </UserArea>
+        </AGKRentalOrderLine>
+    </DataArea>
+</SyncAGKRentalOrderLine>

@@ -1,0 +1,101 @@
+.toggle {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  height: 38px;
+  gap: 8px;
+  padding: 0 10px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-medium);
+  background: var(--colour-surface);
+  color: var(--colour-text);
+  box-shadow: var(--ref-shadow-small);
+  font-size: var(--ref-font-size-small);
+  font-weight: var(--ref-font-weight-medium);
+  white-space: nowrap;
+  -webkit-user-select: none;
+  user-select: none;
+  transition:
+    border-color var(--ref-transition-fast),
+    background-color var(--ref-transition-fast),
+    color var(--ref-transition-fast);
+}
+
+.toggle:hover {
+  border-color: var(--colour-primary);
+  background: var(--ref-colour-grey10);
+}
+
+.icon {
+  flex: 0 0 16px;
+  width: 16px;
+  height: 16px;
+  color: var(--colour-primary);
+}
+
+.select {
+  min-width: 118px;
+  height: 30px;
+  margin-left: auto;
+  padding: 0 8px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background-color: var(--colour-surface);
+  color: var(--colour-text);
+  font: inherit;
+  cursor: pointer;
+}
+
+.sidebar {
+  width: 100%;
+  height: 44px;
+  justify-content: flex-start;
+  padding: 0 var(--ref-spacing-medium);
+  border: 0;
+  border-radius: var(--ref-border-radius-small);
+  background: transparent;
+  color: rgba(255, 255, 255, 0.8);
+  box-shadow: none;
+}
+
+.sidebar:hover {
+  border-color: transparent;
+  background: rgba(255, 255, 255, 0.08);
+  color: white;
+}
+
+.sidebar .select {
+  margin-left: auto;
+  border-color: rgba(255, 255, 255, 0.3);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: white;
+}
+
+/* Native option popups always render on a light background; keep option text dark regardless of the closed select's colour. */
+.option {
+  color: var(--colour-text);
+  background-color: var(--colour-surface);
+}
+
+.sidebar.compact {
+  justify-content: center;
+  padding: 0;
+}
+
+.sidebar.compact .label,
+.sidebar.compact .select {
+  display: none;
+}
+
+@media (max-width: 520px) {
+  .label {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toggle,
+  .select {
+    transition: none;
+  }
+}

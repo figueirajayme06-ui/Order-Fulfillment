@@ -1,0 +1,30 @@
+{
+  "version": "2.0",
+  "extensions": {
+    "serviceBus": {
+      "transportType": "amqpWebSockets",
+      "prefetchCount": 6,
+      "messageHandlerOptions": {
+        "maxConcurrentCalls": 3
+      }
+    }
+  },
+  "logging": {
+    "applicationInsights": {
+      "samplingSettings": {
+        "isEnabled": false,
+        "excludedTypes": "Request;Exception;Trace;Dependency"
+      },
+      "enableLiveMetricsFilters": true,
+      "logLevel": {
+        "default": "Information",
+        "Host.Results": "Error",
+        "Function": "Information",
+        "OF.Api": "Information",
+        "Microsoft.EntityFrameworkCore.Database.Command": "Warning",
+        "Azure.Core": "Warning",
+        "Azure.Storage": "Warning"
+      }
+    }
+  }
+}

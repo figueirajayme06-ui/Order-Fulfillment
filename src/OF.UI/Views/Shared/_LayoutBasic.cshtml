@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Order Fulfilment</title>
+    <link rel="shortcut icon" href="~/images/favicon.ico">
+
+    <!-- Ignite UI for jQuery Required Combined CSS Files -->
+    <link href="/css/themes/infragistics/infragistics.theme.css" rel="stylesheet" />
+    <link href="/css/structure/infragistics.css" rel="stylesheet" />
+    <link href="/css/dots.css" rel="stylesheet" />
+    <link href="/css/site.css" rel="stylesheet" />
+
+    <link href="~/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" type="text/css" href="~/css/jquery-confirm.min.css">
+    <link rel="stylesheet" type="text/css" href="~/css/github.min.css">
+    @RenderSection("Styles", false)
+
+    <script src="~/js/modernizr.js"></script>
+    <script src="~/js/jquery-1.11.3.min.js"></script>
+    <script src="~/js/jquery-ui.min.js"></script>
+    <script src="~/js/moment.js"></script>
+
+    <!-- Ignite UI for jQuery Required Combined JavaScript Files -->
+    <script src="~/js/infragistics.core.js"></script>
+    <script src="~/js/infragistics.lob.js"></script>
+
+    <!-- Required for igGridExcelExporter -->
+    <script type="text/javascript" src="~/js/infragistics.excel-bundled.js"></script>
+    <script type="text/javascript" src="~/js/modules/infragistics.gridexcelexporter.js"></script>
+    <script type="text/javascript" src="~/js/infragistics.spreadsheet-bundled.js"></script>
+
+    <script src="~/js/FileSaver.js"></script>
+    <script src="~/js/Blob.js"></script>
+
+    <script src="~/js/jsCookie.min.js"></script>
+
+</head>
+
+<body class="">
+    <div class="page-wrapper">
+        <div class="page-content">
+            <!-- Page Content-->
+            <div class="row grow">
+                <div class="col-12">
+                    @await Html.PartialAsync("~/Views/Shared/_HeaderBasic.cshtml")
+                </div>
+            </div>
+            <div class="row grow w-100">
+                <div class="main mt-2 h-100">
+                    @RenderBody()
+                </div>
+            </div>
+            <div class="row grow w-100">
+                <div class="col-12">
+                    @await Html.PartialAsync("~/Views/Shared/_Footer.cshtml")
+                </div>
+            </div>
+        </div>
+        <!-- end page content -->
+    </div>
+    <!-- end page-wrapper -->
+    <script src="~/js/bootstrap.bundle.min.js" asp-append-version="true"></script>
+    <script src="~/js/doT.min.js" asp-append-version="true"></script>
+    <script src="~/js/jquery-confirm.min.js" asp-append-version="true"></script>
+    <script src="~/js/app.js" asp-append-version="true"></script>
+    @RenderSection("scripts", false)
+    <script src="~/js/showdown.min.js" asp-append-version="true"></script>
+    <script src="~/js/highlight.min.js" asp-append-version="true"></script>
+</body>
+</html>

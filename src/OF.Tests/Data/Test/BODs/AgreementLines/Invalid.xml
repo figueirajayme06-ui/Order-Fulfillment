@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<SyncAGKRentalOrderLine xmlns="http://schema.infor.com/InforOAGIS/2" releaseID="9.2" versionID="2.14.3" systemEnvironmentCode="Production">
+	<ApplicationArea>
+		<Sender>
+			<LogicalID schemeVersionID="3.015">lid://infor.m3.m3</LogicalID>
+			<ComponentID schemeVersionID="16.0.0.20240318172728.9">M3BE</ComponentID>
+			<ConfirmationCode>OnError</ConfirmationCode>
+		</Sender>
+		<CreationDateTime>2024-06-06T12:13:40.210Z</CreationDateTime>
+		<BODID>b3a7d30b-2bad-4693-a257-2c812108532a</BODID>
+	</ApplicationArea>
+	<DataArea>
+		<Sync>
+			<AccountingEntityID>001_200</AccountingEntityID>
+			<ActionCriteria>
+				<ActionExpression actionCode="Replace"/>
+			</ActionCriteria>
+		</Sync>
+		<AGKRentalOrderLine>
+			<agreementNumber>T710570</agreementNumber>
+      <agreementNumberId>710570</agreementNumberId>
+			<agreementLineNumber>2</agreementLineNumber>
+			<agreementLineId>T710570-2</agreementLineId>
+			<AgreementLines>
+				<agreementLineSuffix>0</agreementLineSuffix>
+				<company>001</company>
+				<division>200</division>
+				<facility>USG</facility>
+				<itemNumber>XGCB04/0_NA</itemNumber>
+				<purchaseOrderLineNumber>0</purchaseOrderLineNumber>
+				<agreementLineType>5</agreementLineType>
+				<agreementLineStatus>05</agreementLineStatus>
+				<customerSiteAccount>US00104210</customerSiteAccount>
+				<customerSiteAddress>900000</customerSiteAddress>
+				<daysPerWeek>7</daysPerWeek>
+				<fromWarehouse>AH0</fromWarehouse>
+				<holdInvoicing>0</holdInvoicing>
+				<invoiceMethod>2</invoiceMethod>
+				<deliveryOrderLine>0</deliveryOrderLine>
+				<collectionOrderLine>0</collectionOrderLine>
+				<netDailyRate>0.130000</netDailyRate>
+				<netRate>3.780000</netRate>
+				<numberOfShifts>1</numberOfShifts>
+				<orderedQuantity>1.000000</orderedQuantity>
+				<payerAccount>US00104210</payerAccount>
+				<deliveryDate>2024-06-07T00:00:00Z</deliveryDate>
+				<collectionDate>2024-06-09T00:00:00Z</collectionDate>
+				<priceList>L10</priceList>
+				<rateType>4</rateType>
+				<siteAddressLine1>400 North Blvd</siteAddressLine1>
+				<siteAddressLine3>Baton Rouge</siteAddressLine3>
+				<siteAddressLine4>LA LA 70802</siteAddressLine4>
+				<pRTextTextIdentity>0</pRTextTextIdentity>
+				<pOTextTextIdentity>0</pOTextTextIdentity>
+				<deliveryTextIdentity>26663273</deliveryTextIdentity>
+				<collectionTextIdentity>0</collectionTextIdentity>
+				<correlationId>b3a7d30b-2bad-4693-a257-2c812108532a</correlationId>
+				<toWarehouse>BD0</toWarehouse>
+				<AgreementLineTextId>0</AgreementLineTextId>
+				<validFromDate>2024-06-08T00:00:00Z</validFromDate>
+				<validToDate>2024-06-09T00:00:00Z</validToDate>
+				<daysOnHire>0</daysOnHire>
+				<discount>0.00</discount>
+				<netWeeklyRate>0.000000</netWeeklyRate>
+				<itemDescription>3 Meter x Cable 4/0 AWG Extens</itemDescription>
+				<substitute>0</substitute>
+				<nextInvoiceDate>2024-07-05T00:00:00Z</nextInvoiceDate>
+				<modelDescription>Cable 4/0 AWG</modelDescription>
+				<accumulatedLineValue>0.00</accumulatedLineValue>
+				<genericItemNumber>XGCB04/0_NA</genericItemNumber>
+				<netHourlyRate>0.000000</netHourlyRate>
+				<deliveredQuantity>0.000000</deliveredQuantity>
+				<returnedQuantity>0.000000</returnedQuantity>
+				<allocatedQuantity>0.000000</allocatedQuantity>
+				<soldQuantity>0.000000</soldQuantity>
+				<deliveryStartTime>12:05</deliveryStartTime>
+				<collectionStartTime>00:00</collectionStartTime>
+				<deliveryEndTime>12:05</deliveryEndTime>
+				<agentCommission>0.00</agentCommission>
+				<POExpiryDate>x</POExpiryDate>
+				<minRentalAmount>0.00</minRentalAmount>
+				<minRentalPeriod>0</minRentalPeriod>
+				<minRentalType>0</minRentalType>
+				<orderItemLine>0.000000</orderItemLine>
+				<orderItemRecordId>802S8000003a5b3IAA</orderItemRecordId>
+				<linkedAgreementLine>0.000000</linkedAgreementLine>
+				<changeSequence>1717676005552|10</changeSequence>
+				<orderSource>NOF</orderSource>
+				<payerAddress>900000</payerAddress>
+			</AgreementLines>
+			<UserArea>
+				<Property>
+					<NameValue name="orderLineProcessStatus">141.000000</NameValue>
+				</Property>
+			</UserArea>
+		</AGKRentalOrderLine>
+	</DataArea>
+</SyncAGKRentalOrderLine>

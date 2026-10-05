@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AcknowledgeAGKRentalAgreementActivation xmlns="http://schema.infor.com/InforOAGIS/2" releaseID="9.2" versionID="2.11.0" systemEnvironmentCode="Production">
+    <ApplicationArea>
+        <Sender>
+            <LogicalID schemeVersionID="1.019">lid://infor.m3.m3</LogicalID>
+            <ComponentID schemeVersionID="16.0.0.20240221054708.9">M3BE</ComponentID>
+        </Sender>
+        <CreationDateTime>2024-04-18T05:17:04.505Z</CreationDateTime>
+        <BODID>f275b71b-32bd-49b6-a7a3-73791a63ed65</BODID>
+    </ApplicationArea>
+    <DataArea>
+        <Acknowledge>
+            <AccountingEntityID/>
+            <ResponseCriteria>
+                <ResponseExpression actionCode="Accepted"/>
+            </ResponseCriteria>
+        </Acknowledge>
+        <AGKRentalAgreementActivation>
+            <agreementNumber>A712565</agreementNumber>
+            <reasonCodeCreated>C09</reasonCodeCreated>
+            <orderRecordId>8017a000003GAerAAG</orderRecordId>
+            <correlationId>f0ec62d9-92a3-4ea1-9ea6-3b8fa773fc46</correlationId>
+            <timestamp>18042024</timestamp>
+            <orderStatus>190</orderStatus>
+            <orderCorrelationId>3675feed-13a2-9d73-9f73-ca26d0f0524b</orderCorrelationId>
+        </AGKRentalAgreementActivation>
+    </DataArea>
+</AcknowledgeAGKRentalAgreementActivation>

@@ -1,0 +1,333 @@
+﻿{
+   "CodeGenerationMode": 2,
+   "ContextClassName": "ApplicationDbContext",
+   "ContextNamespace": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": ".\/",
+   "OutputPath": "Database",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "OF.Data",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 0,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "[dbo].[Alerts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Assets]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[AssetsStaging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ChangeOrderAddresses]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ChangeOrderComments]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ChangeOrderContacts]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ChangeOrderHeaders]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ChangeOrderLines]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ChangeOrders]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Attribute]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Attribute_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_AttributeLookup]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_AttributeLookup_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Family]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Family_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Generic]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Generic_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_GenericRating]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_GenericRating_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_GenericSubstitution]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_GenericSubstitution_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_GenericToGeneric]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_GenericToGeneric_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Item]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Item_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_ItemAttributeValue]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_ItemAttributeValue_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Line]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Line_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_LineAttributePurpose]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_LineAttributePurpose_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_LineSellingRule]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_LineSellingRule_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Purpose]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Purpose_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Region]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Region_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_RegionCurrency]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_RegionCurrency_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_RegionGeneric]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_RegionGeneric_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_RelatedSpecificSubstitution]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_RelatedSpecificSubstitution_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Service]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Service_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Version]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[CPQ_Version_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[DataRefresh]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Headers]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Lines]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Notes]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProductHierarchy_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProductItems]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProductItems_Staging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[ProductItemsSyncList]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Reservations]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[RetrofitCache]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[RingfenceItems]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Ringfences]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Users]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[Views]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WarehouseItems]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[WarehouseItemsStaging]",
+         "ObjectType": 0
+      },
+      {
+         "Name": "[dbo].[vwAllAttributes]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[vwAssetItems]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[vwHeaders]",
+         "ObjectType": 3
+      },
+      {
+         "Name": "[dbo].[CPQAvailabilitySummary]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[FulfilNonSerialized]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[FulfilSerialized]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[GenerateEvents]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[GetItemsForGenericAndAttributes]",
+         "ObjectType": 1
+      },
+      {
+         "Name": "[dbo].[GetProductAttributesForGeneric]",
+         "ObjectType": 1
+      }
+   ],
+   "UiHint": null,
+   "UncountableWords": null,
+   "UseAsyncStoredProcedureCalls": true,
+   "UseBoolPropertiesWithoutDefaultSql": true,
+   "UseDatabaseNames": false,
+   "UseDatabaseNamesForRoutines": true,
+   "UseDateOnlyTimeOnly": false,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseInternalAccessModifiersForSprocsAndFunctions": false,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": true,
+   "UsePrefixNavigationNaming": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false,
+   "UseT4Split": false
+}

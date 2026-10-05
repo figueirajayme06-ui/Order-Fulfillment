@@ -1,0 +1,29 @@
+{
+    "Filter": [],
+    "Columns": [
+        { "Key": "Id", "Hidden": true, "Width": "28px" },
+        { "Key": "FulfilmentStatus", "Hidden": false, "Width": "30px" },
+        { "Key": "AgreementNumber", "Hidden": false, "Width": "100px", "HeaderText": "Agree." },
+        { "Key": "Warehouse", "Hidden": false, "Width": "80px", "HeaderText": "Whs" },
+        { "Key": "DeliveryDate", "Hidden": false, "Width": "140px", "HeaderText": "Del. Date" },
+        { "Key": "ValidFromDate", "Hidden": false, "Width": "140px", "HeaderText": "Valid From" },
+        { "Key": "ValidToDate", "Hidden": false, "Width": "140px", "HeaderText": "Valid To" },
+        { "Key": "TerminationDate", "Hidden": false, "Width": "140px", "HeaderText": "Term. Date" },
+        { "Key": "CollectionDate", "Hidden": false, "Width": "140px", "HeaderText": "Coll. Date" },
+        { "Key": "CustomerName", "Hidden": false, "Width": "200px", "HeaderText": "Cust. Name" },
+        { "Key": "CustomerNumber", "Hidden": false, "Width": "140px", "HeaderText": "Cust. Num." },
+        { "Key": "CustomerAddress", "Hidden": false, "Width": "200px", "HeaderText": "Cust. Address" },
+        { "Key": "Division", "Hidden": false, "Width": "80px", "HeaderText": "Div" },
+        { "Key": "LastUpdatedByName", "Hidden": false, "Width": "154px", "HeaderText": "Assigned" },
+        { "Key": "LineCount", "Hidden": false, "Width": "75px", "HeaderText": "Lines" },
+        { "Key": "MaxFulfilmentStatus", "Hidden": false, "Width": "60px", "HeaderText": "HS" },
+        { "Key": "MinFulfilmentStatus", "Hidden": false, "Width": "60px", "HeaderText": "LS" },
+        { "Key": "LastUpdatedDate", "Hidden": false, "Width": "140px", "HeaderText": "Last Updated" },
+        { "Key": "FromDate", "Hidden": true, "Width": "108px" },
+        { "Key": "ToDate", "Hidden": true, "Width": "98px" }
+    ],
+    "Sort": [
+        { "Index": 0, "Key": "ValidFromDate", "Dir": "asc" }
+    ],
+    "Group": []
+}

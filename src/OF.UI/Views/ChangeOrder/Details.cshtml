@@ -1,0 +1,1257 @@
+@using OF.Common
+@using Infragistics.Web.Mvc
+@using OF.Data.Database
+@using OF.UI.Helpers
+@using OF.UI.Shared.Helpers
+@model OF.UI.ViewModels.ChangeOrders.ChangeOrdersViewModel
+@inject OF.UI.Identity.IUserIdentity Identity
+
+@{
+    Layout = "/Views/Shared/_LayoutDialog.cshtml";
+    var user = Identity.GetIdentity();
+    var dateFormat = user.DateFormat;
+    var uiDateFormat = user.DateFormat == "dd/MM/yyyy" ? "dd/mm/yy" : "mm/dd/yy";
+    var disabled = Model.ChangeOrder.Status != (int)ChangeStatus.Pending;
+    var agreementOnHire = (Model.ChangeOrder?.ChangeOrderHeader != null ? Model.ChangeOrder?.ChangeOrderHeader?.OnHireDate : Model.Header.OnHireDate);
+    var agreementOffHire = (Model.ChangeOrder?.ChangeOrderHeader != null ? Model.ChangeOrder?.ChangeOrderHeader?.OffHireDate : Model.Header.OffHireDate);
+
+    // Get the active tab from query string or set default to "details"
+    var activeTab = Context.Request.Query["tab"].FirstOrDefault() ?? "details";
+}
+
+<div class="container-fluid" style="margin:0;padding:0">
+    <div class="row">
+        <div id="colLines" class="col-12 mr-1 mt-1">
+            <div class="card">
+                <h5 class="card-header"><i class="bi bi-box-seam"></i>&nbsp;Change Order for @Model.Header.AgreementNumber</h5>
+                <div class="card-body">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-tabs" id="changeOrderTabs" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link @(activeTab == "details" ? "active" : "")" id="details-tab" data-bs-toggle="tab" data-bs-target="#details" type="button" role="tab" aria-controls="details" aria-selected="@(activeTab == "details" ? "true" : "false")">Details</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link @(activeTab == "addresses" ? "active" : "")" id="addresses-tab" data-bs-toggle="tab" data-bs-target="#addresses" type="button" role="tab" aria-controls="addresses" aria-selected="@(activeTab == "addresses" ? "true" : "false")">Addresses</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link @(activeTab == "contacts" ? "active" : "")" id="contacts-tab" data-bs-toggle="tab" data-bs-target="#contacts" type="button" role="tab" aria-controls="contacts" aria-selected="@(activeTab == "contacts" ? "true" : "false")">Contacts</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link @(activeTab == "document" ? "active" : "")" id="document-tab" data-bs-toggle="tab" data-bs-target="#document" type="button" role="tab" aria-controls="document" aria-selected="@(activeTab == "document" ? "true" : "false")">Document</button>
+                        </li>
+                    </ul>
+
+                    <!-- Tab content -->
+                    <div class="tab-content" id="changeOrderTabsContent">
+                        <!-- Details Tab -->
+                        <div class="tab-pane fade @(activeTab == "details" ? "show active" : "")" id="details" role="tabpanel" aria-labelledby="details-tab">
+                            <div class="change-body" style="overflow:hidden">
+                                <div class="row mt-4">
+                                    <div class="col-md-12">
+                                        <div class="card">
+                                            <h5 class="card-header">
+                                                <i class="bi bi-info"></i> Header
+                                            </h5>
+                                            <div class="card-body">
+                                                <!-- Header Section -->
+                                                <form id="editHeaderForm" style="width: 100%" action="/ChangeOrder/EditHeader?headerId=@(Model.Header.Id)&changeId=@(Model.ChangeOrder.Id)&tab=details" method="post">
+                                                    <div class="row">
+                                                        <div class="col-md-6">
+                                                            <div class="form-group row p-2">
+                                                                <label class="col-md-6 col-form-label">Customer Number</label>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" readonly class="form-control-plaintext" value="@Model.Header.CustomerNumber">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row p-2">
+                                                                <label class="col-md-6 col-form-label">Customer Name</label>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" readonly class="form-control-plaintext" value="@Model.Header.CustomerName">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row p-2">
+                                                                <label class="col-md-6 col-form-label">Customer Address</label>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" readonly class="form-control-plaintext" value="@Model.Header.CustomerAddress">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row p-2">
+                                                                <label class="col-md-6 col-form-label">Division</label>
+                                                                <div class="col-md-6">
+                                                                    <input type="text" readonly class="form-control-plaintext" value="@Model.Header.Division">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row p-2">
+                                                                <label class="col-md-6 col-form-label">OnHire Date</label>
+                                                                <div class="col-md-6">
+                                                                    <input required
+                                                                           disabled="@disabled"
+                                                                           type="text"
+                                                                           class="form-control"
+                                                                           name="OnHireDate"
+                                                                           value="@(agreementOnHire?.ToString(dateFormat))"
+                                                                           data-datepicker="@uiDateFormat"
+                                                                           data-original="@(Model.Header.OnHireDate?.ToString(dateFormat))">
+
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row p-2">
+                                                                <label class="col-md-6 col-form-label">OffHire Date</label>
+                                                                <div class="col-md-6">
+                                                                    <input required
+                                                                           disabled="@disabled"
+                                                                           type="text"
+                                                                           class="form-control"
+                                                                           name="OffHireDate"
+                                                                           value="@(agreementOffHire?.ToString(dateFormat))"
+                                                                           data-datepicker="@uiDateFormat"
+                                                                           data-original="@(Model.Header.OffHireDate?.ToString(dateFormat))">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group row p-2">
+                                                                <label class="col-md-6 col-form-label">Rate Type</label>
+                                                                <div class="col-md-6">
+                                                                    <input disabled="@disabled"
+                                                                           type="text"
+                                                                           class="form-control"
+                                                                           name="RateType"
+                                                                           value="@(Model.ChangeOrder?.ChangeOrderHeader?.RateType)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row p-2">
+                                                                <label class="col-md-6 col-form-label">Job AIC</label>
+                                                                <div class="col-md-6">
+                                                                    <input disabled="@disabled"
+                                                                           type="text"
+                                                                           class="form-control"
+                                                                           name="JobAic"
+                                                                           value="@(Model.ChangeOrder?.ChangeOrderHeader?.JobAic)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row p-2">
+                                                                <label class="col-md-6 col-form-label">Project Code</label>
+                                                                <div class="col-md-6">
+                                                                    <input disabled="@disabled"
+                                                                           type="text"
+                                                                           class="form-control"
+                                                                           name="ProjectCode"
+                                                                           value="@(Model.ChangeOrder?.ChangeOrderHeader?.ProjectCode)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row p-2">
+                                                                <label class="col-md-6 col-form-label">PO Number</label>
+                                                                <div class="col-md-6">
+                                                                    <input disabled="@disabled"
+                                                                           type="text"
+                                                                           class="form-control"
+                                                                           name="Ponumber"
+                                                                           value="@(Model.ChangeOrder?.ChangeOrderHeader?.Ponumber)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row p-2">
+                                                                <label class="col-md-6 col-form-label">PO Amount</label>
+                                                                <div class="col-md-6">
+                                                                    <input disabled="@disabled"
+                                                                           type="text"
+                                                                           class="form-control"
+                                                                           name="Poamount"
+                                                                           value="@(Model.ChangeOrder?.ChangeOrderHeader?.Poamount)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row p-2">
+                                                                <label class="col-md-6 col-form-label">Rental Duration</label>
+                                                                <div class="col-md-6">
+                                                                    <input disabled="@disabled"
+                                                                           type="number"
+                                                                           class="form-control"
+                                                                           name="RentalDuration"
+                                                                           value="@(Model.ChangeOrder?.ChangeOrderHeader?.RentalDuration)">
+                                                                </div>
+                                                            </div>
+                                                            <div class="form-group row p-2">
+                                                                <label class="col-md-6 col-form-label">Minimum Rental</label>
+                                                                <div class="col-md-6">
+                                                                    <input disabled="@disabled"
+                                                                           type="number"
+                                                                           class="form-control"
+                                                                           name="MinimumRental"
+                                                                           value="@(Model.ChangeOrder?.ChangeOrderHeader?.MinimumRental)">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                        @if (!disabled)
+                                                        {
+                                                            <div class="col-md-12 text-end">
+                                                                <button data-enrich data-headerid="@Model.Header.Id" data-changeorderid="@Model.ChangeOrder.Id" type="submit" class="btn btn-primary" data-save title="Enrich the data on this from salesforce for pricing.">
+                                                                    <i class="bi bi-reload"></i>&nbsp;Enrich From Salesforce
+                                                                </button>&nbsp;
+                                                                <button onclick="showLoadingModal('Saving header...')" type="submit" class="btn btn-success" data-save title="Add Line">
+                                                                    <i class="bi bi-save"></i>&nbsp;Save
+                                                                </button>&nbsp;
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Lines Section -->
+                                <div class="row mt-4">
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <h5 class="card-header">
+                                                <i class="bi bi-card-text"></i>&nbsp;Lines
+                                            </h5>
+                                            @if (!Model.Header.IsDeleted)
+                                            {
+                                                int count = 0;
+
+                                                <div class="card-body">
+                                                    <table id="table-items" class="table table-hover">
+                                                        <thead>
+                                                            <tr>
+                                                                <th style="width:40px">Line</th>
+                                                                <th style="width:100px">Generic</th>
+                                                                <th style="width:80px">Qty</th>
+                                                                <th style="width:80px">Price ($)</th>
+                                                                <th style="width:80px">Order Source</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            @foreach (var lineWithChange in Model.Lines)
+                                                            {
+                                                                ChangeOrderLine? change = lineWithChange.ChangeOrderLine;
+                                                                Line? line = lineWithChange?.Line;
+
+                                                                <tr class="line_item_row @(change?.Delete == true ? "row-deleted" : line == null ? "row-added" : "") ">
+                                                                    <td class="nowrap">
+                                                                        <input type="hidden" name="Lines[@count].ChangeId" value="@change?.Id" />
+                                                                        <input type="hidden" name="Lines[@count].LineId" value="@line?.Id" />
+                                                                        <input type="hidden" name="Lines[@count].Delete" value="@((change?.Delete ?? false).ToString().ToLower())" />
+                                                                        <input type="hidden" name="Lines[@count].Price" value="@change?.Price" />
+
+                                                                        <input type="hidden"
+                                                                               name="Lines[@count].GenericItemNumber"
+                                                                               value="@(change != null ? change?.GenericItemNumber : line?.GenericItemNumber)"
+                                                                               data-original="@(line?.GenericItemNumber)" />
+
+                                                                        <input type="hidden"
+                                                                               name="Lines[@count].Quantity"
+                                                                               value="@(change != null ? change?.Quantity : line?.Quantity)"
+                                                                               data-original="@(line?.Quantity)" />
+
+                                                                        <input type="hidden"
+                                                                               name="Lines[@count].Attributes"
+                                                                               value="@(change != null ? change?.Attributes : line?.Attributes)"
+                                                                               data-original="@(line?.Attributes)" />
+
+                                                                        <input type="hidden"
+                                                                               name="Lines[@count].DeliveryDate"
+                                                                               value=@((change != null ? change?.DeliveryDate : line?.DeliveryDate)?.ToString(dateFormat))
+                                                                               data-original="@(line?.DeliveryDate?.ToString(dateFormat))">
+
+                                                                        <input type="hidden"
+                                                                               name="Lines[@count].OnHireDate"
+                                                                               value=@((change != null ? change?.OnHireDate : line?.ValidFromDate)?.ToString(dateFormat))
+                                                                               data-original="@((line?.ValidFromDate)?.ToString(dateFormat))">
+
+                                                                        <input type="hidden"
+                                                                               name="Lines[@count].OffHireDate"
+                                                                               value=@((change != null ? change?.OffHireDate : line?.ValidToDate)?.ToString(dateFormat))
+                                                                               data-original="@((line?.ValidToDate)?.ToString(dateFormat))">
+
+                                                                        <input type="hidden"
+                                                                               name="Lines[@count].TerminationDate"
+                                                                               value=@((change != null ? change?.TerminationDate : line?.TerminationDate)?.ToString(dateFormat))
+                                                                               data-original="@(line?.TerminationDate?.ToString(dateFormat))">
+
+                                                                        <input type="hidden"
+                                                                               name="Lines[@count].CollectionDate"
+                                                                               value=@((change != null ? change?.CollectionDate : line?.CollectionDate)?.ToString(dateFormat))
+                                                                               data-original="@(line?.CollectionDate?.ToString(dateFormat))">
+
+                                                                        <span>@(line?.AgreementLineNumber)</span>
+                                                                    </td>
+                                                                    <td class="nowrap">
+                                                                        <span>@(change != null ? change?.GenericItemNumber : line?.GenericItemNumber)</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>@(change != null ? change?.Quantity : line?.Quantity)</span>
+                                                                    </td>
+                                                                    <td>
+                                                                        @if (change != null)
+                                                                        {
+                                                                            <span>$@change.Price</span>
+                                                                        }
+                                                                    </td>
+                                                                    <td>
+                                                                        <span>@(string.IsNullOrEmpty(line?.OrderSource) ? Constants.IPG.OrderSource : line?.OrderSource)</span>
+                                                                    </td>
+                                                                </tr>
+
+                                                                count++;
+                                                            }
+
+                                                            @if (!disabled)
+                                                            {
+                                                                <tr class="line_item_row_last">
+                                                                    <td colspan="4">
+                                                                    </td>
+                                                                    <td>
+
+                                                                        <button type="button"
+                                                                                data-add
+                                                                                title="Add new line"
+                                                                                class="btn btn-sm btn-success line_btn_fulfil float-end">
+                                                                            <i class="bi bi-plus"></i> Add Line
+                                                                        </button>
+
+                                                                    </td>
+                                                                </tr>
+                                                            }
+                                                        </tbody>
+                                                    </table>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="card-body">
+                                                    <div id="panel_fulfilment_blank" class="fulfilMessage">
+                                                        <i class="bi bi-trash"></i>&nbsp;Quote has been deleted
+                                                    </div>
+                                                </div>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="card">
+                                            <h5 class="card-header">
+                                                <i class="bi bi-card-text"></i> Line Details
+                                            </h5>
+                                            <div class="card-body">
+                                                <div id="lineForm" style="display:none;">
+                                                    <form id="editLinesForm" action="/ChangeOrder/EditLine?headerId=@(Model.Header.Id)&changeOrderId=@(Model.ChangeOrder.Id)&tab=details" method="post">
+                                                        <input type="hidden" name="ChangeId" value="" />
+                                                        <input type="hidden" name="LineId" value="" />
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <label for="GenericItemNumber" class="form-label">Generic Item Number</label>
+                                                                <div class="input-group mb-3">
+                                                                    <input disabled="@disabled" readonly required type="text" class="form-control" id="GenericItemNumber" name="GenericItemNumber" />
+                                                                    <button onclick="openConfiguratorView('@(Model.Header.AgreementNumber)', this)" class="btn btn-primary" disabled="@disabled" type="button">Select</button>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label for="Quantity" class="form-label">Quantity</label>
+                                                                    <input disabled="@disabled" readonly required type="number" class="form-control" id="Quantity" name="Quantity" value="1" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-12">
+                                                                <div class="mb-3">
+                                                                    <label for="Attributes" class="form-label">Attributes</label>
+                                                                    <input type="hidden" id="Attributes" name="Attributes" />
+                                                                    <div id="lineAttributes">
+                                                                        <span class="badge bg-primary">None</span>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label for="DeliveryDate" class="form-label">Delivery Date</label>
+                                                                    <input disabled="@disabled" type="text" class="form-control" id="DeliveryDate" name="DeliveryDate"
+                                                                           data-datepicker="@uiDateFormat" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label for="Price" class="form-label">Price ($)</label>
+                                                                    <input disabled="@disabled" readonly type="number" class="form-control" id="Price" name="Price" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label for="OnHireDate" class="form-label">OnHire Date</label>
+                                                                    <input disabled="@disabled" required type="text" class="form-control" id="OnHireDate" name="OnHireDate"
+                                                                           data-datepicker="@uiDateFormat" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label for="OffHireDate" class="form-label">OffHire Date</label>
+                                                                    <input disabled="@disabled" required type="text" class="form-control" id="OffHireDate" name="OffHireDate"
+                                                                           data-datepicker="@uiDateFormat" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label for="TerminationDate" class="form-label">Termination Date</label>
+                                                                    <input disabled="@disabled" type="text" class="form-control" id="TerminationDate" name="TerminationDate"
+                                                                           data-datepicker="@uiDateFormat" />
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="mb-3">
+                                                                    <label for="CollectionDate" class="form-label">Collection Date</label>
+                                                                    <input disabled="@disabled" type="text" class="form-control" id="CollectionDate" name="CollectionDate"
+                                                                           data-datepicker="@uiDateFormat" />
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="mb-3">
+                                                                    <div class="form-check form-switch">
+                                                                        <input disabled="@disabled" class="form-check-input" type="checkbox" id="Delete" name="Delete">
+                                                                        <label class="form-check-label" for="Delete">Deleted</label>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        @if (!disabled)
+                                                        {
+                                                            <button id="saveButton" disabled onclick="showLoadingModal('Saving line...')" type="submit" class="btn btn-success float-end" data-save title="Save line">
+                                                                <i class="bi bi-save"></i> Save
+                                                            </button>
+                                                        }
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+                        <!-- Addresses Tab -->
+                        <div class="tab-pane fade @(activeTab == "addresses" ? "show active" : "")" id="addresses" role="tabpanel" aria-labelledby="addresses-tab">
+                            <div class="row mt-4">
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <h5 class="card-header">
+                                            <i class="bi bi-building"></i> Billing
+                                        </h5>
+                                        <div class="card-body">
+                                            <form id="editBillingAddressForm" action="/ChangeOrder/EditAddress?headerId=@(Model.Header.Id)&changeId=@(Model.ChangeOrder.Id)&addressType=@((int)AddressType.Invoice)&tab=addresses" method="post">
+                                                <input type="hidden" name="AddressType" value="@((int)AddressType.Invoice)" />
+                                                @{
+                                                    var billingAddress = Model.ChangeOrder?.InvoiceAddress ?? new ChangeOrderAddress { AddressType = (int)AddressType.Invoice };
+                                                }
+                                                <input type="hidden" name="Id" value="@billingAddress.Id" />
+                                                <input type="hidden" name="SalesforceId" value="@billingAddress.SalesforceId" />
+                                                <input type="hidden" name="M3number" value="@billingAddress.M3number" />
+
+                                                <div class="mb-3">
+                                                    <label for="BillingAddressName" class="form-label">Address Name <span class="text-danger">*</span></label>
+                                                    <input required
+                                                           disabled="@disabled"
+                                                           type="text"
+                                                           class="form-control"
+                                                           id="BillingAddressName"
+                                                           name="AddressName"
+                                                           value="@billingAddress.AddressName" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="BillingStreet" class="form-label">Street</label>
+                                                    <input disabled="@disabled"
+                                                           type="text"
+                                                           class="form-control"
+                                                           id="BillingStreet"
+                                                           name="Street"
+                                                           value="@billingAddress.Street" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="BillingCity" class="form-label">City <span class="text-danger">*</span></label>
+                                                    <input required
+                                                           disabled="@disabled"
+                                                           type="text"
+                                                           class="form-control"
+                                                           id="BillingCity"
+                                                           name="City"
+                                                           value="@billingAddress.City" />
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="BillingStateOrProvince" class="form-label">State/Province</label>
+                                                            <input disabled="@disabled"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="BillingStateOrProvince"
+                                                                   name="StateOrProvince"
+                                                                   value="@billingAddress.StateOrProvince" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="BillingZipOrPostalCode" class="form-label">Zip/Postal Code <span class="text-danger">*</span></label>
+                                                            <input required
+                                                                   disabled="@disabled"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="BillingZipOrPostalCode"
+                                                                   name="ZipOrPostalCode"
+                                                                   value="@billingAddress.ZipOrPostalCode" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="BillingCountry" class="form-label">Country <span class="text-danger">*</span></label>
+                                                    <input required
+                                                           disabled="@disabled"
+                                                           type="text"
+                                                           class="form-control"
+                                                           id="BillingCountry"
+                                                           name="Country"
+                                                           value="@billingAddress.Country" />
+                                                </div>
+
+                                                @if (!disabled)
+                                                {
+                                                    <button onclick="setFalse(this, 'Saving billing address...')" type="submit" class="btn btn-success float-end">
+                                                        <i class="bi bi-save"></i>&nbsp;Save
+                                                    </button>
+                                                }
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-6">
+                                    <div class="card">
+                                        <h5 class="card-header">
+                                            <i class="bi bi-geo-alt"></i> Shipping
+                                        </h5>
+                                        <div class="card-body">
+                                            <form id="editShippingAddressForm" action="/ChangeOrder/EditAddress?headerId=@(Model.Header.Id)&changeId=@(Model.ChangeOrder.Id)&addressType=@((int)AddressType.Shipping)&tab=addresses" method="post">
+                                                @{
+                                                    var shippingAddress = Model.ChangeOrder?.SiteAddress ?? new ChangeOrderAddress { AddressType = (int)AddressType.Shipping };
+                                                }
+                                                <input type="hidden" name="Id" value="@shippingAddress.Id" />
+                                                <input type="hidden" name="SalesforceId" value="@shippingAddress.SalesforceId" />
+                                                <input type="hidden" name="M3number" value="@shippingAddress.M3number" />
+
+                                                <div class="mb-3">
+                                                    <label for="ShippingAddressName" class="form-label">Address Name <span class="text-danger">*</span></label>
+                                                    <input required
+                                                           disabled="@disabled"
+                                                           type="text"
+                                                           class="form-control"
+                                                           id="ShippingAddressName"
+                                                           name="AddressName"
+                                                           value="@shippingAddress.AddressName" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="ShippingStreet" class="form-label">Street</label>
+                                                    <input disabled="@disabled"
+                                                           type="text"
+                                                           class="form-control"
+                                                           id="ShippingStreet"
+                                                           name="Street"
+                                                           value="@shippingAddress.Street" />
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="ShippingCity" class="form-label">City <span class="text-danger">*</span></label>
+                                                    <input required
+                                                           disabled="@disabled"
+                                                           type="text"
+                                                           class="form-control"
+                                                           id="ShippingCity"
+                                                           name="City"
+                                                           value="@shippingAddress.City" />
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="ShippingStateOrProvince" class="form-label">State/Province</label>
+                                                            <input disabled="@disabled"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="ShippingStateOrProvince"
+                                                                   name="StateOrProvince"
+                                                                   value="@shippingAddress.StateOrProvince" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="ShippingZipOrPostalCode" class="form-label">Zip/Postal Code <span class="text-danger">*</span></label>
+                                                            <input required
+                                                                   disabled="@disabled"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="ShippingZipOrPostalCode"
+                                                                   name="ZipOrPostalCode"
+                                                                   value="@shippingAddress.ZipOrPostalCode" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="ShippingCountry" class="form-label">Country <span class="text-danger">*</span></label>
+                                                    <input required
+                                                           disabled="@disabled"
+                                                           type="text"
+                                                           class="form-control"
+                                                           id="ShippingCountry"
+                                                           name="Country"
+                                                           value="@shippingAddress.Country" />
+                                                </div>
+
+                                                @if (!disabled)
+                                                {
+                                                    <button onclick="setFalse(this, 'Saving shipping address...')" type="submit" class="btn btn-success float-end">
+                                                        <i class="bi bi-save"></i>&nbsp;Save
+                                                    </button>
+                                                }
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Contacts Tab -->
+                        <div class="tab-pane fade @(activeTab == "contacts" ? "show active" : "")" id="contacts" role="tabpanel" aria-labelledby="contacts-tab">
+                            <div class="row mt-4">
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <h5 class="card-header">
+                                            <i class="bi bi-person"></i>&nbsp;Primary
+                                        </h5>
+                                        <div class="card-body">
+                                            <form id="editPrimaryContactForm" action="/ChangeOrder/EditContact?headerId=@(Model.Header.Id)&changeId=@(Model.ChangeOrder.Id)&contactType=@((int)ContactType.Primary)&tab=contacts" method="post">
+                                                @{
+                                                    var primaryContact = Model.ChangeOrder?.PrimaryContact ?? new ChangeOrderContact { ContactType = (int)ContactType.Primary };
+                                                }
+                                                <input type="hidden" name="Id" value="@primaryContact.Id" />
+                                                <input type="hidden" name="SalesforceId" value="@primaryContact.SalesforceId" />
+                                                <input type="hidden" name="M3number" value="@primaryContact.M3number" />
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="PrimaryTitle" class="form-label">Title <span class="text-danger">*</span></label>
+                                                            @Html.DropDownList(
+                                                                     "Title",
+                                                                     Html.SalutationsItems(@primaryContact.Title),
+                                                                     "-- Select --",
+                                                                     new
+                                                                     {
+                                                                         @class = "form-control",
+                                                                         @required = "required",
+                                                                         id = "Title"
+                                                                     })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="PrimaryFirstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                                            <input required
+                                                                   disabled="@disabled"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="PrimaryFirstName"
+                                                                   name="FirstName"
+                                                                   value="@primaryContact.FirstName" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="PrimaryLastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                                            <input required
+                                                                   disabled="@disabled"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="PrimaryLastName"
+                                                                   name="LastName"
+                                                                   value="@primaryContact.LastName" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="PrimaryPhone" class="form-label">Phone</label>
+                                                            <input disabled="@disabled"
+                                                                   type="tel"
+                                                                   class="form-control"
+                                                                   id="PrimaryPhone"
+                                                                   name="Phone"
+                                                                   value="@primaryContact.Phone" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="PrimaryMobile" class="form-label">Mobile</label>
+                                                            <input disabled="@disabled"
+                                                                   type="tel"
+                                                                   class="form-control"
+                                                                   id="PrimaryMobile"
+                                                                   name="Mobile"
+                                                                   value="@primaryContact.Mobile" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="PrimaryEmail" class="form-label">Email <span class="text-danger">*</span></label>
+                                                    <input required
+                                                           disabled="@disabled"
+                                                           type="email"
+                                                           class="form-control"
+                                                           id="PrimaryEmail"
+                                                           name="Email"
+                                                           value="@primaryContact.Email" />
+                                                </div>
+
+                                                @if (!disabled)
+                                                {
+                                                    <button onclick="setFalse(this, 'Saving primary contact...')" type="submit" class="btn btn-success float-end">
+                                                        <i class="bi bi-save"></i>&nbsp;Save
+                                                    </button>
+                                                }
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <h5 class="card-header">
+                                            <i class="bi bi-person-badge"></i>&nbsp;Billing
+                                        </h5>
+                                        <div class="card-body">
+                                            <form id="editBillingContactForm" action="/ChangeOrder/EditContact?headerId=@(Model.Header.Id)&changeId=@(Model.ChangeOrder.Id)&contactType=@((int)ContactType.Billing)&tab=contacts" method="post">
+                                                @{
+                                                    var billingContact = Model.ChangeOrder?.BillingContact ?? new ChangeOrderContact { ContactType = (int)ContactType.Billing };
+                                                }
+                                                <input type="hidden" name="Id" value="@billingContact.Id" />
+                                                <input type="hidden" name="SalesforceId" value="@billingContact.SalesforceId" />
+                                                <input type="hidden" name="M3number" value="@billingContact.M3number" />
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="BillingTitle" class="form-label">Title <span class="text-danger">*</span></label>
+                                                            @Html.DropDownList(
+                                                                     "Title",
+                                                                     Html.SalutationsItems(@billingContact.Title),
+                                                                     "-- Select --",
+                                                                     new
+                                                                     {
+                                                                         @class = "form-control",
+                                                                         @required = "required",
+                                                                         id = "Title"
+                                                                     })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="BillingFirstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                                            <input required
+                                                                   disabled="@disabled"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="BillingFirstName"
+                                                                   name="FirstName"
+                                                                   value="@billingContact.FirstName" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="BillingLastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                                            <input required
+                                                                   disabled="@disabled"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="BillingLastName"
+                                                                   name="LastName"
+                                                                   value="@billingContact.LastName" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="BillingPhone" class="form-label">Phone</label>
+                                                            <input disabled="@disabled"
+                                                                   type="tel"
+                                                                   class="form-control"
+                                                                   id="BillingPhone"
+                                                                   name="Phone"
+                                                                   value="@billingContact.Phone" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="BillingMobile" class="form-label">Mobile</label>
+                                                            <input disabled="@disabled"
+                                                                   type="tel"
+                                                                   class="form-control"
+                                                                   id="BillingMobile"
+                                                                   name="Mobile"
+                                                                   value="@billingContact.Mobile" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="BillingEmail" class="form-label">Email <span class="text-danger">*</span></label>
+                                                    <input required
+                                                           disabled="@disabled"
+                                                           type="email"
+                                                           class="form-control"
+                                                           id="BillingEmail"
+                                                           name="Email"
+                                                           value="@billingContact.Email" />
+                                                </div>
+
+                                                @if (!disabled)
+                                                {
+                                                    <button onclick="setFalse(this, 'Saving billing contact...')" type="submit" class="btn btn-success float-end">
+                                                        <i class="bi bi-save"></i>&nbsp;Save
+                                                    </button>
+                                                }
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <h5 class="card-header">
+                                            <i class="bi bi-person-rolodex"></i>&nbsp;ARM
+                                        </h5>
+                                        <div class="card-body">
+                                            <form id="editARMContactForm" action="/ChangeOrder/EditContact?headerId=@(Model.Header.Id)&changeId=@(Model.ChangeOrder.Id)&contactType=@((int)ContactType.ARM)&tab=contacts" method="post">
+                                                @{
+                                                    var armContact = Model.ChangeOrder?.Armcontact ?? new ChangeOrderContact { ContactType = (int)ContactType.ARM };
+                                                }
+                                                <input type="hidden" name="Id" value="@armContact.Id" />
+                                                <input type="hidden" name="SalesforceId" value="@armContact.SalesforceId" />
+                                                <input type="hidden" name="M3number" value="@armContact.M3number" />
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="ARMTitle" class="form-label">Title <span class="text-danger">*</span></label>
+                                                            @Html.DropDownList(
+                                                                     "Title",
+                                                                     Html.SalutationsItems(@armContact.Title),
+                                                                     "-- Select --",
+                                                                     new
+                                                                     {
+                                                                         @class = "form-control",
+                                                                         @required = "required",
+                                                                         id = "Title"
+                                                                     })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="ARMFirstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                                            <input required
+                                                                   disabled="@disabled"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="ARMFirstName"
+                                                                   name="FirstName"
+                                                                   value="@armContact.FirstName" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="ARMLastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                                            <input required
+                                                                   disabled="@disabled"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="ARMLastName"
+                                                                   name="LastName"
+                                                                   value="@armContact.LastName" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="ARMPhone" class="form-label">Phone</label>
+                                                            <input disabled="@disabled"
+                                                                   type="tel"
+                                                                   class="form-control"
+                                                                   id="ARMPhone"
+                                                                   name="Phone"
+                                                                   value="@armContact.Phone" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="ARMMobile" class="form-label">Mobile</label>
+                                                            <input disabled="@disabled"
+                                                                   type="tel"
+                                                                   class="form-control"
+                                                                   id="ARMMobile"
+                                                                   name="Mobile"
+                                                                   value="@armContact.Mobile" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="ARMEmail" class="form-label">Email <span class="text-danger">*</span></label>
+                                                    <input required
+                                                           disabled="@disabled"
+                                                           type="email"
+                                                           class="form-control"
+                                                           id="ARMEmail"
+                                                           name="Email"
+                                                           value="@armContact.Email" />
+                                                </div>
+
+                                                @if (!disabled)
+                                                {
+                                                    <button onclick="setFalse(this, 'Saving account manager contact...')" type="submit" class="btn btn-success float-end">
+                                                        <i class="bi bi-save"></i>&nbsp;Save
+                                                    </button>
+                                                }
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-md-3">
+                                    <div class="card">
+                                        <h5 class="card-header">
+                                            <i class="bi bi-person-workspace"></i>&nbsp;Site
+                                        </h5>
+                                        <div class="card-body">
+                                            <form id="editSiteContactForm" action="/ChangeOrder/EditContact?headerId=@(Model.Header.Id)&changeId=@(Model.ChangeOrder.Id)&contactType=@((int)ContactType.Site)&tab=contacts" method="post">
+                                                @{
+                                                    var siteContact = Model.ChangeOrder?.SiteContact ?? new ChangeOrderContact { ContactType = (int)ContactType.Site };
+                                                }
+                                                <input type="hidden" name="Id" value="@siteContact.Id" />
+                                                <input type="hidden" name="SalesforceId" value="@siteContact.SalesforceId" />
+                                                <input type="hidden" name="M3number" value="@siteContact.M3number" />
+
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="SiteTitle" class="form-label">Title <span class="text-danger">*</span></label>
+                                                            @Html.DropDownList(
+                                                                     "Title",
+                                                                     Html.SalutationsItems(@siteContact.Title),
+                                                                     "-- Select --",
+                                                                     new
+                                                                     {
+                                                                         @class = "form-control",
+                                                                         @required = "required",
+                                                                         id = "Title"
+                                                                     })
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="SiteFirstName" class="form-label">First Name <span class="text-danger">*</span></label>
+                                                            <input required
+                                                                   disabled="@disabled"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="SiteFirstName"
+                                                                   name="FirstName"
+                                                                   value="@siteContact.FirstName" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="SiteLastName" class="form-label">Last Name <span class="text-danger">*</span></label>
+                                                            <input required
+                                                                   disabled="@disabled"
+                                                                   type="text"
+                                                                   class="form-control"
+                                                                   id="SiteLastName"
+                                                                   name="LastName"
+                                                                   value="@siteContact.LastName" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="SitePhone" class="form-label">Phone</label>
+                                                            <input disabled="@disabled"
+                                                                   type="tel"
+                                                                   class="form-control"
+                                                                   id="SitePhone"
+                                                                   name="Phone"
+                                                                   value="@siteContact.Phone" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="SiteMobile" class="form-label">Mobile</label>
+                                                            <input disabled="@disabled"
+                                                                   type="tel"
+                                                                   class="form-control"
+                                                                   id="SiteMobile"
+                                                                   name="Mobile"
+                                                                   value="@siteContact.Mobile" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="mb-3">
+                                                    <label for="SiteEmail" class="form-label">Email <span class="text-danger">*</span></label>
+                                                    <input required
+                                                           disabled="@disabled"
+                                                           type="email"
+                                                           class="form-control"
+                                                           id="SiteEmail"
+                                                           name="Email"
+                                                           value="@siteContact.Email" />
+                                                </div>
+
+                                                @if (!disabled)
+                                                {
+                                                    <button onclick="setFalse(this, 'Saving site contact...')" type="submit" class="btn btn-success float-end">
+                                                        <i class="bi bi-save"></i>&nbsp;Save
+                                                    </button>
+                                                }
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Document Tab -->
+                        <div class="tab-pane fade @(activeTab == "document" ? "show active" : "")" id="document" role="tabpanel" aria-labelledby="document-tab">
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <div class="card">
+                                        <h5 class="card-header">
+                                            <i class="bi bi-file-earmark-text"></i> Document Information
+                                        </h5>
+                                        <div class="card-body">
+                                           
+                                            <form id="documentForm" action="/ChangeOrder/SendDocument?headerId=@(Model.Header.Id)&changeId=@(Model.ChangeOrder.Id)&tab=document" method="post">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="RecipientEmail" class="form-label">Recipient Email <span class="text-danger">*</span></label>
+                                                            <input required
+                                                                   disabled="@disabled"
+                                                                   type="email"
+                                                                   class="form-control"
+                                                                   id="RecipientEmail"
+                                                                   name="RecipientEmail" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <div class="form-check mt-4">
+                                                                <input disabled="@disabled"
+                                                                       class="form-check-input"
+                                                                       type="checkbox"
+                                                                       id="RequireApproval"
+                                                                       name="RequireApproval" />
+                                                                <label class="form-check-label" for="RequireApproval">
+                                                                    Require Approval by Recipient
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-12">
+                                                        <div class="mb-3">
+                                                            <label for="AdditionalText" class="form-label">Additional Text</label>
+                                                            <textarea disabled="@disabled"
+                                                                      class="form-control"
+                                                                      id="AdditionalText"
+                                                                      name="AdditionalText"
+                                                                      rows="10"></textarea>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                @if (!disabled)
+                                                {
+                                                    <div class="text-end">
+                                                        <button type="submit" class="btn btn-success" onclick="showLoadingModal('Sending document...')">
+                                                            <i class="bi bi-send"></i> Send Document
+                                                        </button>
+                                                    </div>
+                                                }
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        @if (Model.ChangeOrder.Status == (int)ChangeStatus.Pending)
+        {
+            if (User.IsInRole(Constants.Roles.ChangeOrder))
+            {
+                <div class="col-12 text-center mt-4">
+                    <div class="card">
+                        <h5 class="card-header">
+                            <i class="bi bi-card-text"></i> Comment
+                        </h5>
+                        <div class="card-body">
+                            <form action="/ChangeOrder/SendOrDelete?headerId=@(Model.Header.Id)&changeId=@(Model.ChangeOrder.Id)" method="post">
+                                <div class="mb-3">
+                                    <textarea class="form-control" id="SendComment" name="Comment" rows="3"></textarea>
+                                </div>
+                                <input type="hidden" name="Value" value="true" />
+                                <button type="submit" class="btn btn-primary mr-1" onclick="showLoadingModal('Approving...')">Send for Approval</button>
+                                <button type="submit" class="btn btn-danger" onclick="setFalse(this, 'Deleting change...')">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else if (Model.ChangeOrder.Status == (int)ChangeStatus.Requested)
+        {
+            if (User.IsInRole(Constants.Roles.ChangeApproval))
+            {
+                <div class="col-12 text-center mt-4">
+                    <div class="card">
+                        <h5 class="card-header">
+                            <i class="bi bi-card-text"></i> Comment
+                        </h5>
+                        <div class="card-body">
+                            <form action="/ChangeOrder/ApproveOrReject?headerId=@(Model.Header.Id)&changeId=@(Model.ChangeOrder.Id)" method="post">
+                                <div class="mb-3">
+                                    <textarea required class="form-control" id="ApprovalComment" name="Comment" rows="3"></textarea>
+                                </div>
+
+                                <input type="hidden" name="Value" value="true" />
+                                <button type="submit" class="btn btn-success mr-1" onclick="showLoadingModal('Approving...')">Approve</button>
+                                <button type="submit" class="btn btn-danger" onclick="setFalse(this, 'Rejecting...')">Reject</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        @if (Model.ChangeOrder.Status != (int)ChangeStatus.Pending)
+        {
+            <div class="col-12 mt-1">
+                <ul class="timeline">
+                    @foreach (var comment in Model.ChangeOrderComments)
+                    {
+                        <li class="change-comment@(comment.Status.HasValue ? $"-{comment.Status.ToString().ToLower()}" : "")">
+                            <span class="float-right fw-bold">@(comment.CreatedOn.ToString(user.DateFormat)) by @comment.CreatedBy</span>
+                            @switch (comment.Status)
+                            {
+                                case ChangeStatus.Approved:
+                                    <i class="bi bi-check text-success"></i>
+                                    break;
+                                case ChangeStatus.Rejected:
+                                    <i class="bi bi-x-circle text-danger"></i>
+                                    break;
+                                case ChangeStatus.Requested:
+                                    <i class="bi bi-arrow-clockwise text-info"></i>
+                                    break;
+                                case ChangeStatus.Completed:
+                                    <i class="bi bi-check-circle-fill text-success"></i>
+                                    break;
+                                default:
+                                    <i class="bi bi-chat-dots"></i>
+                                    break;
+                            }
+                            <p>@comment.Comment</p>
+                        </li>
+                    }
+                    <li>
+                        <form action="/ChangeOrder/AddComment?headerId=@(Model.Header.Id)&changeId=@(Model.ChangeOrder.Id)" method="post">
+                            <div class="my-3">
+                                <label for="Comment" class="form-label">Comment</label>
+                                <textarea required class="form-control" id="Comment" name="Comment" rows="3"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-success mr-1 float-end" onclick="setFalse(this, 'Commenting...')">Add Comment</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        }
+    </div>
+</div>
+
+<div id="dialogConfigurator" style="display:none;overflow:hidden">
+    <iframe id="frameConfigurator" style="overflow:hidden" src="about:blank" frameborder="0" width="100%" height="100%"></iframe>
+</div>
+
+<!-- Modal Overlay -->
+<div class="modal fade" id="loadingModal" tabindex="-1" aria-labelledby="loadingModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content" style="background-color: rgba(255, 255, 255, 0.8);">
+            <div class="modal-body text-center">
+                <div class="spinner-border text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                </div>
+                <p id="loadingMessage" class="mt-3">Saving</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+
+    <script>
+        function getPriceSerialised(generic, offHire, onHire, quantity) {
+            var json = {
+                "id": "requestId",
+                "quote": {
+                    "details": {
+                        "currencyISOCode": "GBP",
+                        "division": "@(Model.Header.Division)",
+                        "onHire": "@(Model.Header.OnHireDate!.Value.ToString("yyyy-MM-dd"))",
+                        "offHire": "@(Model.Header.OffHireDate!.Value.ToString("yyyy-MM-dd"))",
+                        "warehouse": "@(Model.Header.RentalDepot)",
+                        "jobAICCode": "1000"
+                    },
+                    "lines": [
+                        {
+                            "generic": generic,
+                            "offHire": offHire,
+                            "onHire": onHire,
+                            "quantity": quantity
+                        }
+                    ]
+                }
+            }
+
+            return JSON.stringify(json);
+        }
+    </script>
+    <script type="text/javascript" src="~/js/site/changeCore.js" asp-append-version="true"></script>
+    <script>
+        function updateUrl() {
+            window.parent.removeChangePushState();
+        }
+    </script>
+}

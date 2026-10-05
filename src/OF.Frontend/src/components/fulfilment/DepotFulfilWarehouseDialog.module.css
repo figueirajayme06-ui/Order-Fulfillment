@@ -1,0 +1,93 @@
+.overlay {
+  position: fixed;
+  z-index: 1000;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--ref-spacing-large);
+  background-color: rgba(0, 0, 0, 0.5);
+}
+.modal {
+  width: min(100%, 34rem);
+  border-radius: var(--ref-border-radius-large);
+  background: var(--colour-surface);
+  box-shadow: var(--ref-shadow-large);
+}
+.header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--ref-spacing-medium);
+  padding: var(--ref-spacing-large);
+  border-bottom: 1px solid var(--colour-border);
+}
+.header h2 {
+  margin: 0;
+  font-size: var(--ref-font-size-large);
+}
+.header p {
+  margin: var(--ref-spacing-xs) 0 0;
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-small);
+}
+.close {
+  width: 32px;
+  height: 32px;
+  border: 0;
+  border-radius: var(--ref-border-radius-small);
+  background: transparent;
+  color: var(--colour-text-secondary);
+  cursor: pointer;
+  font-size: 1.5rem;
+  line-height: 1;
+}
+.close:hover {
+  background: var(--ref-colour-grey20);
+  color: var(--colour-text);
+}
+.close:focus-visible {
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: 2px;
+}
+.form {
+  padding: var(--ref-spacing-large);
+}
+.field {
+  display: grid;
+  gap: var(--ref-spacing-xs);
+}
+.field label {
+  color: var(--colour-text-secondary);
+  font-size: var(--ref-font-size-small);
+  font-weight: var(--ref-font-weight-medium);
+}
+.field select {
+  width: 100%;
+  min-height: 38px;
+  padding: 6px 8px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background: var(--colour-surface);
+  color: var(--colour-text);
+  font: inherit;
+}
+.field select:focus-visible {
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: 2px;
+}
+.loading,
+.empty {
+  display: flex;
+  align-items: center;
+  gap: var(--ref-spacing-small);
+  min-height: 48px;
+  margin: 0;
+  color: var(--colour-text-secondary);
+}
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--ref-spacing-small);
+  margin-top: var(--ref-spacing-large);
+}

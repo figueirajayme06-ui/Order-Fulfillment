@@ -1,0 +1,10 @@
+﻿@model OrderSummaryModel
+@inject IViewLocalizer Localizer
+
+<div class="header_content">
+<div class="header spaced">
+    <div class="start">@Model.CustomerName <span>@Model.CustomerNumber</span></div>
+    <div class="middle"><img src="~/images/logo.svg" title="Aggreko" /></div>
+    <div class="end">@Localizer["Agreement Number"] <span>@Model?.AgreementNumber</span></div>
+</div>
+</div>

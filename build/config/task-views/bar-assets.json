@@ -1,0 +1,34 @@
+{
+    "Filter": [],
+    "Columns": [
+        { "Key": "StatusInDateRange", "Hidden": false, "Width": "60px" },
+        { "Key": "Id", "Hidden": false, "Width": "112px", "HeaderText": "Asset Id." },
+        { "Key": "Warehouse", "Hidden": false, "Width": "80px", "HeaderText": "Whs" },
+        { "Key": "Description", "Hidden": false, "Width": "154px" },
+        { "Key": "ItemNumber", "Hidden": false, "Width": "137px" },
+        { "Key": "WarehouseLocation", "Hidden": false, "Width": "120px", "HeaderText": "Whs Location" }, 
+        { "Key": "Status", "Hidden": false, "Width": "97px" },
+        { "Key": "ProductGroup", "Hidden": false, "Width": "129px", "HeaderText": "Prod. Group" },
+        { "Key": "ProductCategory", "Hidden": false, "Width": "145px", "HeaderText": "Prod. Cat." },
+        { "Key": "Facility", "Hidden": true, "Width": "112px" },
+        { "Key": "WarehouseName", "Hidden": true, "Width": "155px" }, 
+        { "Key": "AgreementNumber", "Hidden": true, "Width": "100px", "HeaderText": "Agree." },
+        { "Key": "Division", "Hidden": true, "Width": "112px" },
+        { "Key": "WarehouseName", "Hidden": true, "Width": "196px" },
+        { "Key": "DeliveryDate", "Hidden": true, "Width": "182px" },
+        { "Key": "LineValidTo", "Hidden": true, "Width": "182px" },
+        { "Key": "TerminationDate", "Hidden": true, "Width": "224px" },
+        { "Key": "CustomerNumber", "Hidden": true, "Width": "210px" },
+        { "Key": "CustomerName", "Hidden": true, "Width": "182px" },
+        { "Key": "EstimatedReadyDate", "Hidden": true, "Width": "140px" },
+        { "Key": "RunHours", "Hidden": true, "Width": "126px" },
+        { "Key": "Size", "Hidden": true, "Width": "56px" },
+        { "Key": "TelemetryStatus", "Hidden": true, "Width": "126px" },
+        { "Key": "Remark", "Hidden": true, "Width": "98px" },
+        { "Key": "BarData", "Hidden": false, "Width": "3400px" }
+    ],
+    "Sort": [
+        { "Index": 0, "Key": "Id", "Dir": "asc" }
+    ],
+    "Group": []
+}

@@ -1,0 +1,307 @@
+@using OF.Data.Database
+@inject OF.UI.Database.IDataRepository DbContext
+@inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
+@inject OF.UI.Identity.IUserIdentity Identity
+@inject OF.UI.Features.FrontendPreview.FrontendPreviewLinkProvider FrontendPreviewLinkProvider
+@{
+	var refreshes = ViewBag.DataRefreshes as IList<DataRefresh>;
+	var viewId = HttpContextAccessor.HttpContext.Request.Query["viewid"].ToString();
+	var view = DbContext.GetViews()
+		.FirstOrDefault(v => v.Id.ToString() == viewId);
+	var isGanttView = view != null && view.GanttView;
+	var id = Identity.GetIdentity();
+	var dateformat = id.DateFormat;
+	var previewUrl = FrontendPreviewLinkProvider.GetUrl(id);
+}
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+  <div class="container-fluid">
+        <a class="navbar-brand" href="/TaskView?viewid=1">
+          <img src="~/images/logo.svg" alt="Aggreko Logo" height="24" style="margin-right:20px;">
+          <br/><h6>&nbsp;&nbsp;Order Fulfilment
+                @{
+                    if (id != null)
+                    {
+                                            <text> - </text> @id.FullName
+                    }
+                }
+            </h6>
+        </a>
+        <div class="d-flex" role="search">
+
+            <div class="justify-content-start me-3">
+                <div class="input-group">
+                    <input id="txtPull" type="text" class="form-control" placeholder="Quote or Agreement #">
+                    <button id="btnPull" class="btn btn-primary" type="button"><i class="bi bi-download"></i> Pull</button>
+                </div>
+                <div class="toast-container position-fixed bottom-0 end-0 p-3">
+                    <div id="pullToast" class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+                      <div class="toast-header">
+                        <i class="bi bi-download"></i>
+                        <strong class="me-auto">Data requested</strong>
+                        <small>1 second ago</small>
+                        <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+                      </div>
+                      <div class="toast-body">
+                        
+                      </div>
+                    </div>
+                </div>
+            </div>
+            @if (refreshes.Any())
+            {
+                <div class="dropdown me-3">
+                    <button class="btn btn-warning dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" title="Data last refresh times.">
+                        <i class="bi bi-clock"></i>
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown" style="width: 300px; padding: 10px;">
+                        <li><h6>Last refreshed: </h6></li>
+                        @foreach (var refresh in refreshes)
+                        {
+                            <li><span title="@refresh.Description">@refresh.Key</span>: <span style="float: right;" data-last="@refresh.LastSuccessfulRunUtc?.ToString("yyyy-MM-ddTHH:mm:ssZ")"><div class="spinner-border spinner-border-sm text-primary" role="status">
+  <span class="visually-hidden">Loading...</span>
+</div></span></li>
+                        }
+                    </ul>
+                </div>
+            }
+            <div class="dropdown me-3" style="margin-right:20px;height:100%;">
+              <button class="btn btn-warning dropdown-toggle" type="button" id="alertsDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="bi bi-person-circle"></i>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                    <span id="alertsIndicator">0</span>
+                    <span class="visually-hidden">alerts</span>
+                </span>
+              </button>
+              <ul id="alertsList" class="dropdown-menu dropdown-menu-end" aria-labelledby="alertsDropdown">
+                <li><a class="dropdown-item" href="#">You have no alerts</a></li>
+              </ul>
+            </div>
+            <div class="justify-content-end">
+                <div class="input-group">
+                    <input id="txtSearch" class="form-control" type="search" placeholder="Search" aria-label="Search">
+                    <button id="btnSearch" class="btn btn-success" type="button"><i class="bi bi-search"></i></button>
+                    <button id="btnCancelSearch" class="btn btn-danger" type="button"><i class="bi bi-x-circle"></i></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<nav class="navbar navbar-expand-lg navbar-light" style="border-top: 5px solid #fd6e39">
+    <div class="container-fluid">
+        <div class="d-flex">
+            <div class="dropdown">
+                <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <i class="bi bi-list"></i>
+                </button>
+                <ul class="dropdown-menu p-3">
+                    @if (id != null && id.IsAdmin)
+                    {
+                        <li><strong>Administration</strong></li>
+                        <li><a class="dropdown-item" href="/Admin/Users">Users</a></li>
+                    }
+                    @if (id != null)
+                    {
+                        <li><strong>Tools</strong></li>
+                        <li><a class="dropdown-item" href="/TaskView?assetView=0">Create Agreement View</a></li>
+                        <li><a class="dropdown-item" href="/TaskView?assetView=1">Create Asset View</a></li>
+                        <li><a class="dropdown-item" href="https://aggreko.sharepoint.com/:f:/r/sites/ConImp_CustomerExperienceManagement/Process%20Training%20Sessions/Master%20Training%20Decks/Order%20Fulfilment/New%20OF" target="_blank">User Guides</a></li>
+                        @if (previewUrl != null)
+                        {
+                            <li><a class="dropdown-item" href="@previewUrl" target="_blank" rel="noopener noreferrer"><i class="bi bi-box-arrow-up-right" aria-hidden="true"></i> Try new Order Fulfilment (Preview)</a></li>
+                        }
+                        <li><strong>Fulfilment</strong></li>
+                        <li><a class="dropdown-item" href="/Ringfence?returnUrl=/TaskView?viewId=1">Manage Ringfences</a></li>
+                    }
+                </ul>
+            </div>
+            <div id="lstViews"></div>&nbsp;&nbsp;
+            <div id="lstDivisions"></div>
+        </div>
+        @if (isGanttView)
+        {
+            <div class="d-flex" style="vertical-align:middle">
+                <h5 id="gridDateRange" style="display:block;margin-right:10px;margin-top:10px"></h5>
+                <div id="gridDateButtons" class="btn-group ml-5" role="group" aria-label="Forward and back">
+                    <button id="btnDateBack" type="button" class="btn btn-primary btn-outline-light"><i style="font-size:1.5em" class="bi bi-arrow-left-circle"></i></button>
+					<button id="btnToday" type="button" class="btn btn-primary btn-outline-light" style="font-size:1.5em; padding: 0; margin-right: -1px;">Today</button>
+                    <button id="btnDateForward" type="button" class="btn btn-primary btn-outline-light"><i style="font-size:1.5em" class="bi bi-arrow-right-circle"></i></button>
+                </div>
+            </div>
+        }
+    </div>
+</nav>
+
+<script type="text/javascript">
+    var urlParams = new URLSearchParams(document.location.search);
+    var viewId = 0;
+    var cookieName = 'user_divisions';
+    var userFullName = '';
+    var userLoginName = '';
+
+    if (urlParams.has('viewid')) {
+        viewId = urlParams.getAll('viewid')[0];
+    }
+
+    if (urlParams.has('cloneid')) {
+        cloneId = urlParams.getAll('cloneid')[0];
+    }
+
+    $('#btnCancelSearch').click(function() {
+        var targetView = viewId > 0 ? viewId : 1;
+        document.location = "/TaskView?viewid=" + targetView;
+    });
+
+    // Cookies for divisons
+    var divCookie = Cookies.get(cookieName);
+    var divisions = '';
+    var dateFormat = 'MM/dd/yyyy';
+
+    @{
+        if (id != null)
+        {
+                                <text>divisions = '</text>@id.Division<text>';</text>
+                                <text>dateFormat = '</text>@id.DateFormat<text>';</text>
+                                <text>userFullName = '</text>@id.FullName<text>';</text>
+                                <text>userLoginName = '</text>@id.LoginName<text>';</text>
+        }
+    }
+
+    function formatDateAsLocal(date) {
+        var theDate = new Date(date);
+        if (dateFormat == "MM/DD/yyyy") {
+            return (theDate.getMonth()+1).toString().padStart(2, '0') + "/" + theDate.getDate().toString().padStart(2, '0') + "/" + theDate.getFullYear().toString();
+        } else {
+            return theDate.getDate().toString().padStart(2, '0') + "/" + (theDate.getMonth()+1).toString().padStart(2, '0') + "/" + theDate.getFullYear().toString();
+        }
+    }
+
+    if (divCookie) {
+        divisions = divCookie;
+    }
+
+    var selDivs = [];
+    if (divisions.trim() != '') {
+        var divParts = divisions.split(",");
+        for (var i=0; i<divParts.length; i++) {
+            selDivs.push({ "value": divParts[i].trim() });
+        }
+    }
+
+    $("#lstDivisions").igCombo({
+        width: 300,
+        dataSourceUrl: '/api/Task/Divisions',
+        textKey: "code",
+        valueKey: "code",
+        mode: 'dropdown',
+        delayInputChangeProcessing: 200,
+        allowCustomValue: false,
+        locale: {
+            placeHolder: "Select divisions"
+        },
+        initialSelectedItems: selDivs,
+        multiSelection: {
+            enabled: true,
+            showCheckboxes: false
+        },
+        dropDownOrientation: "bottom",
+        selectionChanged: function (evt, ui) {
+            if (ui.items) {
+                var storeValue='';
+                for (var i=0; i<ui.items.length; i++) {
+                    storeValue = storeValue + ui.items[i].data.code.trim();
+                    if (i < ui.items.length-1) storeValue = storeValue + ',';
+                }
+                Cookies.set(cookieName, storeValue);
+            } else {
+                Cookies.remove(cookieName);
+            }
+            $('#grid').igGrid("dataBind");
+        }
+    });
+
+    $("#lstViews").igCombo({
+        width: 300,
+        dataSourceUrl: '/api/View',
+        textKey: "name",
+        valueKey: "id",
+        mode: 'dropdown',
+        enableClearButton: false,
+        allowCustomValue: false,
+        grouping: {
+            key: "displaySection",
+            dir: "desc"
+        },
+        initialSelectedItems: [
+            { value: viewId }
+        ],
+        locale: {
+            placeHolder: "Select view"
+        },
+        dropDownOrientation: "bottom",
+        selectionChanged: function (evt, ui) {
+            if (ui.items) {
+                document.location = '/TaskView?viewid=' + ui.items[0].data.id;
+            }
+        }
+    });
+
+    function search() {
+
+        var term = $('#txtSearch').val().trim();
+        if (term != '') {
+            document.location = "/TaskView?viewid=" + viewId + "&textFilter=" + term;
+        }
+    }
+
+    $('#btnSearch').click(function() {
+        search();
+    });
+
+    $('#txtSearch').keydown(function(event) {
+        var keycode = (event.keyCode ? event.keyCode : event.which);
+        if (keycode == '13') {
+            search();
+        }
+    });
+
+    async function pull(number) {
+        const response = await fetch("/api/Order/Pull/" + number, { method: "POST" });
+        const json = await response.json();
+        if (response.ok) {
+            $("#pullToast .toast-body").html(`Requested ${json.type} to be pulled for number ${number}. Please, refresh in the next few moments`);
+        } else {
+            $("#pullToast .toast-body").html(`Error requesting data for number ${number}. Please, try again.`);
+        }
+    }
+
+
+    $('#btnPull').click(function() {
+        const toastPull = document.getElementById('pullToast')
+        const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastPull)
+
+        const number = $('#txtPull').val();
+        
+        if (!number) {
+            return;
+        }
+
+        pull(number)
+            .then(() => {  
+                $('#txtPull').val('');
+                toastBootstrap.show();
+            });
+    });
+    
+    $('span[data-last]').each(function() {
+        var time = $(this).attr("data-last");
+
+        if (time) {
+            var isoDateTime = new Date(time); 
+            var localDateTime = isoDateTime.toLocaleDateString() + " " + isoDateTime. toLocaleTimeString();
+            $(this).html(localDateTime);
+        }
+    });
+
+</script>

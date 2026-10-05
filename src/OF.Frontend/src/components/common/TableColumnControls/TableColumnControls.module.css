@@ -1,0 +1,251 @@
+.headerButton {
+  display: inline-flex;
+  align-items: center;
+  min-height: 20px;
+  gap: 6px;
+  max-width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  letter-spacing: inherit;
+  line-height: 1;
+  text-transform: inherit;
+  vertical-align: middle;
+  cursor: pointer;
+}
+
+.headerButton:hover {
+  color: var(--colour-text);
+}
+
+.headerButton:focus-visible,
+.filterControl:focus-visible {
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: 2px;
+}
+
+.headerLabel {
+  display: block;
+  line-height: 20px;
+}
+
+.compactHeaderLabel {
+  display: none;
+}
+
+.sortIndicator {
+  display: grid;
+  place-items: center;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 20px;
+  border-radius: var(--ref-border-radius-small);
+  color: var(--colour-primary);
+  transition:
+    background-color var(--ref-transition-fast),
+    color var(--ref-transition-fast);
+}
+
+.sortIndicator svg {
+  width: 16px;
+  height: 16px;
+}
+
+.sortIndicator[data-active="false"] {
+  opacity: 0;
+}
+
+.headerButton:hover .sortIndicator,
+.headerButton:focus-visible .sortIndicator {
+  opacity: 1;
+}
+
+.sortIndicatorActive,
+.headerButton:hover .sortIndicator {
+  background-color: rgba(253, 110, 57, 0.14);
+  color: var(--colour-primary-hover);
+}
+
+.filterControl {
+  box-sizing: border-box;
+  width: 100%;
+  min-width: 84px;
+  height: 28px;
+  padding: 4px 7px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background: var(--colour-surface);
+  color: var(--colour-text);
+  font: inherit;
+  font-size: var(--ref-font-size-xs);
+  text-transform: none;
+  letter-spacing: normal;
+}
+
+.filterControl::placeholder {
+  color: var(--colour-text-muted);
+}
+
+.multiValueFilter {
+  display: grid;
+  min-width: 84px;
+  gap: 3px;
+}
+
+.filterTokens {
+  display: flex;
+  max-height: 52px;
+  flex-wrap: wrap;
+  gap: 2px;
+  overflow: auto;
+}
+
+.filterToken {
+  display: inline-flex;
+  min-width: 0;
+  max-width: 100%;
+  align-items: center;
+  gap: 1px;
+  padding-left: 4px;
+  border-radius: var(--ref-border-radius-small);
+  background: var(--ref-colour-grey20);
+  color: var(--colour-text);
+  font-size: 10px;
+  font-weight: var(--ref-font-weight-medium);
+  text-transform: none;
+}
+
+.filterToken > span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.filterToken button,
+.clearFilterTokens {
+  display: inline-grid;
+  min-width: 22px;
+  min-height: 22px;
+  place-items: center;
+  padding: 0 3px;
+  border: 0;
+  background: transparent;
+  color: var(--colour-text-secondary);
+  cursor: pointer;
+  font: inherit;
+  font-size: 10px;
+}
+
+.filterToken button:focus-visible,
+.clearFilterTokens:focus-visible {
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: -1px;
+}
+
+.filterToken svg {
+  width: 12px;
+  height: 12px;
+}
+
+.clearFilterTokens {
+  padding-inline: 4px;
+  color: var(--colour-primary-hover);
+}
+
+.filterError {
+  color: var(--colour-error);
+  font-size: 10px;
+  font-weight: var(--ref-font-weight-medium);
+  line-height: 1.2;
+  text-transform: none;
+}
+
+.dateFilter {
+  position: relative;
+  display: flex;
+  align-items: center;
+  min-width: 0;
+}
+.dateFilterDateInput {
+  min-width: 0;
+  flex: 1 1 auto;
+  padding-inline: 5px;
+}
+.dateFilterOptions {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 0 0 20px;
+  width: 20px;
+  height: 28px;
+  margin-left: 2px;
+  border: 1px solid var(--colour-border);
+  border-radius: var(--ref-border-radius-small);
+  background: var(--colour-surface);
+  color: var(--colour-primary);
+  cursor: pointer;
+}
+.dateFilterOptions svg {
+  width: 14px;
+  height: 14px;
+}
+.dateFilterOptionsSelect {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+.dateFilterOptionsSelect option,
+.dateFilterOptionsSelect optgroup {
+  color: var(--colour-text);
+  font-size: var(--ref-font-size-xs);
+}
+.dateFilterOptions:focus-within {
+  outline: 2px solid var(--colour-focus-ring);
+  outline-offset: 2px;
+}
+
+@container (max-width: 1600px) {
+  .headerButton {
+    position: relative;
+    width: 100%;
+    min-width: 0;
+    padding-right: 0;
+    gap: 0;
+  }
+
+  .headerButton[data-sorted="true"] {
+    padding-right: 16px;
+  }
+
+  .headerLabelWithCompact {
+    display: none;
+  }
+
+  .compactHeaderLabel {
+    display: block;
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    line-height: 16px;
+  }
+
+  .sortIndicator {
+    position: absolute;
+    top: 1px;
+    right: 0;
+    width: 14px;
+    height: 14px;
+    flex-basis: 14px;
+  }
+
+  .sortIndicator svg {
+    width: 12px;
+    height: 12px;
+  }
+}

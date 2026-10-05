@@ -1,0 +1,41 @@
+variables:
+  - name: version
+    value: '1.11.3'
+  - name: versionPricing
+    value: '0.1.0'
+  - name: versionProducts
+    value: '1.0.0'
+  - name: versionQuotes
+    value: '2.0.0'
+  - name: versionCPQ
+    value: '1.0.0'
+  - name: versionAssets
+    value: '1.0.0'
+  - name: versionWarehouses
+    value: '1.0.0'
+  - name: serviceConnection
+    value: 'Aggreko Order Fulfillment Dev/Test'
+  - name: serviceConnectionLive
+    value: 'Aggreko Order Fulfillment'
+  - name: registryServiceConnection
+    value: 'APG Dev/Test ACR'
+  - name: registryServiceConnectionLive
+    value: 'APG Live ACR'
+  - name: aksServiceConnection
+    value: 'Aggreko Order Fulfillment Dev/Test'
+  - name: aksServiceConnectionLive
+    value: 'Aggreko Order Fulfillment'
+  - name: aksRg
+    value: 'rg-agkapg-aks-dev'
+  - name: aksName
+    value: 'aks-agkapg-dev'
+  - name: aksSub
+    value: '378303f1-2f9d-4f56-9d3b-fd43d3c80909'
+  - name: aksRgLive
+    value: 'rg-agkapg-aks-lv'
+  - name: aksNameLive
+    value: 'aks-agkapg-lv'
+  - name: aksSubLive
+    value: '486396db-5f3b-4187-8c07-9eb3f561a77b'
+  - name: System.Debug
+    value: false

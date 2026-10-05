@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<AcknowledgeAGKRentalAgreementLines xmlns="http://schema.infor.com/InforOAGIS/2" releaseID="9.2" versionID="2.12.2" systemEnvironmentCode="Production" languageCode="en-US">
+	<ApplicationArea>
+		<Sender>
+			<LogicalID schemeVersionID="1.003">lid://infor.m3.m3</LogicalID>
+			<ComponentID>M3BE</ComponentID>
+			<ConfirmationCode>OnError</ConfirmationCode>
+		</Sender>
+		<CreationDateTime>2024-04-17T14:06:18.498Z</CreationDateTime>
+		<BODID>7963353c-040f-4405-82f3-d3fac2437fb5</BODID>
+	</ApplicationArea>
+	<DataArea>
+		<Acknowledge>
+			<ResponseCriteria>
+				<ResponseExpression actionCode="Rejected"/>
+			</ResponseCriteria>
+		</Acknowledge>
+		<AGKRentalAgreementLines>
+			<detailLines>
+				<agreementNumber>T712628</agreementNumber>
+				<agreementLineNumber/>
+				<correlationId>0427f9b0-6489-4ea8-b4fc-445cb9390447</correlationId>
+				<orderCorrelationId/>
+				<orderProcessStatus>901</orderProcessStatus>
+				<technicalErrorMessage>NOK Mi Transaction Error: 913d0dd3-9972-4488-8541-d4df030d9270, Transaction Name: AddRentalLine, API ID:d9dec9f8-89d7-4b2b-a40f-703c76bc102d, MI error: MIErrorImpl [errorCode= , messageId=XAD0001, errorMessage=A record has been entered by user, errorField=AGNB] Truncation: No truncation</technicalErrorMessage>
+				<orderItemRecordId/>
+			</detailLines>
+			<UserArea>
+				<Property>
+					<NameValue name="CorrelationId">0427f9b0-6489-4ea8-b4fc-445cb9390447</NameValue>
+				</Property>
+				<Property>
+					<NameValue name="M3AgreementNumber">T712628</NameValue>
+				</Property>
+				<Property>
+					<NameValue name="technicalErrorMessage">NOK Mi Transaction Error: 913d0dd3-9972-4488-8541-d4df030d9270, Transaction Name: AddRentalLine, API ID:d9dec9f8-89d7-4b2b-a40f-703c76bc102d, MI error: MIErrorImpl [errorCode= , messageId=XAD0001, errorMessage=A record has been entered by user, errorField=AGNB] Truncation: No truncation</NameValue>
+				</Property>
+			</UserArea>
+		</AGKRentalAgreementLines>
+	</DataArea>
+</AcknowledgeAGKRentalAgreementLines>

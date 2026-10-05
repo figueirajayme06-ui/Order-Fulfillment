@@ -1,0 +1,58 @@
+parameters:
+- name: serviceConnection
+- name: appServiceName
+- name: imageName
+- name: environment
+- name: releaseVersion
+- name: commitSha
+- name: sourceRef
+
+steps:
+- task: AzureCLI@2
+  displayName: 'Set OF deployment identity'
+  inputs:
+    azureSubscription: '${{ parameters.serviceConnection }}'
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      show_deployment_info=true
+      if [ "${{ lower(parameters.environment) }}" = "live" ]; then
+        show_deployment_info=false
+      fi
+
+      az webapp config appsettings set \
+        --resource-group "rgof${{ lower(parameters.environment) }}" \
+        --name "${{ parameters.appServiceName }}" \
+        --settings \
+          "FrontendExperience__ShowDeploymentInfo=$show_deployment_info" \
+          "FrontendExperience__AppVersion=${{ parameters.releaseVersion }}" \
+          "FrontendExperience__CommitSha=${{ parameters.commitSha }}" \
+          "FrontendExperience__SourceRef=${{ parameters.sourceRef }}" \
+          "FrontendExperience__BuildTimestamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)" \
+        --output none
+
+- task: AzureWebAppContainer@1
+  displayName: 'Deploy new OF frontend container'
+  inputs:
+    azureSubscription: '${{ parameters.serviceConnection }}'
+    appName: '${{ parameters.appServiceName }}'
+    containers: '${{ parameters.imageName }}'
+
+- task: AzureCLI@2
+  displayName: 'Verify new OF frontend health'
+  inputs:
+    azureSubscription: '${{ parameters.serviceConnection }}'
+    scriptType: bash
+    scriptLocation: inlineScript
+    inlineScript: |
+      health_url="https://${{ parameters.appServiceName }}.azurewebsites.net/health/ready"
+      for attempt in $(seq 1 30); do
+        if curl --fail --silent --show-error "$health_url"; then
+          echo "Running release ${{ parameters.releaseVersion }} at commit ${{ parameters.commitSha }}"
+          exit 0
+        fi
+        sleep 10
+      done
+
+      echo "New OF frontend did not become healthy at $health_url"
+      exit 1

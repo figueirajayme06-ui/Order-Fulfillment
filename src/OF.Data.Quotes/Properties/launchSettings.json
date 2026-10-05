@@ -1,0 +1,27 @@
+{
+  "profiles": {
+    "OF.Data.Quotes": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "KeyVaultUri": "https://kv-ofdev.vault.azure.net/",
+        "Data-LogLevel": "Trace"
+      }
+    },
+    "OF.Data.Quotes.LocalDB": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "KeyVaultUri": "https://kv-ofdev.vault.azure.net/",
+        "SqlConnection": "Server=(localdb)\\mssqllocaldb;Database=dbofdev;Trusted_Connection=True;MultipleActiveResultSets=true",
+        "Data-LogLevel": "Trace",
+        "StorageConnection": "UseDevelopmentStorage=true"
+      }
+    },
+    "Docker": {
+      "commandName": "Docker",
+      "environmentVariables": {
+        "KeyVaultUri": "https://kv-ofdev.vault.azure.net/",
+        "Data-LogLevel": "Trace"
+      }
+    }
+  }
+}

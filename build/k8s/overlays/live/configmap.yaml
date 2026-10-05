@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: order-fulfillment-config
+  namespace: order-fulfillment
+  labels:
+    app.kubernetes.io/name: order-fulfillment
+data:
+  StorageAccountName: "stoflive"
+  KeyVaultUri: "https://kv-oflive.vault.azure.net/"
+  # Production should use Warning level to reduce log volume
+  LOGGING__LOGLEVEL__DEFAULT: "Warning"
+  LOGGING__APPLICATIONINSIGHTS__LOGLEVEL__DEFAULT: "Warning"
+  LOGGING__APPLICATIONINSIGHTS__LOGLEVEL__AZURE: "Warning"
+  LOGGING__APPLICATIONINSIGHTS__LOGLEVEL__MICROSOFT: "Warning"

@@ -1,0 +1,9 @@
+{
+    "cSpell.words": [
+        "ARTIFACTSTAGINGDIRECTORY"
+    ],
+    "yaml.schemas": {
+        "https://raw.githubusercontent.com/microsoft/azure-pipelines-vscode/master/service-schema.json": "file:///c%3A/source/aggreko/OF.Orchestrator/.azd/workflows/deploy.yml"
+    },
+    "python.languageServer" : "Pylance"
+}

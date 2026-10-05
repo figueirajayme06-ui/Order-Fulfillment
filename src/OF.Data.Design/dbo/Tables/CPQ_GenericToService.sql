@@ -1,0 +1,21 @@
+CREATE TABLE [dbo].[CPQ_GenericToService](
+    [Id]                          [uniqueidentifier] NOT NULL,
+    [Bundled]                     [bit]              NULL,
+    [Feature]                     [nvarchar](255)    NULL,
+    [ImportSequenceNumber]        [int]              NULL,
+    [OverrideCalculatedQuantity]  [bit]              NULL,
+    [Quantity]                    [decimal](18,4)    NULL,
+    [Required]                    [bit]              NULL,
+    [Selected]                    [bit]              NULL,
+    [StatusCode]                  [int]              NULL,
+    [TimeZoneRuleVersionNumber]   [int]              NULL,
+    [Type]                        [nvarchar](100)    NULL,
+    [UTCConversionTimeZoneCode]   [int]              NULL,
+    [VersionNumber]               [bigint]           NULL,
+    [GenericId]                   [int]              NULL,
+    [ServiceId]                   [int]              NULL,
+    [OwningBusinessUnit]          [nvarchar](100)    NULL,
+    CONSTRAINT [PK_CPQ_GenericToService] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_CPQ_GenericToService_Generic] FOREIGN KEY ([GenericId]) REFERENCES [dbo].[CPQ_Generic]([Id]) ON DELETE SET NULL,
+    CONSTRAINT [FK_CPQ_GenericToService_Service] FOREIGN KEY ([ServiceId]) REFERENCES [dbo].[CPQ_Service]([Id]) ON DELETE SET NULL
+);

@@ -1,0 +1,15 @@
+parameters:
+- name: serviceConnection
+
+steps:
+  - template: ./deploy-api.yml
+    parameters:
+      serviceConnection: ${{ parameters.serviceConnection }}
+      workingDirectory: '$(Agent.BuildDirectory)/api'
+      appServiceName: "faof$(environment)"
+
+  - template: ./deploy-web.yml
+    parameters:
+      serviceConnection: ${{ parameters.serviceConnection }}
+      workingDirectory: '$(Agent.BuildDirectory)/web'
+      appServiceName: "asof$(environment)"

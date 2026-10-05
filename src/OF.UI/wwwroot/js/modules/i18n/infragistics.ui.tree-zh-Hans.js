@@ -1,0 +1,9 @@
+/*!@license
+* Infragistics.Web.ClientUI Tree localization resources 23.1.9
+*
+* Copyright (c) 2011-2023 Infragistics Inc.
+*
+* http://www.infragistics.com/
+*
+*/
+(function(factory){if(typeof define==="function"&&define.amd){define(["jquery"],factory)}else{return factory(jQuery)}})(function($){$.ig=$.ig||{};$.ig.Tree=$.ig.Tree||{};$.ig.locale=$.ig.locale||{};$.ig.locale["zh-Hans"]=$.ig.locale["zh-Hans"]||{};$.ig.locale["zh-Hans"].Tree={invalidArgumentType:"\u63d0\u4f9b\u4e86\u65e0\u6548\u7684\u81ea\u53d8\u91cf\u7c7b\u578b\u3002",errorOnRequest:"\u68c0\u7d22\u6570\u636e\u65f6\u51fa\u73b0\u9519\u8bef: ",noDataSourceUrl:"igTree \u63a7\u4ef6\u9700\u8981\u63d0\u4f9b dataSourceUrl \u624d\u80fd\u53d1\u8d77\u5bf9\u8be5 URL \u7684\u6570\u636e\u8bf7\u6c42\u3002",incorrectPath:"\u5728\u63d0\u4f9b\u7684\u8def\u5f84\u4e2d\u672a\u627e\u5230\u8282\u70b9: ",incorrectNodeObject:"\u63d0\u4f9b\u7684\u53c2\u6570\u4e0d\u662f jQuery \u8282\u70b9\u5143\u7d20\u3002",setOptionError:"\u4ee5\u4e0b\u9009\u9879\u4e0d\u5141\u8bb8\u8fd0\u884c\u65f6\u66f4\u6539: ",moveTo:"<strong>\u79fb\u81f3</strong> {0}",moveBetween:"\u5728 {0} \u548c {1} <strong>\u4e4b\u95f4\u79fb\u52a8</strong>",moveAfter:"\u5728 {0} <strong>\u4e4b\u540e\u79fb\u52a8</strong>",moveBefore:"\u5728 {0} <strong>\u4e4b\u524d\u79fb\u52a8</strong>",copyTo:"<strong>\u590d\u5236\u5230</strong> {0}",copyBetween:"\u5728 {0} \u548c {1} <strong>\u4e4b\u95f4\u590d\u5236</strong>",copyAfter:"\u5728 {0} <strong>\u4e4b\u540e\u590d\u5236</strong>",copyBefore:"\u5728 {0} <strong>\u4e4b\u524d\u590d\u5236</strong>",and:"\u548c"};$.ig.Tree.locale=$.ig.Tree.locale||$.ig.locale["zh-Hans"].Tree;return $.ig.locale["zh-Hans"].Tree});

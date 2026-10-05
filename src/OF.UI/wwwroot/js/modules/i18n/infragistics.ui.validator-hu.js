@@ -1,0 +1,9 @@
+/*!@license
+* Infragistics.Web.ClientUI Validator localization resources 23.1.9
+*
+* Copyright (c) 2011-2023 Infragistics Inc.
+*
+* http://www.infragistics.com/
+*
+*/
+(function(factory){if(typeof define==="function"&&define.amd){define(["jquery"],factory)}else{return factory(jQuery)}})(function($){$.ig=$.ig||{};$.ig.Validator=$.ig.Validator||{};$.ig.locale=$.ig.locale||{};$.ig.locale.hu=$.ig.locale.hu||{};$.ig.locale.hu.Validator={defaultMessage:"Ez a mez\u0151 figyelmet ig\xe9nyel",selectMessage:"Ki kell v\xe1lasztani egy \xe9rt\xe9ket",rangeSelectMessage:"Legal\xe1bb {0}, de legfeljebb {1} elemet kell kiv\xe1lasztani",minSelectMessage:"Legal\xe1bb {0} elemet kell kiv\xe1lasztani",maxSelectMessage:"Legfeljebb {0} elemet lehet kiv\xe1lasztani",rangeLengthMessage:"A bejegyz\xe9s hossza {0} \xe9s {1} karakter k\xf6z\xf6tt lehet",minLengthMessage:"A bejegyz\xe9snek legal\xe1bb {0} karakter hossz\xfas\xe1g\xfanak kell lennie",maxLengthMessage:"A bejegyz\xe9s legfeljebb {0} karakter hossz\xfas\xe1g\xfa lehet",requiredMessage:"Ez a mez\u0151 k\xf6telez\u0151",patternMessage:"A bejegyz\xe9s nem felel meg a sz\xfcks\xe9ges s\xe9m\xe1nak",maskMessage:"Minden k\xf6telez\u0151 adatot meg kell adni",dateFieldsMessage:"A d\xe1tum mez\u0151 \xe9rt\xe9keit meg kell adni",invalidDayMessage:"\xc9rv\xe9nyes napot kell megadni",dateMessage:"\xc9rv\xe9nyes d\xe1tumot kell megadni",numberMessage:"\xc9rv\xe9nyes sz\xe1mot kell megadni",rangeValueMessage:"{0} \xe9s {1} k\xf6z\xf6tti \xe9rt\xe9ket kell megadni",minValueMessage:"A megadott \xe9rt\xe9k legal\xe1bb {0} kell, hogy legyen",maxValueMessage:"A megadott \xe9rt\xe9k legfeljebb {0} lehet",emailMessage:"\xc9rv\xe9nyes e-mail c\xedmet kell megadni",creditCardMessage:"\xc9rv\xe9nyes bankk\xe1rtyasz\xe1mot kell megadni",equalToMessage:"A k\xe9t \xe9rt\xe9k nem egyezik",optionalString:"(opcion\xe1lis)"};$.ig.Validator.locale=$.ig.Validator.locale||$.ig.locale.hu.Validator;return $.ig.locale.hu.Validator});

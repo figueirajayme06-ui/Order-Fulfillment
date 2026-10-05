@@ -1,0 +1,113 @@
+name: OF.WebApp CI
+
+on:
+  push:
+    branches: [master, main]
+    paths:
+      - ".github/workflows/webapp-ci.yml"
+      - "src/OF.WebApp/**"
+      - "src/OF.Frontend/**"
+      - "src/OF.Tests/**"
+      - "src/OF.Common/**"
+      - "src/OF.Data/**"
+      - "src/OF.UI.Shared/**"
+  pull_request:
+    branches: [master, main]
+    paths:
+      - ".github/workflows/webapp-ci.yml"
+      - "src/OF.WebApp/**"
+      - "src/OF.Frontend/**"
+      - "src/OF.Tests/**"
+      - "src/OF.Common/**"
+      - "src/OF.Data/**"
+      - "src/OF.UI.Shared/**"
+
+jobs:
+  build-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup .NET 10
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "10.0.x"
+
+      - name: Restore dependencies
+        run: dotnet restore src/OF.WebApp/OF.WebApp.csproj
+
+      - name: Build
+        run: dotnet build src/OF.WebApp/OF.WebApp.csproj --no-restore -c Release
+
+      - name: WebApp tests and hosting smoke
+        run: dotnet test src/OF.Tests/OF.Tests.csproj -c Release --filter "FullyQualifiedName~OF.Tests.WebApp"
+
+      - name: Publish
+        run: dotnet publish src/OF.WebApp/OF.WebApp.csproj --no-build -c Release -o ./publish
+
+      - name: Upload backend artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: backend-publish
+          path: ./publish
+
+  build-frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+          cache-dependency-path: src/OF.Frontend/package-lock.json
+
+      - name: Install dependencies
+        working-directory: src/OF.Frontend
+        run: npm ci
+
+      - name: TypeScript check
+        working-directory: src/OF.Frontend
+        run: npx tsc --noEmit
+
+      - name: Lint
+        working-directory: src/OF.Frontend
+        run: npm run lint
+
+      - name: Unit tests
+        working-directory: src/OF.Frontend
+        run: npm test
+
+      - name: Build
+        working-directory: src/OF.Frontend
+        run: npm run build
+
+      - name: Upload frontend artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: frontend-dist
+          path: src/OF.Frontend/dist
+
+  docker:
+    runs-on: ubuntu-latest
+    needs: [build-backend, build-frontend]
+    if: github.ref == 'refs/heads/master' || github.ref == 'refs/heads/main'
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download backend artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: backend-publish
+          path: ./publish
+
+      - name: Download frontend artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: frontend-dist
+          path: ./publish/wwwroot
+
+      - name: Build Docker image
+        run: |
+          docker build -f src/OF.WebApp/Dockerfile -t of-webapp:${{ github.sha }} .

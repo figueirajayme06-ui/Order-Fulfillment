@@ -1,0 +1,14 @@
+﻿@model OrderSummaryFooterModel
+@inject IViewLocalizer Localizer
+
+<div class="bottom_left_footer_content">
+    <div class="footer spaced">
+        <div class="start">@Localizer["Salesforce Order ID"] <span>@Model.OrderSumary?.Opportunity?.Quote?.Order?.OrderNumber</span></div>
+    </div>
+</div>
+
+<div class="bottom_middle_footer_content">
+    <div class="footer spaced">
+        <div class="middle">@Localizer["Order Fulfilment Order ID"] <span>@Model.OrderSumary?.Header?.Id</span></div>
+    </div>
+</div>
