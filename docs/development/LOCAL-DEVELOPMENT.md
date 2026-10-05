@@ -9,7 +9,6 @@ From the repository root:
 ```powershell
 .\build\dev\check.ps1
 .\build\dev\start.ps1
-kjhkjnk
 .\build\dev\stop.ps1
 ```
 

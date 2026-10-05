@@ -49,6 +49,7 @@ export interface AgreementsTableProps {
   onNextPage: () => void;
   onPageSizeChange: (pageSize: number) => void;
   onPreviousPage: () => void;
+  onOrderNumberClick: (id: number) => void;
   onRowClick: (id: number) => void;
   onSort: (field: AgreementsSortField) => void;
 }
@@ -89,6 +90,7 @@ export const AgreementsTable: FC<AgreementsTableProps> = ({
   onNextPage,
   onPageSizeChange,
   onPreviousPage,
+  onOrderNumberClick,
   onRowClick,
   onSort,
 }) => {
@@ -179,7 +181,7 @@ export const AgreementsTable: FC<AgreementsTableProps> = ({
                     className={`${styles.row} ${agreement.isDeleted ? styles.deleted : ""}`}
                     onClick={() => onRowClick(agreement.id)}
                   >
-                    {columns.map((column) => renderAgreementCell(column.key, agreement))}
+                    {columns.map((column) => renderAgreementCell(column.key, agreement, onOrderNumberClick))}
                   </tr>
                 ))
               )}
@@ -293,7 +295,11 @@ function renderAgreementFilter(field: AgreementColumnKey, label: string, context
   );
 }
 
-function renderAgreementCell(column: AgreementColumnKey, agreement: AgreementListItem): ReactNode {
+function renderAgreementCell(
+  column: AgreementColumnKey,
+  agreement: AgreementListItem,
+  onOrderNumberClick: (id: number) => void,
+): ReactNode {
   switch (column) {
     case "fulfilmentStatus":
       return (
@@ -310,12 +316,12 @@ function renderAgreementCell(column: AgreementColumnKey, agreement: AgreementLis
             ) : (
               <a
                 className={styles.agreementNumberLink}
-                href={`/agreements/${agreement.id}`}
+                href={`/agreements/${agreement.id}/timeline`}
                 onClick={(event) => {
                   event.stopPropagation();
                   if (event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
                   event.preventDefault();
-                  onRowClick(agreement.id);
+                  onOrderNumberClick(agreement.id);
                 }}
               >
                 {agreement.agreementNumber}

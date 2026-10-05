@@ -369,6 +369,13 @@ export const AgreementsPage: FC = () => {
     [navigate],
   );
 
+  const handleOrderNumberClick = useCallback(
+    (headerId: number) => {
+      navigate(`/agreements/${headerId}/timeline`);
+    },
+    [navigate],
+  );
+
   const handleColumnFilterChange = useCallback((field: SortField, value: SavedColumnFilterValue) => {
     setColumnFilters((prev) => ({ ...prev, [field]: value }));
     setCurrentPage(1);
@@ -788,6 +795,7 @@ export const AgreementsPage: FC = () => {
           onDateColumnFilterChange={handleDateColumnFilterChange}
           onDivisionFilterChange={handleSelectedDivisionChange}
           onNextPage={() => setCurrentPage((page) => page + 1)}
+          onOrderNumberClick={handleOrderNumberClick}
           onPageSizeChange={handlePageSizeChange}
           onPreviousPage={() => setCurrentPage((page) => page - 1)}
           onRowClick={handleRowClick}

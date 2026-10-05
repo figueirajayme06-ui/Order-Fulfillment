@@ -68,6 +68,7 @@ function createProps(overrides: Partial<AgreementsTableProps> = {}): AgreementsT
     onDateColumnFilterChange: vi.fn(),
     onDivisionFilterChange: vi.fn(),
     onNextPage: vi.fn(),
+    onOrderNumberClick: vi.fn(),
     onPageSizeChange: vi.fn(),
     onPreviousPage: vi.fn(),
     onRowClick: vi.fn(),
@@ -169,18 +170,20 @@ describe("AgreementsTable", () => {
     expect(onRowClick).toHaveBeenCalledWith(1);
   });
 
-  it("links the agreement number directly to its details page", async () => {
+  it("links the agreement number directly to its timeline page", async () => {
     const user = userEvent.setup();
+    const onOrderNumberClick = vi.fn();
     const onRowClick = vi.fn();
 
-    render(<AgreementsTable {...createProps({ onRowClick })} />);
+    render(<AgreementsTable {...createProps({ onOrderNumberClick, onRowClick })} />);
 
     const orderNumberLink = screen.getByRole("link", { name: "A-1" });
-    expect(orderNumberLink).toHaveAttribute("href", "/agreements/1");
+    expect(orderNumberLink).toHaveAttribute("href", "/agreements/1/timeline");
 
     await user.click(orderNumberLink);
-    expect(onRowClick).toHaveBeenCalledTimes(1);
-    expect(onRowClick).toHaveBeenCalledWith(1);
+    expect(onOrderNumberClick).toHaveBeenCalledTimes(1);
+    expect(onOrderNumberClick).toHaveBeenCalledWith(1);
+    expect(onRowClick).not.toHaveBeenCalled();
   });
 
   it("shows operational values in the row and omits the unneeded customer address", () => {
